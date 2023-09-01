@@ -12,9 +12,9 @@ mysql
 First step
 ```bash
 # Configurar entorno de trabajo
- correr este comando en power shell como administrador "Get-ExecutionPolicy " y si te sale Restricted entonces corres este comado Set-ExecutionPolicy AllSigned o Set-ExecutionPolicy Bypass -Scope Process
+ correr este comando en power shell como administrador "Get-ExecutionPolicy " y si te sale "Restricted" entonces corres este comado "Set-ExecutionPolicy AllSigned" o "Set-ExecutionPolicy Bypass -Scope Process"
 #Depues de eso
-correr este Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
+correr este "Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))"
 ```
 Second step 
 

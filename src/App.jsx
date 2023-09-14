@@ -7,15 +7,9 @@ import { StackNavigator } from './navigator/StackNavigator';
 
 export const App = () => {
 
-    const titles = {
-        fontSize:50,
-        color:'black'
-    }
-
   return (
     <NavigationContainer>
       <StackNavigator />
-      {/* <MenuLateral /> */}
     </NavigationContainer>
   )
 }

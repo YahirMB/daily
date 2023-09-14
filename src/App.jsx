@@ -3,6 +3,7 @@ import React from 'react'
 import { NavigationContainer } from '@react-navigation/native';
 // import { LoginScreen } from './screen/loginScreen/LoginScreen';
 import { MenuLateral } from './navigator/MenuLateral';
+import { StackNavigator } from './navigator/StackNavigator';
 
 export const App = () => {
 
@@ -13,7 +14,8 @@ export const App = () => {
 
   return (
     <NavigationContainer>
-      <MenuLateral />
+      <StackNavigator />
+      {/* <MenuLateral /> */}
     </NavigationContainer>
   )
 }

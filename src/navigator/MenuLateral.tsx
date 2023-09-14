@@ -9,8 +9,7 @@ const Drawer = createDrawerNavigator();
 export const MenuLateral = () => {
   return (
     <Drawer.Navigator>
-      <Drawer.Screen name="Home" options={{title:'Inicio'}} component={HomeScreen} />
-      <Drawer.Screen name="Login" options={{title:'Iniciar sesión'}} component={LoginScreen} />
+      <Drawer.Screen name="Inicio" options={{title:'Inicio'}} component={HomeScreen} />
     </Drawer.Navigator>
   );
 }

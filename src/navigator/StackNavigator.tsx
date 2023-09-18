@@ -22,7 +22,7 @@ const Stack = createStackNavigator<RootStackParams>();
 
 export const StackNavigator = () => {
   return (
-    <Stack.Navigator initialRouteName="Start" screenOptions={{headerShown:true,headerStyle:{backgroundColor:'#32BC82',},headerTintColor:'white'}}>
+    <Stack.Navigator initialRouteName="Start" screenOptions={{headerShown:true,headerStyle:{shadowColor:'white',shadowOpacity:.5,backgroundColor:'#32BC82',},headerTintColor:'white'}}>
       <Stack.Screen name="Start" component={StartScreen} options={{headerShown:false}} />
       <Stack.Screen name="Login" component={LoginScreen} options={{headerShown:false}} />
       <Stack.Screen name="SignUp" component={SignUpScreen1} options={{ headerLeft: () => null}}/>

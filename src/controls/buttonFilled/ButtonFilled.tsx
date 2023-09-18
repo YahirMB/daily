@@ -1,17 +1,20 @@
+//#Libraries
 import React from 'react'
-import { TouchableOpacity } from 'react-native-gesture-handler'
-import { Text } from 'react-native'
 
+//#Styles
 import { BntText, BtnFilled } from './styles'
 
 
-
-export const ButtonFilled = ({title,event,backgroundColor,colorText}:any) => {
+export const ButtonFilled = ({ title, event, backgroundColor, colorText }: any) => {
   return (
 
-    <BtnFilled onPress={event} backgroundColor={backgroundColor} >
+    <BtnFilled
+      activeOpacity={.9}
+      onPress={event}
+      backgroundColor={backgroundColor}
+    >
 
-     <BntText color={colorText}>{title}</BntText>
+      <BntText color={colorText}>{title}</BntText>
 
     </BtnFilled>
 

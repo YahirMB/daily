@@ -14,18 +14,32 @@ import { avatar, imageStartCalendario } from '../../resources';
 
 //#Components
 import { LayoutScreen } from '../../layout/LayoutScreen';
-
+import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 
 
 
 export const SignUpScreen3 = ({ navigation }: any) => {
-    
+
+    const takePhoto = () => {
+        launchCamera({ mediaType: 'photo' }, (response) => {
+            if (response.didCancel) {
+                // El usuario canceló la acción
+            } else if (response.errorCode) {
+                // Hubo un error al acceder a la galería de imágenes
+            } else {
+                // La imagen seleccionada está en response.assets[0].uri
+                const selectedImage = response.assets[0];
+                console.log('Imagen seleccionada:', selectedImage);
+            }
+        })
+    }
+
     useEffect(() => {
         navigation.setOptions({
-          title: 'Crear cuenta',    
-      })
-      }, [])
-      
+            title: 'Crear cuenta',
+        })
+    }, [])
+
 
     return (
 
@@ -35,7 +49,7 @@ export const SignUpScreen3 = ({ navigation }: any) => {
 
             <View>
                 <Avatar source={avatar} />
-                <AvatarIcon name='camera-sharp' size={24} color={'#888888'} />
+                <AvatarIcon onPress={takePhoto} name='camera-sharp' size={24} color={'#888888'} />
             </View>
 
             <BtnContainer>

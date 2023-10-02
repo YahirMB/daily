@@ -18,6 +18,6 @@ export const FormContainer = styled.View`
   flex: 1; 
   width: 80%;
   gap: 20px;
-  justify-content: center;
+  top:100px;
   align-items: center;
 `

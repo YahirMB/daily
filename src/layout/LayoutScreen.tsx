@@ -4,25 +4,32 @@ import React from 'react'
 //#Styles
 import { TitleApp } from '../styles/titles/styles'
 import { ContainerLogIn, Content, FormContainer } from './styles'
+import { KeyboardAvoidingView, Platform } from 'react-native'
 
 
 
 export const LayoutScreen = ({ children, imgSrc, isLogin }: any) => {
     return (
-        <ContainerLogIn source={imgSrc}>
+        <KeyboardAvoidingView
+        behavior={'height'}
+        style={{flex:1}}
+        >
 
-            <Content>
+            <ContainerLogIn source={imgSrc}>
 
-                {isLogin && <TitleApp color='white'>Daily Plan</TitleApp>}
+                <Content>
 
-                <FormContainer>
+                    {isLogin && <TitleApp color='white'>Daily Plan</TitleApp>}
 
-                    {children}
+                    <FormContainer>
 
-                </FormContainer>
-            </Content>
+                        {children}
 
-        </ContainerLogIn>
+                    </FormContainer>
+                </Content>
+
+            </ContainerLogIn>
+        </KeyboardAvoidingView>
 
     )
 }

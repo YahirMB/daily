@@ -38,6 +38,7 @@ export const ImagesCarousel: React.FC = () => {
         sliderWidth={300}
         itemWidth={300}
         autoplay
+        scrollEnabled={false}
         autoplayInterval={2500}
         onSnapToItem={(index) => setActiveSlide(index)}        
       />

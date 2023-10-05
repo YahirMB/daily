@@ -4,6 +4,8 @@ import imageLogin from './imageStart.png'
 import calendar from './calendar.png'
 import bell from './bell.png'
 import note from './note.png'
+import imageStartCalendario from './imageStartCalendario.png'
+import avatar from './avatar.png'
 
 export {
     facebook,
@@ -12,4 +14,6 @@ export {
     calendar,
     bell,
     note,
+    imageStartCalendario,
+    avatar
 }

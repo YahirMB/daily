@@ -1,8 +1,9 @@
 import React, { useEffect, useContext } from 'react'
-import { Button, FlatList, Text, View } from 'react-native'
-
+import { Button, FlatList, Text, View, StyleSheet} from 'react-native'
+import { Title, Paragraph } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { NoteContext } from '../../context/NotesContext';
+import { Card } from 'react-native-paper'
 
 export const HomeScreen = ({ navigation }: any) => {
 
@@ -35,8 +36,15 @@ export const HomeScreen = ({ navigation }: any) => {
 
 
   return (
+    
     <View>
-      <Text>Hola inicio de la app</Text>
+    
+      <Card>
+    <Card.Content>
+      <Title>Sacar el perro</Title>
+      <Paragraph>Voy a pasear a tobby</Paragraph>
+    </Card.Content>
+  </Card> 
 
       <Button title='regresar' onPress={() => navigation.navigate('Login')} />
 
@@ -45,8 +53,8 @@ export const HomeScreen = ({ navigation }: any) => {
         renderItem={({ item }) => <ListNotes title={item.Title} />}
         keyExtractor={item => item.Id}
 
-      />
-
-    </View>
+      />   </View>
   )
 }
+
+

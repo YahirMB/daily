@@ -1,26 +1,25 @@
 import { AuthState } from './AuthContext';
 
 type AuthAction =
-    | { type: 'signIn' }
-    | { type: 'logout' };
+    | { type: 'logIn' }
+    | { type: 'logOut' };
 
 
 // generaEstado
 export const authReducer = (state: AuthState, action: AuthAction): AuthState => {
 
     switch (action.type) {
-        case 'signIn':
+        case 'logIn':
             return {
                 ...state,
                 isLoggedIn: true,
-                username: 'no-username-yet'
+                
             }
 
-        case 'logout':
+        case 'logOut':
             return {
                 ...state,
                 isLoggedIn: false,
-                username: undefined,
 
             }
 

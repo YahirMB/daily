@@ -1,5 +1,5 @@
 //#Libraries
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 
 //#Controls
 import { ButtonFilled } from '../../controls/buttonFilled/ButtonFilled';
@@ -13,21 +13,39 @@ import { imageLogin } from '../../resources';
 
 //#Components
 import { LayoutScreen } from '../../layout/LayoutScreen';
+import { AuthContext } from '../../context/AuthContext';
 
 
 
 export const LoginScreen = ({ navigation }: any) => {
 
-  const [correo, setCorreo] = useState('')
-  const [password, setPassword] = useState('')
+  const {logIn} = useContext(AuthContext)
+  const [datLogIn, setDatLogIn] = useState({email:'',password:''})
+
+  
+
+  const [name, setName] = useState('')
 
 
   useEffect(() => {
     navigation.setOptions({
       title: 'Daily plan',
-      
   })
   }, [])
+
+
+  const onFocus = (name: string) => {
+    setName(name)
+  }
+
+  const onChangeValue = (text:string) => {
+    setDatLogIn({...datLogIn,[name]:text})
+  }
+
+
+  const onSenData = () => {
+    logIn(datLogIn)
+  }
   
 
 
@@ -35,12 +53,19 @@ export const LoginScreen = ({ navigation }: any) => {
     <LayoutScreen imgSrc={imageLogin} isLogin>
 
       <InputFilled  
+        identity={() => onFocus('email')}
         nameLabel='Correo'
-        icon='at-sharp' />
+        icon='at-sharp' 
+        value={datLogIn.email}
+        event={onChangeValue}
+        />
       <InputFilled
+        identity={() => onFocus('password')}
         nameLabel='Contraseña'
         icon='eye-sharp'
         typeOfInput='password'
+        value={datLogIn.password}
+        event={onChangeValue}
         />
 
       <InputBase>
@@ -60,9 +85,10 @@ export const LoginScreen = ({ navigation }: any) => {
 
       <ContainerLoginBtn>
         <ButtonFilled
+
           colorText='#32BC82'
           backgroundColor={'white'}
-          event={() => navigation.navigate('Home')}
+          event={onSenData}
           title='Iniciar sesion' />
       </ContainerLoginBtn>
 

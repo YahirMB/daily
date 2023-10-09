@@ -11,15 +11,24 @@ interface FCInput {
     placeholderText?: string,
     typeOfInput?: string,
     icon?: string
+    identity?: () => void,
+    event?: (text: string) => void,
+    value?: string,
 }
 
-export const InputFilled = ({ nameLabel, placeholderText, typeOfInput, icon = "" }: FCInput) => {
+export const InputFilled = ({ nameLabel, placeholderText, typeOfInput, icon = "", identity, event, value }: FCInput) => {
 
     const [isEnable, setIsEnable] = useState(true)
+
+
+
+
 
     const onShowPassword = () => {
         setIsEnable(!isEnable);
     }
+
+
 
     return (
         <InputBase>
@@ -27,12 +36,17 @@ export const InputFilled = ({ nameLabel, placeholderText, typeOfInput, icon = ""
             <InputWithIcon>
                 {
                     typeOfInput === 'password' ?
-                        <Input secureTextEntry={isEnable} /> :
-
-                        <Input />
-
-
-
+                        <Input
+                            secureTextEntry={isEnable}
+                            onChangeText={event}
+                            value={value}
+                            onFocus={identity}
+                        /> :
+                        <Input
+                            onChangeText={event}
+                            value={value}
+                            onFocus={identity}
+                        />
                 }
                 {icon &&
                     <CustomIcon

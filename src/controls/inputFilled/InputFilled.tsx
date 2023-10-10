@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 
 //#Styles
 import { CustomIcon, Input, InputBase, InputWithIcon, Label } from './styles'
+import { StyleSheet } from 'react-native'
 
 
 
@@ -29,10 +30,33 @@ export const InputFilled = ({ nameLabel, placeholderText, typeOfInput, icon = ""
     }
 
 
+    const check = StyleSheet.create({
+        invalid: {
+            borderWidth: 1,
+            borderColor: 'red',
+            borderStyle: 'solid'
+        },
+
+        valid: {
+            borderColor: 'green',
+            borderWidth: 1,
+            borderStyle: 'solid'
+        },
+
+        labelValid: {
+            color: 'green',
+
+        },
+
+        labelInvalid: {
+            color: 'red',
+        }
+
+    })
 
     return (
         <InputBase>
-            <Label>{nameLabel}</Label>
+            <Label style={check.labelInvalid}>{nameLabel}</Label>
             <InputWithIcon>
                 {
                     typeOfInput === 'password' ?
@@ -41,11 +65,13 @@ export const InputFilled = ({ nameLabel, placeholderText, typeOfInput, icon = ""
                             onChangeText={event}
                             value={value}
                             onFocus={identity}
+
                         /> :
                         <Input
                             onChangeText={event}
                             value={value}
                             onFocus={identity}
+                            style={{ borderStyle: 'solid', borderWidth: 1, borderColor: 'red' }}
                         />
                 }
                 {icon &&

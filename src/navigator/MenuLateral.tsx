@@ -10,6 +10,8 @@ import { ScheduleScreen } from '../screen/scheduleScreen/ScheduleScreen';
 import { DiaryScreen } from '../screen/diaryScreen/DiaryScreen';
 import { SettingsScreen } from '../screen/settingsScreen/SettingsScreen';
 import { avatar } from '../resources';
+import { Profile } from '../screen/profile/Profile';
+import { EditProfile } from '../screen/editProfile/EditProfile';
 
 const Drawer = createDrawerNavigator();
 
@@ -26,6 +28,8 @@ const routeNavegation = [
   {title: 'Agendar', nav: 'Schedule', component:ScheduleScreen },
   {title: 'Recordatorio', nav: 'diary', component:DiaryScreen },
   {title: 'Configuración', nav: 'settings', component:SettingsScreen },
+  {title: 'Daily plan', nav: 'profile', component:Profile },
+  {title: 'Editar perfil', nav: 'editProfile', component:EditProfile },
 ]
 
 export const MenuLateral = () => {
@@ -92,7 +96,9 @@ const CustomMenu = ({ navigation }: any) => {
     <DrawerContentScrollView style={{ flex: 1, backgroundColor: '#32BC82' }}>
 
       <View style={{flexDirection:'row',alignItems:'center',paddingVertical:20,gap:15,marginHorizontal:10}}>
-        <Image source={avatar} style={{width:45,height:45}}/>
+        <TouchableOpacity onPress={() => navigation.navigate('profile')}>
+          <Image source={avatar} style={{ width: 45, height: 45 }} />
+        </TouchableOpacity>
         <Text style={{color:'white',fontSize:18}}>Yahir Alexander</Text>
       </View>
 

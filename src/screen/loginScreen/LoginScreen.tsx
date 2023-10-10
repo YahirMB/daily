@@ -19,7 +19,7 @@ import { AuthContext } from '../../context/AuthContext';
 
 export const LoginScreen = ({ navigation }: any) => {
 
-  const {logIn} = useContext(AuthContext)
+  const {logIn,user,errorMessage} = useContext(AuthContext)
   const [datLogIn, setDatLogIn] = useState({email:'',password:''})
 
   
@@ -45,9 +45,11 @@ export const LoginScreen = ({ navigation }: any) => {
 
   const onSenData = () => {
     logIn(datLogIn)
+    navigation.navigate('Home')
   }
   
 
+  console.log(errorMessage)
 
   return (
     <LayoutScreen imgSrc={imageLogin} isLogin>

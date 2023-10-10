@@ -1,27 +1,32 @@
 import React, { createContext, useReducer } from 'react';
-import { authReducer } from './authReducer';
+import { AuthState, authReducer } from './authReducer';
 import apiDaily from '../api/dailyplanApi';
+import { User } from '../interfaces/apiInterfaces';
 
 
-// Definir cómo luce, qué información tendré aquí
-export interface AuthState {
-    isLoggedIn: boolean;
-    username: Array<any>;
+//propiedades del context
+type AuthContextProps = {
+    isLoggedIn: boolean,
+    user: User | null,
+    errorMessage: string
+    status: 'checking' | 'authenticated' | 'not-authenticated';
+    logIn: (body: object) => Promise<void>;
+    logout: () => void;
+
 }
+
 
 // Estado inicial
 export const authInitialState: AuthState = {
+    status:'checking',
     isLoggedIn: false,
-    username: [],
+    user: null,
+    errorMessage: ''
 }
 
 
-// Lo usaremos para decirle a React cómo luce y qué expone el context
-export interface AuthContextProps {
-    authState: AuthState;
-    logIn: (body:object) => Promise<void>;
-    logout: () => void;
-}
+
+
 
 
 // Crear el contexto
@@ -33,12 +38,16 @@ export const AuthProvider = ({ children }: any) => {
     const [authState, dispatch] = useReducer(authReducer, authInitialState);
 
     const logIn = async (body: object) => {
-        console.log(body)
-        const {data} = await apiDaily.post('user/logIn', body)
+     
+        const { data } = await apiDaily.post('user/logIn', body)
 
-        console.log(data)
-
-        // dispatch({ type: 'logIn' });
+        dispatch({
+            type: 'logIn',
+            payload: {
+                user: data.result,
+                message:data.message
+            }
+        });
     }
 
     const logout = () => {
@@ -48,7 +57,7 @@ export const AuthProvider = ({ children }: any) => {
 
     return (
         <AuthContext.Provider value={{
-            authState,
+            ...authState,
             logIn,
             logout,
         }}>

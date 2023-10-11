@@ -9,13 +9,15 @@ export interface AuthState {
     isLoggedIn: boolean;
     user: User | null;
     errorMessage: string
+    codeStatus: number
 }
 
 //tipos de acciones a realizar
 
 type AuthAction =
-    | { type: 'logIn', payload: { user: User, message:'' } }
-    | { type: 'logOut' };
+    { type: 'logIn', payload: { user: User, codeStatus: 0 } }
+    | { type: 'logOut' }
+    | { type: 'error', payload: { message: '', codeStatus: 0 } };
 
 
 
@@ -28,14 +30,23 @@ export const authReducer = (state: AuthState, action: AuthAction): AuthState => 
                 ...state,
                 isLoggedIn: true,
                 user: action.payload.user,
-                errorMessage:action.payload.message
-            
+                codeStatus: action.payload.codeStatus,
+                status: 'authenticated'
             }
 
         case 'logOut':
             return {
                 ...state,
                 isLoggedIn: false,
+            }
+
+        case 'error':
+            return {
+                ...state,
+                errorMessage: action.payload.message,
+                codeStatus: action.payload.codeStatus,
+                status: 'not-authenticated',
+                isLoggedIn:false
 
             }
 

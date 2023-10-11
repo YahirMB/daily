@@ -15,14 +15,15 @@ interface FCInput {
     identity?: () => void,
     event?: (text: string) => void,
     value?: string,
+    fieldValid:boolean
 }
 
-export const InputFilled = ({ nameLabel, placeholderText, typeOfInput, icon = "", identity, event, value }: FCInput) => {
+export const InputFilled = ({ nameLabel, fieldValid ,placeholderText, typeOfInput, icon = "", identity, event, value }: FCInput) => {
 
     const [isEnable, setIsEnable] = useState(true)
 
 
-
+    console.log(fieldValid)
 
 
     const onShowPassword = () => {
@@ -56,7 +57,7 @@ export const InputFilled = ({ nameLabel, placeholderText, typeOfInput, icon = ""
 
     return (
         <InputBase>
-            <Label style={check.labelInvalid}>{nameLabel}</Label>
+            <Label style={[ fieldValid && check.labelInvalid]}>{nameLabel}</Label>
             <InputWithIcon>
                 {
                     typeOfInput === 'password' ?
@@ -65,13 +66,13 @@ export const InputFilled = ({ nameLabel, placeholderText, typeOfInput, icon = ""
                             onChangeText={event}
                             value={value}
                             onFocus={identity}
-
+                            style={[ fieldValid && check.invalid ]}
                         /> :
                         <Input
                             onChangeText={event}
                             value={value}
                             onFocus={identity}
-                            style={{ borderStyle: 'solid', borderWidth: 1, borderColor: 'red' }}
+                            style={[ fieldValid && check.invalid ]}
                         />
                 }
                 {icon &&

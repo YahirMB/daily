@@ -14,18 +14,25 @@ import { imageLogin } from '../../resources';
 //#Components
 import { LayoutScreen } from '../../layout/LayoutScreen';
 import { AuthContext } from '../../context/AuthContext';
-import { Text } from 'react-native';
+import { Text, Alert } from 'react-native';
 
 
+interface propsCredential {
+  email: string,
+  password: string
+  [key: string]: string;
+}
+
+interface EmptyFiel {
+  [key: string]: boolean;
+}
 
 export const LoginScreen = ({ navigation }: any) => {
 
-  const { logIn, user, errorMessage, codeStatus, status } = useContext(AuthContext)
-  const [datLogIn, setDatLogIn] = useState({ email: '', password: '' })
+  const { logIn, user, errorMessage, codeStatus, status, removeMessage } = useContext(AuthContext)
+  const [datLogIn, setDatLogIn] = useState<propsCredential>({ email: '', password: '' })
 
-
-  const [apiShoot, setApiShoot] = useState(false)
-
+  const [keys, setKeys] = useState({ email: false, password: false })
 
 
   const [name, setName] = useState('')
@@ -37,69 +44,100 @@ export const LoginScreen = ({ navigation }: any) => {
     })
   }, [])
 
+ 
+  useEffect(() => {
+    if (errorMessage.length == 0) return
+    MiAlert()
+
+  }, [errorMessage])
+
 
   useEffect(() => {
-
-    if (codeStatus == 200 && status == 'authenticated') {
-      navigation.navigate('Home');
-      setApiShoot(false);
+    if (status == 'authenticated') {
+      navigation.navigate('Home')
       setDatLogIn({ email: '', password: '' })
     }
-
-  }, [codeStatus])
-
-  useEffect(() => {
-    if (codeStatus != 200 && codeStatus != 0) {
-      setApiShoot(true);
-    }
-
-  }, [codeStatus])
+  }, [status])
 
 
   const onFocus = (name: string) => {
-    setName(name)
+    setName(name);
   }
 
   const onChangeValue = (text: string) => {
-    setDatLogIn({ ...datLogIn, [name]: text })
+    setDatLogIn({ ...datLogIn, [name]: text });
+
+
+    if (text.length > 0) {
+
+      setKeys({ ...keys, [name]: false });
+
+    }
+
+
   }
+
+  const MiAlert = () =>
+    Alert.alert('Error de credenciales', errorMessage, [
+
+      { text: 'OK', onPress: removeMessage },
+    ]);
 
 
   const onSenData = () => {
 
+    let fill = true
+    const newKeys: EmptyFiel = {}
+
     for (const key in datLogIn) {
 
+      if (datLogIn[key] == '') {
 
-      if (Object.prototype.hasOwnProperty(key)) {
-        console.log(datLogIn[key])
+    
+        fill = false
+        newKeys[key] = true;
+
+      } else {
+        newKeys[key] = false;
       }
+
     }
-    logIn(datLogIn)
+
+    setKeys({ ...keys, ...newKeys });
+
+    if (fill) {
+      logIn(datLogIn);
+
+
+    }
 
   }
 
 
+
+
   return (
     <LayoutScreen imgSrc={imageLogin} isLogin>
-
-      {(errorMessage && codeStatus != 200) && <Text style={{ color: 'red' }}>{errorMessage}</Text>}
-
       <InputFilled
-        fieldValid={apiShoot}
+
         identity={() => onFocus('email')}
-        nameLabel='Correo'
+        nameLabel='Correo electronico'
         icon='at-sharp'
         value={datLogIn.email}
         event={onChangeValue}
+        fieldEmpty={keys.email}
+        messageError={'Correo eletronico vacio @'}
       />
       <InputFilled
-        fieldValid={apiShoot}
+
         identity={() => onFocus('password')}
         nameLabel='Contraseña'
         icon='eye-sharp'
         typeOfInput='password'
         value={datLogIn.password}
         event={onChangeValue}
+        fieldEmpty={keys.password}
+        messageError={'Contraseña mayor de 4 caracteres'}
       />
 
       <InputBase>

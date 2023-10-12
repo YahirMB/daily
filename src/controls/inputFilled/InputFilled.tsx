@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 //#Styles
 import { CustomIcon, Input, InputBase, InputWithIcon, Label } from './styles'
 import { StyleSheet } from 'react-native'
+import { Text } from 'react-native'
 
 
 
@@ -15,16 +16,18 @@ interface FCInput {
     identity?: () => void,
     event?: (text: string) => void,
     value?: string,
-    fieldValid:boolean
+    fieldValid?:boolean
+    fieldEmpty?:boolean
+    messageError?:string
 }
 
-export const InputFilled = ({ nameLabel, fieldValid ,placeholderText, typeOfInput, icon = "", identity, event, value }: FCInput) => {
+export const InputFilled = ({ nameLabel, fieldValid ,placeholderText, typeOfInput, icon = "", identity, event, value,fieldEmpty,messageError}: FCInput) => {
 
     const [isEnable, setIsEnable] = useState(true)
 
 
-    console.log(fieldValid)
 
+    
 
     const onShowPassword = () => {
         setIsEnable(!isEnable);
@@ -57,7 +60,7 @@ export const InputFilled = ({ nameLabel, fieldValid ,placeholderText, typeOfInpu
 
     return (
         <InputBase>
-            <Label style={[ fieldValid && check.labelInvalid]}>{nameLabel}</Label>
+            <Label>{nameLabel}</Label>
             <InputWithIcon>
                 {
                     typeOfInput === 'password' ?
@@ -66,13 +69,13 @@ export const InputFilled = ({ nameLabel, fieldValid ,placeholderText, typeOfInpu
                             onChangeText={event}
                             value={value}
                             onFocus={identity}
-                            style={[ fieldValid && check.invalid ]}
+                           
                         /> :
                         <Input
                             onChangeText={event}
                             value={value}
                             onFocus={identity}
-                            style={[ fieldValid && check.invalid ]}
+                            
                         />
                 }
                 {icon &&
@@ -83,6 +86,7 @@ export const InputFilled = ({ nameLabel, fieldValid ,placeholderText, typeOfInpu
                         color={'#6D6B6B'} />
                 }
             </InputWithIcon>
+            { fieldEmpty  && <Text style={check.labelInvalid}>{messageError}</Text>}
         </InputBase>
     )
 }

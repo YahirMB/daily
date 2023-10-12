@@ -10,16 +10,17 @@ type AuthContextProps = {
     user: User | null;
     codeStatus: number;
     errorMessage: string;
-    status: 'checking' | 'authenticated' | 'not-authenticated';
+    status: 'checking' | 'authenticated' | 'not-authenticated' | null;
     logIn: (body: object) => Promise<void>;
     logout: () => void;
+    removeMessage: () => void;
 
 }
 
 
 // Estado inicial
 export const authInitialState: AuthState = {
-    status: 'checking',
+    status: null,
     isLoggedIn: false,
     user: null,
     errorMessage: '',
@@ -41,6 +42,8 @@ export const AuthProvider = ({ children }: any) => {
 
 
     const logIn = async (body: object) => {
+
+        dispatch({type:'checking'});
 
         const { data } = await apiDaily.post('user/logIn', body)
 
@@ -68,12 +71,17 @@ export const AuthProvider = ({ children }: any) => {
         dispatch({ type: 'logOut' });
     }
 
+    const removeMessage = () => {
+        dispatch({type:'removeMessage'})
+    }
+
 
     return (
         <AuthContext.Provider value={{
             ...authState,
             logIn,
             logout,
+            removeMessage
         }}>
             {children}
         </AuthContext.Provider>

@@ -5,7 +5,7 @@ import { User } from '../interfaces/apiInterfaces';
 //interface del estado 
 
 export interface AuthState {
-    status: 'checking' | 'authenticated' | 'not-authenticated';
+    status: 'checking' | 'authenticated' | 'not-authenticated' | null;
     isLoggedIn: boolean;
     user: User | null;
     errorMessage: string
@@ -17,7 +17,9 @@ export interface AuthState {
 type AuthAction =
     { type: 'logIn', payload: { user: User, codeStatus: 0 } }
     | { type: 'logOut' }
-    | { type: 'error', payload: { message: '', codeStatus: 0 } };
+    | { type: 'error', payload: { message: '', codeStatus: 0 } }
+    | {type:'checking'}
+    | {type:'removeMessage'}
 
 
 
@@ -48,6 +50,17 @@ export const authReducer = (state: AuthState, action: AuthAction): AuthState => 
                 status: 'not-authenticated',
                 isLoggedIn:false
 
+            }
+
+        case 'checking':
+            return {
+                ...state,
+                status:'checking'
+            }
+        case 'removeMessage':
+            return {
+                ...state,
+                errorMessage:''
             }
 
         default:

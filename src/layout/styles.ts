@@ -2,7 +2,7 @@ import styled from "styled-components/native";
 
 export const ContainerLogIn = styled.ImageBackground`
   opacity: 0.75;
-  flex: 1px;
+  flex: 1;
   resize-mode: cover;
 `
 
@@ -18,6 +18,6 @@ export const FormContainer = styled.View`
   flex: 1; 
   width: 80%;
   gap: 20px;
-  top:100px;
+  margin-top:100px;
   align-items: center;
 `

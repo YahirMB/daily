@@ -13,17 +13,23 @@ import { imageStartCalendario } from '../../resources';
 
 //#Components
 import { LayoutScreen } from '../../layout/LayoutScreen';
+import { ScrollView } from 'react-native';
 
 interface propStateSignUp {
-    name: string, 
-    lastName: string
-    [key:string] :string
+    Name: string,
+    Lastname: string
+    [key: string]: string
+}
+interface KeysEmptys {
+    [key: string]: boolean
 }
 
 
 export const SignUpScreen1 = ({ navigation }: any) => {
 
-    const [dataSignUp, setdataSignUp] = useState<propStateSignUp>({ name: '', lastName: '' })
+    const [dataSignUp, setdataSignUp] = useState<propStateSignUp>({ Name: '', Lastname: '' })
+
+    const [emptyField, setemptyField] = useState({ Name: false, Lastname: false });
 
     useEffect(() => {
         navigation.setOptions({
@@ -32,6 +38,11 @@ export const SignUpScreen1 = ({ navigation }: any) => {
     }, [])
 
     const onChangeValue = (valor: any, key: string) => {
+
+        if (valor.length > 0) {
+            setemptyField({ ...emptyField, [key]: false })
+        }
+
         setdataSignUp({ ...dataSignUp, [key]: valor });
     }
 
@@ -40,45 +51,62 @@ export const SignUpScreen1 = ({ navigation }: any) => {
 
         let AllFieldFille = true;
 
+        let keysEmptys: KeysEmptys = {}
+
         for (const key in dataSignUp) {
-            
-            if(dataSignUp[key] == ''){
+
+            if (dataSignUp[key] == '') {
                 AllFieldFille = false
-                console.log('esta vacio',key)
+                console.log('esta vacio', key)
+
+                keysEmptys[key] = true;
+            } else {
+                keysEmptys[key] = false;
             }
         }
 
-        if(AllFieldFille){
+        setemptyField({ ...emptyField, ...keysEmptys })
+
+        if (AllFieldFille) {
+            
             console.log('va enviar la data y navegar a la proxima pagina')
+            navigation.navigate('SignUp2', { data: dataSignUp })
         }
 
-        // navigation.navigate('SignUp2')
+
     }
 
+    console.log(emptyField)
     return (
 
         <LayoutScreen imgSrc={imageStartCalendario}>
 
             <Phrase>Necesitamos tus nombres y tus apellidos</Phrase>
-            <InputFilled
-                event={e => onChangeValue(e, 'name')}
-                nameLabel='Nombres' />
-            <InputFilled
-                event={e => onChangeValue(e, 'lastName')}
-                nameLabel='Apellidos' />
 
-            <BtnContainerSignUp1>
-                <ButtonFilled
-                    colorText='white'
-                    event={() => navigation.navigate('Login')}
-                    backgroundColor={'#148A58'}
-                    title='Tengo cuenta' />
-                <ButtonFilled
-                    colorText='#32BC82'
-                    event={nextScreen}
-                    backgroundColor={'white'}
-                    title='Siguiente' />
-            </BtnContainerSignUp1>
+           
+                <InputFilled
+                    fieldEmpty={emptyField.Name}
+                    event={e => onChangeValue(e, 'Name')}
+                    messageError='Necesitamos tu nombre'
+                    nameLabel='Nombres' />
+                <InputFilled
+                    fieldEmpty={emptyField.Lastname}
+                    event={e => onChangeValue(e, 'Lastname')}
+                    nameLabel='Apellidos'
+                    messageError='Necesitamos tus apellidos'
+                />
+                <BtnContainerSignUp1>
+                    <ButtonFilled
+                        colorText='white'
+                        event={() => navigation.navigate('Login')}
+                        backgroundColor={'#148A58'}
+                        title='Tengo cuenta' />
+                    <ButtonFilled
+                        colorText='#32BC82'
+                        event={nextScreen}
+                        backgroundColor={'white'}
+                        title='Siguiente' />
+                </BtnContainerSignUp1>
 
         </LayoutScreen>
 

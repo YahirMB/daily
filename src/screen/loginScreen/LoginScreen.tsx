@@ -29,7 +29,7 @@ interface EmptyFiel {
 
 export const LoginScreen = ({ navigation }: any) => {
 
-  const { logIn, user, errorMessage, codeStatus, status, removeMessage } = useContext(AuthContext)
+  const { logIn, user, errorMessage, codeStatus, status, removeMessage,typeOperation } = useContext(AuthContext)
   const [datLogIn, setDatLogIn] = useState<propsCredential>({ email: '', password: '' })
 
   const [keys, setKeys] = useState({ email: false, password: false })
@@ -46,8 +46,10 @@ export const LoginScreen = ({ navigation }: any) => {
 
  
   useEffect(() => {
-    if (errorMessage.length == 0) return
-    MiAlert()
+    if (errorMessage.length > 0  && typeOperation == ''){
+      console.log('ok')
+      MiAlert()
+    }
 
   }, [errorMessage])
 

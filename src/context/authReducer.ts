@@ -10,6 +10,7 @@ export interface AuthState {
     user: User | null;
     errorMessage: string
     codeStatus: number
+    typeOperation:string
 }
 
 //tipos de acciones a realizar
@@ -18,8 +19,9 @@ type AuthAction =
     { type: 'logIn', payload: { user: User, codeStatus: 0 } }
     | { type: 'logOut' }
     | { type: 'error', payload: { message: '', codeStatus: 0 } }
-    | {type:'checking'}
-    | {type:'removeMessage'}
+    | { type: 'checking', payload: { type:string} }
+    | { type: 'removeMessage',payload: { type:string} }
+    | { type: 'signUp', payload: { user: User, codeStatus: 0 } }
 
 
 
@@ -55,12 +57,21 @@ export const authReducer = (state: AuthState, action: AuthAction): AuthState => 
         case 'checking':
             return {
                 ...state,
-                status:'checking'
+                status:'checking',
+                typeOperation:action.payload.type
             }
         case 'removeMessage':
             return {
                 ...state,
-                errorMessage:''
+                errorMessage:'',
+                typeOperation:'',
+            }
+        case 'signUp':
+            return {
+                ...state,
+                user: action.payload.user,
+                codeStatus: action.payload.codeStatus,
+                status: 'authenticated'
             }
 
         default:

@@ -8,16 +8,17 @@ import { StyleSheet } from 'react-native'
 
 
 interface FCInput {
-    nameLabel: string,
+    nameLabel?: string,
     placeholderText?: string,
     typeOfInput?: string,
     icon?: string
     identity?: () => void,
     event?: (text: string) => void,
     value?: string,
+    background?: string
 }
 
-export const InputFilled = ({ nameLabel, placeholderText, typeOfInput, icon = "", identity, event, value }: FCInput) => {
+export const InputFilled = ({ nameLabel, placeholderText, typeOfInput, icon = "", identity, event, value, background }: FCInput) => {
 
     const [isEnable, setIsEnable] = useState(true)
 
@@ -65,6 +66,8 @@ export const InputFilled = ({ nameLabel, placeholderText, typeOfInput, icon = ""
                             onChangeText={event}
                             value={value}
                             onFocus={identity}
+                            backgroundColor={background}
+                            
 
                         /> :
                         <Input
@@ -72,6 +75,7 @@ export const InputFilled = ({ nameLabel, placeholderText, typeOfInput, icon = ""
                             value={value}
                             onFocus={identity}
                             style={{ borderStyle: 'solid', borderWidth: 1, borderColor: 'red' }}
+                            backgroundColor={background}
                         />
                 }
                 {icon &&

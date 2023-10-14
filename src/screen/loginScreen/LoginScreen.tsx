@@ -72,7 +72,9 @@ export const LoginScreen = ({ navigation }: any) => {
 
       <InputBase>
         <LoginLabel color='white'>¿Olvidaste tu contraseña?</LoginLabel>
-        <LoginLabel color='#44FFB0'>Recuperar contraseña</LoginLabel>
+
+        <LoginLabel color='#44FFB0' onPress={()=> navigation.navigate('RecoverAccount')}>Recuperar contraseña</LoginLabel>
+
       </InputBase>
 
 
@@ -80,7 +82,7 @@ export const LoginScreen = ({ navigation }: any) => {
         <LoginLabel color='white'>¿Primera vez?
           <LoginLabel
             color='#44FFB0'
-            onPress={() => navigation.navigate('SignUp')}>Crear cuenta</LoginLabel>
+            onPress={() => navigation.navigate('SignUp')}> Crear cuenta</LoginLabel>
         </LoginLabel>
       </InputBase>
 

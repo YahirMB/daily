@@ -3,10 +3,13 @@ import { Button, FlatList, Text, View } from 'react-native'
 
 import Icon from 'react-native-vector-icons/Ionicons';
 import { NoteContext } from '../../context/NotesContext';
+import { Card } from '../../components/card/Card';
 
 export const HomeScreen = ({ navigation }: any) => {
 
   const { loadNotes, notes } = useContext(NoteContext)
+
+  const data = [1,2,3]
 
   useEffect(() => {
 
@@ -40,12 +43,14 @@ export const HomeScreen = ({ navigation }: any) => {
 
       <Button title='regresar' onPress={() => navigation.navigate('Login')} />
 
-      <FlatList
-        data={notes}
-        renderItem={({ item }) => <ListNotes title={item.Title} />}
-        keyExtractor={item => item.Id}
+      {
 
-      />
+        data.map(card =>
+          <Card info='Sacar el perro de la cochera' titleCard='Cochera' />
+        )
+
+
+      }
 
     </View>
   )

@@ -9,7 +9,7 @@ import { Text } from 'react-native'
 
 
 interface FCInput {
-    nameLabel: string,
+    nameLabel?: string,
     placeholderText?: string,
     typeOfInput?: string,
     icon?: string
@@ -19,9 +19,10 @@ interface FCInput {
     fieldValid?:boolean
     fieldEmpty?:boolean
     messageError?:string
+    background?: string
 }
 
-export const InputFilled = ({ nameLabel, fieldValid ,placeholderText, typeOfInput, icon = "", identity, event, value,fieldEmpty,messageError}: FCInput) => {
+export const InputFilled = ({ nameLabel, fieldValid ,placeholderText, typeOfInput, icon = "", identity, event, value, background,fieldEmpty,messageError}: FCInput) => {
 
     const [isEnable, setIsEnable] = useState(true)
 
@@ -69,13 +70,13 @@ export const InputFilled = ({ nameLabel, fieldValid ,placeholderText, typeOfInpu
                             onChangeText={event}
                             value={value}
                             onFocus={identity}
-                           
+                            backgroundColor={background}
                         /> :
                         <Input
                             onChangeText={event}
                             value={value}
                             onFocus={identity}
-                            
+                            backgroundColor={background}
                         />
                 }
                 {icon &&

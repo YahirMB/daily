@@ -16,10 +16,10 @@ interface FCInput {
     identity?: () => void,
     event?: (text: string) => void,
     value?: string,
+    background?: string
     fieldValid?:boolean
     fieldEmpty?:boolean
     messageError?:string
-    background?: string
 }
 
 export const InputFilled = ({ nameLabel, fieldValid ,placeholderText, typeOfInput, icon = "", identity, event, value, background,fieldEmpty,messageError}: FCInput) => {
@@ -71,6 +71,8 @@ export const InputFilled = ({ nameLabel, fieldValid ,placeholderText, typeOfInpu
                             value={value}
                             onFocus={identity}
                             backgroundColor={background}
+                            
+                           
                         /> :
                         <Input
                             onChangeText={event}

@@ -56,7 +56,7 @@ export const SignUpScreen2 = ({ navigation, route }: any) => {
     }, [errorMessage])
 
 
-
+    
     const onChangeValue = (valor: any, key: string) => {
 
         if (valor.length > 0) {

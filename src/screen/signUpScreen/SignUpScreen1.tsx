@@ -76,7 +76,6 @@ export const SignUpScreen1 = ({ navigation }: any) => {
 
     }
 
-    console.log(emptyField)
     return (
 
         <LayoutScreen imgSrc={imageStartCalendario}>

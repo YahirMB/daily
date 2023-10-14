@@ -40,8 +40,6 @@ export const SignUpScreen2 = ({ navigation, route }: any) => {
     useEffect(() => {
         navigation.setOptions({
             title: 'Crear cuenta',
-
-
         })
     }, [])
 
@@ -87,15 +85,9 @@ export const SignUpScreen2 = ({ navigation, route }: any) => {
 
         if (AllFieldFille) {
 
-
             if (dataSignUp.Password == dataSignUp.ConfirmPassword) {
-
                 const { ConfirmPassword = '', ...newData } = { ...dataSignUp, ...data }
-        
-
                 signUp(newData)
-                
-
             } else {
                 Alert.alert('Error de datos', 'Las contraseñas no coinciden', [
                     { text: 'Ok', onPress: () => null }
@@ -103,9 +95,6 @@ export const SignUpScreen2 = ({ navigation, route }: any) => {
             }
         }
     }
-
-
-
 
 
     return (

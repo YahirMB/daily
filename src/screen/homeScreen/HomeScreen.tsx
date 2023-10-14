@@ -1,5 +1,5 @@
 import React, { useEffect, useContext } from 'react'
-import { Button, FlatList, Text, View, ScrollView } from 'react-native'
+import { Button, FlatList, Text, View, ScrollView, VirtualizedList } from 'react-native'
 
 import Icon from 'react-native-vector-icons/Ionicons';
 import { NoteContext } from '../../context/NotesContext';
@@ -26,17 +26,18 @@ export const HomeScreen = ({ navigation }: any) => {
 
 
   return (
-    <ScrollView>
+  
 
 
-      <FlatList
-        style={{ marginTop: 40 }}
-        data={data}
-        renderItem={(item) => <CardsList data={data} />}
-        keyExtractor={(item, index) => index.toString()}
-      />
+    <VirtualizedList
+      style={{ marginTop: 40 }}
+      data={data}
+      renderItem={(item) => <CardsList data={data} />}
+      keyExtractor={(item, index) => index.toString()}
+      getItemCount={() => data.length}
+      getItem={(data, index) => data[index]}
+    />
 
 
-    </ScrollView>
   )
 }

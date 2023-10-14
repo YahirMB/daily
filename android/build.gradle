@@ -8,7 +8,8 @@ buildscript {
         targetSdkVersion = 33
 
         // We use NDK 23 which has both M1 support and is the side-by-side NDK version from AGP.
-        ndkVersion = "23.1.7779620"
+        // modifique para que jale, anterior version 23...
+        ndkVersion = "22.1.7171670"
     }
     repositories {
         google()

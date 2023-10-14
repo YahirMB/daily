@@ -11,9 +11,9 @@ export const Label = styled.Text`
   margin-bottom: 15px;
 `
 
-export const Input = styled.TextInput`
+export const Input = styled.TextInput<{backgroundColor?:string}>`
   height: 40px;
-  backgroundColor: white;
+  background-color: ${props => props.backgroundColor ||'white'};
   color: black;
   width:100%;
   padding-right:40px;

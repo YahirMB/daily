@@ -48,6 +48,7 @@ export const RecoverAccountScreen1 = ({ navigation }: any) => {
 
           <InputFilled placeholderText='Ingresa el código de verificación' icon='checkmark-circle-outline' background='#D9D9D9' />
           <ButtonFilled title={'Aceptar'} />
+          
 
         </BtnContainer>
     

@@ -31,11 +31,13 @@ export const SignUpScreen2 = ({ navigation, route }: any) => {
 
     const { data } = route.params
 
-    const { errorMessage,signUp,removeMessage,typeOperation } = useContext(AuthContext)
+    const { errorMessage,signUp,removeMessage,typeOperation ,codeStatus} = useContext(AuthContext)
 
     const [dataSignUp, setdataSignUp] = useState<propStateSignUp>({ Email: '', Password: '', ConfirmPassword: '' })
 
     const [emptyField, setemptyField] = useState({ Email: false, Password: false, ConfirmPassword: false });
+
+    const [showAlert, setShowAlert] = useState(false)
 
     useEffect(() => {
         navigation.setOptions({
@@ -45,13 +47,22 @@ export const SignUpScreen2 = ({ navigation, route }: any) => {
 
     useEffect(() => {
 
-        if (errorMessage.length > 0 && typeOperation == 'signUp') {
+        if (errorMessage.length > 0) {
             Alert.alert('Error de datos', errorMessage, [
                 { text: 'Ok', onPress: () => removeMessage }
             ])
         }
 
-    }, [errorMessage])
+    }, [showAlert])
+
+    useEffect(() => {
+
+        if(codeStatus == 200){
+            navigation.navigate('SignUp3')
+        }
+   
+    }, [codeStatus])
+    
 
 
     
@@ -88,6 +99,7 @@ export const SignUpScreen2 = ({ navigation, route }: any) => {
             if (dataSignUp.Password == dataSignUp.ConfirmPassword) {
                 const { ConfirmPassword = '', ...newData } = { ...dataSignUp, ...data }
                 signUp(newData)
+                setShowAlert(true)
             } else {
                 Alert.alert('Error de datos', 'Las contraseñas no coinciden', [
                     { text: 'Ok', onPress: () => null }

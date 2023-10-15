@@ -79,7 +79,7 @@ export const AuthProvider = ({ children }: any) => {
     }
 
     const signUp = async (body: object) => {
-        dispatch({type:'checking',payload:{type:'signUp'}});
+        dispatch({type:'checking',payload:{type:''}});
 
         const { data } = await apiDaily.post('user/signIn', body);
 

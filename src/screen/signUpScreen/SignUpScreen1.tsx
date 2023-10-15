@@ -69,7 +69,6 @@ export const SignUpScreen1 = ({ navigation }: any) => {
 
         if (AllFieldFille) {
             
-            console.log('va enviar la data y navegar a la proxima pagina')
             navigation.navigate('SignUp2', { data: dataSignUp })
         }
 

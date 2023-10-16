@@ -24,7 +24,7 @@ export const BtnContainerSignUp1 = styled(BtnContainer)`
     justify-content: space-between;
     margin-top: 50px;
 `
-export const Avatar = styled.Image`
+export const PhotoProfil = styled.Image`
     border-radius: 100px; 
     height: 150px;
     width: 150px;

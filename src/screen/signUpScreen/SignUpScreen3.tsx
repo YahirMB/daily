@@ -7,14 +7,16 @@ import { View } from 'react-native';
 import { ButtonFilled } from '../../controls/buttonFilled/ButtonFilled';
 
 //#Styles
-import { Avatar, AvatarIcon, BtnContainer, Phrase } from './styles';
+import { PhotoProfil, AvatarIcon, BtnContainer, Phrase } from './styles';
 
 //#Resources
 import { avatar, imageStartCalendario } from '../../resources';
 
 //#Components
 import { LayoutScreen } from '../../layout/LayoutScreen';
+
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
+import { Avatar } from '../../components/avatar/Avatar';
 
 
 
@@ -47,10 +49,7 @@ export const SignUpScreen3 = ({ navigation }: any) => {
 
             <Phrase>Subir imagen de perfil </Phrase>
 
-            <View>
-                <Avatar source={avatar} />
-                <AvatarIcon onPress={takePhoto} name='camera-sharp' size={24} color={'#888888'} />
-            </View>
+            <Avatar img={avatar} />
 
             <BtnContainer>
                 <ButtonFilled colorText='#32BC82' event={() => navigation.navigate('Home')} backgroundColor={'white'} title='Omitir' />

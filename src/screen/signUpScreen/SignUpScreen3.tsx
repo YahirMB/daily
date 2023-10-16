@@ -23,7 +23,7 @@ import { Avatar } from '../../components/avatar/Avatar';
 export const SignUpScreen3 = ({ navigation }: any) => {
 
     const takePhoto = () => {
-        launchCamera({ mediaType: 'photo' }, (response) => {
+        launchImageLibrary({ mediaType: 'photo' }, (response:any) => {
             if (response.didCancel) {
                 // El usuario canceló la acción
             } else if (response.errorCode) {
@@ -31,6 +31,8 @@ export const SignUpScreen3 = ({ navigation }: any) => {
             } else {
                 // La imagen seleccionada está en response.assets[0].uri
                 const selectedImage = response.assets[0];
+
+                console.log(response)
                 console.log('Imagen seleccionada:', selectedImage);
             }
         })
@@ -49,7 +51,7 @@ export const SignUpScreen3 = ({ navigation }: any) => {
 
             <Phrase>Subir imagen de perfil </Phrase>
 
-            <Avatar img={avatar} />
+            <Avatar img={avatar} event={takePhoto} />
 
             <BtnContainer>
                 <ButtonFilled colorText='#32BC82' event={() => navigation.navigate('Home')} backgroundColor={'white'} title='Omitir' />

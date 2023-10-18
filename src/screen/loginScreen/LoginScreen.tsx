@@ -1,16 +1,12 @@
 //#Libraries
 import React, { useContext, useEffect, useState } from 'react'
-
 //#Controls
 import { ButtonFilled } from '../../controls/buttonFilled/ButtonFilled';
 import { InputFilled } from '../../controls/inputFilled/InputFilled';
-
 //#Styles
 import { ContainerLoginBtn, InputBase, LoginLabel } from './styles'
-
 //#Resources
 import { imageLogin } from '../../resources';
-
 //#Components
 import { LayoutScreen } from '../../layout/LayoutScreen';
 import { AuthContext } from '../../context/AuthContext';

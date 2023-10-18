@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
-import { Modal, Pressable, StyleSheet, Text, View, TouchableOpacity} from 'react-native'
-import { InputFilled } from '../../controls/inputFilled/InputFilled'
+//#Libraries
+import React from 'react'
+//#Styles
+import { Modal, Pressable, StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 
 interface modalProps {
   visible : boolean,

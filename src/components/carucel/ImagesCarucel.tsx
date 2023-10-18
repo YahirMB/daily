@@ -1,9 +1,11 @@
+//#Libraries
 import React, { useState } from 'react';
-
-// import Carousel, { Pagination } from 'react-native-snap-carousel';
-import { CarouselContainer, CarouselImage, Paragraph } from './styles';
-import { bell, calendar, facebook, note } from '../../resources';
+//#Components
 import Carousel,{Pagination} from 'react-native-snap-carousel-v4';
+//#Styles
+import { CarouselContainer, CarouselImage, Paragraph } from './styles';
+//#Resources
+import { bell, calendar, facebook, note } from '../../resources';
 
 interface CarouselItem {
   title: string;

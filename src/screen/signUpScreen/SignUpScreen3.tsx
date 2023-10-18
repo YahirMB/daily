@@ -1,18 +1,12 @@
-
 //#Libraries
 import React, { useContext, useEffect, useState } from 'react'
 import { Text, TouchableOpacity, View } from 'react-native';
-
-
 //#Controls
 import { ButtonFilled } from '../../controls/buttonFilled/ButtonFilled';
-
 //#Styles
 import { AvatarIcon, BtnContainer, Phrase } from './styles';
-
 //#Resources
 import { avatar, imageStartCalendario } from '../../resources';
-
 //#Components
 import { LayoutScreen } from '../../layout/LayoutScreen';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';

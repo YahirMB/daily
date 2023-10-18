@@ -1,7 +1,8 @@
+//#Libraries
 import React from 'react'
+//#Components
 import { createStackNavigator } from '@react-navigation/stack';
 import { LoginScreen } from '../screen/loginScreen/LoginScreen';
-import { HomeScreen } from '../screen/homeScreen/HomeScreen';
 import { MenuLateral } from './MenuLateral';
 import { StartScreen } from '../screen/startScreen/StartScreen';
 import { SignUpScreen1 } from '../screen/signUpScreen/SignUpScreen1';

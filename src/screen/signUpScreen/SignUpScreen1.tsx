@@ -1,16 +1,12 @@
 //#Libraries
 import React, { useEffect, useState } from 'react'
-
 //#Controls
 import { ButtonFilled } from '../../controls/buttonFilled/ButtonFilled';
 import { InputFilled } from '../../controls/inputFilled/InputFilled';
-
 //#Styles
 import { BtnContainerSignUp1, Phrase } from './styles';
-
 //#Resources
 import { imageStartCalendario } from '../../resources';
-
 //#Components
 import { LayoutScreen } from '../../layout/LayoutScreen';
 import { ScrollView } from 'react-native';

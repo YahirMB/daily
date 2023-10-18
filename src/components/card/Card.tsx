@@ -1,5 +1,8 @@
+//#Libraries
 import React from 'react'
-import { Dimensions, StyleSheet, Text, View } from 'react-native'
+//Styles
+import { StyleSheet, Text, View } from 'react-native'
+//#Icon
 import Icon from 'react-native-vector-icons/Ionicons'
 
 interface cardProps {

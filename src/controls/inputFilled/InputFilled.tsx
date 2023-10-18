@@ -2,9 +2,9 @@
 import React, { useState } from 'react'
 
 //#Styles
-import { CustomIcon, Input, InputBase, InputWithIcon, Label } from './styles'
-import { StyleSheet } from 'react-native'
+import { CustomIcon, Input, InputBase, InputWithIcon, Label, check } from './styles'
 import { Text } from 'react-native'
+
 
 
 
@@ -26,38 +26,10 @@ export const InputFilled = ({ nameLabel, fieldValid ,placeholderText, typeOfInpu
 
     const [isEnable, setIsEnable] = useState(true)
 
-
-
-    
-
     const onShowPassword = () => {
         setIsEnable(!isEnable);
     }
 
-
-    const check = StyleSheet.create({
-        invalid: {
-            borderWidth: 1,
-            borderColor: 'red',
-            borderStyle: 'solid'
-        },
-
-        valid: {
-            borderColor: 'green',
-            borderWidth: 1,
-            borderStyle: 'solid'
-        },
-
-        labelValid: {
-            color: 'green',
-
-        },
-
-        labelInvalid: {
-            color: 'red',
-        }
-
-    })
 
     return (
         <InputBase>

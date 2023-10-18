@@ -1,11 +1,12 @@
+//#Libraries
 import React, { useState } from 'react'
-
-
+//#Styles
+import Icon from 'react-native-vector-icons/Ionicons';
+import { View, Text, TouchableOpacity, StyleSheet,Image } from 'react-native';
+//#Components
 import { DrawerContentScrollView, createDrawerNavigator } from '@react-navigation/drawer';
 import { HomeScreen } from '../screen/homeScreen/HomeScreen';
 import { LoginScreen } from '../screen/loginScreen/LoginScreen';
-import { View, Text, TouchableOpacity, StyleSheet,Image } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
 import { ScheduleScreen } from '../screen/scheduleScreen/ScheduleScreen';
 import { DiaryScreen } from '../screen/diaryScreen/DiaryScreen';
 import { SettingsScreen } from '../screen/settingsScreen/SettingsScreen';

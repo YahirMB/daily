@@ -1,6 +1,9 @@
+//#Libraries
 import React from 'react'
-import { Text, View } from 'react-native'
+//#Components
 import { Card } from '../card/Card'
+//#Styles
+import { Text, View } from 'react-native'
 
 
 interface propsCardList {

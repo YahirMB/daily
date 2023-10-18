@@ -1,71 +1,174 @@
+//#Libraries
+import React, { useContext, useEffect, useState } from 'react'
 
-import React, { useState } from 'react'
-
-//
-import { Text, TextInput, View, Image, TouchableHighlight, TouchableOpacity, Button, ScrollView } from 'react-native'
-import { ContainerLogIn, ContainerLoginBtn, Content, CustomIcon, FormContainer, Input, InputBase, InputWithIcon, Label, LoginLabel } from './styles'
-
-import { imageLogin } from '../../resources';
-import { TitleApp } from '../../styles/titles/styles';
+//#Controls
 import { ButtonFilled } from '../../controls/buttonFilled/ButtonFilled';
+import { InputFilled } from '../../controls/inputFilled/InputFilled';
+
+//#Styles
+import { ContainerLoginBtn, InputBase, LoginLabel } from './styles'
+
+//#Resources
+import { imageLogin } from '../../resources';
+
+//#Components
+import { LayoutScreen } from '../../layout/LayoutScreen';
+import { AuthContext } from '../../context/AuthContext';
+import { Text, Alert } from 'react-native';
 
 
+interface propsCredential {
+  email: string,
+  password: string
+  [key: string]: string;
+}
+
+interface EmptyFiel {
+  [key: string]: boolean;
+}
 
 export const LoginScreen = ({ navigation }: any) => {
 
-  const [correo, setCorreo] = useState('')
-  const [password, setPassword] = useState('')
+  const { logIn, user, errorMessage, codeStatus, status, removeMessage,typeOperation } = useContext(AuthContext)
+  const [datLogIn, setDatLogIn] = useState<propsCredential>({ email: '', password: '' })
+
+  const [keys, setKeys] = useState({ email: false, password: false })
+
+
+  const [name, setName] = useState('')
+
+
+  useEffect(() => {
+    navigation.setOptions({
+      title: 'Daily plan',
+    })
+  }, [])
+
+ 
+  useEffect(() => {
+    if (errorMessage.length > 0  && typeOperation == ''){
+      console.log('ok')
+      MiAlert()
+    }
+
+  }, [errorMessage])
+
+
+  useEffect(() => {
+    if (status == 'authenticated') {
+      navigation.navigate('Home')
+      setDatLogIn({ email: '', password: '' })
+    }
+  }, [status])
+
+
+  const onFocus = (name: string) => {
+    setName(name);
+  }
+
+  const onChangeValue = (text: string) => {
+    setDatLogIn({ ...datLogIn, [name]: text });
+
+
+    if (text.length > 0) {
+
+      setKeys({ ...keys, [name]: false });
+
+    }
+
+
+  }
+
+  const MiAlert = () =>
+    Alert.alert('Error de credenciales', errorMessage, [
+
+      { text: 'OK', onPress: removeMessage },
+    ]);
+
+
+  const onSenData = () => {
+
+    let fill = true
+    const newKeys: EmptyFiel = {}
+
+    for (const key in datLogIn) {
+
+      if (datLogIn[key] == '') {
+
+    
+        fill = false
+        newKeys[key] = true;
+
+      } else {
+        newKeys[key] = false;
+      }
+
+    }
+
+    setKeys({ ...keys, ...newKeys });
+
+    if (fill) {
+      logIn(datLogIn);
+
+
+    }
+
+  }
+
 
 
 
   return (
+    <LayoutScreen imgSrc={imageLogin} isLogin>
+      <InputFilled
 
-    <ContainerLogIn source={imageLogin}>
+        identity={() => onFocus('email')}
+        nameLabel='Correo electronico'
+        icon='at-sharp'
+        value={datLogIn.email}
+        event={onChangeValue}
+        fieldEmpty={keys.email}
+        messageError={'Correo eletronico vacio @'}
+      />
+      <InputFilled
 
-      <Content>
+        identity={() => onFocus('password')}
+        nameLabel='Contraseña'
+        icon='eye-sharp'
+        typeOfInput='password'
+        value={datLogIn.password}
+        event={onChangeValue}
+        fieldEmpty={keys.password}
+        messageError={'Contraseña mayor de 4 caracteres'}
+      />
 
-        <TitleApp color='white'>Daily Plan</TitleApp>
+      <InputBase>
+        <LoginLabel color='white'>¿Olvidaste tu contraseña?</LoginLabel>
 
-        <FormContainer>
+        <LoginLabel color='#44FFB0' onPress={()=> navigation.navigate('RecoverAccount')}>Recuperar contraseña</LoginLabel>
 
-          <InputBase>
-            <Label>Correo</Label>
-            <InputWithIcon>
-              <Input />
-              <CustomIcon name="at-sharp" size={20} color={'#6D6B6B'} />
-            </InputWithIcon>
-          </InputBase>
-
-
-          <InputBase>
-            <Label>Contraseña</Label>
-            <InputWithIcon>
-              <Input secureTextEntry={true} />
-              <CustomIcon name="eye-sharp" size={20} color={'#6D6B6B'} />
-            </InputWithIcon>
-          </InputBase>
-
-          <InputBase>
-            <LoginLabel color='white'>¿Olvidaste tu contraseña?</LoginLabel>
-            <LoginLabel color='#44FFB0'>Recuperar contraseña</LoginLabel>
-          </InputBase>
-
-
-          <InputBase>
-            <LoginLabel color='white'>¿Primera vez? <LoginLabel color='#44FFB0'>Crear cuenta</LoginLabel> </LoginLabel>
-          </InputBase>
+      </InputBase>
 
 
-          <ContainerLoginBtn>
-            <ButtonFilled colorText='#32BC82' backgroundColor={'white'} event={() => navigation.navigate('Home')} title='Iniciar sesion' />
-          </ContainerLoginBtn>
+      <InputBase>
+        <LoginLabel color='white'>¿Primera vez?
+          <LoginLabel
+            color='#44FFB0'
+            onPress={() => navigation.navigate('SignUp')}> Crear cuenta</LoginLabel>
+        </LoginLabel>
+      </InputBase>
 
-        </FormContainer>
-      </Content>
 
-    </ContainerLogIn>
+      <ContainerLoginBtn>
+        <ButtonFilled
 
+          colorText='#32BC82'
+          backgroundColor={'white'}
+          event={onSenData}
+          title='Iniciar sesion' />
+      </ContainerLoginBtn>
 
+    </LayoutScreen>
 
   )
 }

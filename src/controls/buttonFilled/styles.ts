@@ -2,8 +2,9 @@ import styled from "styled-components/native";
 
 export const BtnFilled = styled.TouchableOpacity<{backgroundColor?:string}>`
     backgroundColor: ${props => props.backgroundColor || '#32BC82' };
-    width: 174px;
+    width: auto;
     height: 40px;
+    padding:0px 20px;
     align-items: center;
     justify-content: center;
 `

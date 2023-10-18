@@ -15,7 +15,7 @@ export const Phrase = styled.Text`
 export const BtnContainer = styled.View`
     flex-direction: row;
     width: 100%; 
-    justify-content: flex-end;
+    justify-content: space-between;
     margin-top: 50px;
 `
 export const BtnContainerSignUp1 = styled(BtnContainer)`

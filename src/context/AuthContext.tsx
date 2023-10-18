@@ -2,6 +2,7 @@ import React, { createContext, useReducer } from 'react';
 import { AuthState, authReducer } from './authReducer';
 import apiDaily from '../api/dailyplanApi';
 import { User } from '../interfaces/apiInterfaces';
+import { fileUpload } from '../helpers/uploadFileImg';
 
 
 //propiedades del context
@@ -16,6 +17,7 @@ type AuthContextProps = {
     logout: () => void;
     removeMessage: () => void;
     signUp: (body:object) => void
+    updateImg: (email:string,file:object) => void
 
 }
 
@@ -104,12 +106,30 @@ export const AuthProvider = ({ children }: any) => {
         }
     }
 
+    const updateImg = async (email:string,file:object) => {
+
+        const urlPhotoCloudnary = await fileUpload(file)
+
+        
+        //obtemos la url de la foto y se la pasamos aqui 
+
+       const {data} = await apiDaily.put(`user/updateImg/${email}`,{Img:urlPhotoCloudnary})
+
+       if (data.status == 200) {
+            dispatch({type:'updateImg',payload:{user:data.result,codeStatus:data.status}})
+       }else{
+            dispatch({type:'error',payload:{codeStatus:data.status,message:data.message}})
+       }
+
+    }
+
 
     return (
         <AuthContext.Provider value={{
             ...authState,
             logIn,
             logout,
+            updateImg,
             removeMessage,
             signUp
         }}>

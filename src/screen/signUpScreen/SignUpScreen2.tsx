@@ -139,7 +139,7 @@ export const SignUpScreen2 = ({ navigation, route }: any) => {
                     icon='eye-sharp' />
 
                 <BtnContainer>
-                    <ButtonFilled colorText='#32BC82' event={() => navigation.navigate('SignUp3')} backgroundColor={'white'} title='Crear cuenta' />
+                    <ButtonFilled colorText='#32BC82' event={nextScreen} backgroundColor={'white'} title='Crear cuenta' />
                 </BtnContainer>
 
             </ScrollView>

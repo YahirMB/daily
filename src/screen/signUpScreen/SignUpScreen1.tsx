@@ -101,7 +101,7 @@ export const SignUpScreen1 = ({ navigation }: any) => {
                         title='Tengo cuenta' />
                     <ButtonFilled
                         colorText='#32BC82'
-                        event={ () => navigation.navigate('SignUp2',{ data: dataSignUp })}
+                        event={nextScreen}
                         backgroundColor={'white'}
                         title='Siguiente' />
                 </BtnContainerSignUp1>

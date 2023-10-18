@@ -2,12 +2,10 @@
 import React from 'react'
 //#Styles
 import { AvatarContainer, AvatarIcon, PhotoProfil } from './styles'
+//#Interfaces
+import { avatarProps } from '../../interfaces/componentInterfaces'
 
 
-interface avatarProps {
-    img: any
-    event? : () => void
-}
 
 export const Avatar = ({ img,event }: avatarProps) => {
     return (

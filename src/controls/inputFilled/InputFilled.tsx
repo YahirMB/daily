@@ -4,25 +4,11 @@ import React, { useState } from 'react'
 //#Styles
 import { CustomIcon, Input, InputBase, InputWithIcon, Label, check } from './styles'
 import { Text } from 'react-native'
+import { inputProps } from '../../interfaces/componentInterfaces'
 
 
 
-
-interface FCInput {
-    nameLabel?: string,
-    placeholderText?: string,
-    typeOfInput?: string,
-    icon?: string
-    identity?: () => void,
-    event?: (text: string) => void,
-    value?: string,
-    background?: string
-    fieldValid?:boolean
-    fieldEmpty?:boolean
-    messageError?:string
-}
-
-export const InputFilled = ({ nameLabel, fieldValid ,placeholderText, typeOfInput, icon = "", identity, event, value, background,fieldEmpty,messageError}: FCInput) => {
+export const InputFilled = ({ nameLabel, fieldValid ,placeholderText, typeOfInput, icon = "", identity, event, value, background,fieldEmpty,messageError}: inputProps) => {
 
     const [isEnable, setIsEnable] = useState(true)
 

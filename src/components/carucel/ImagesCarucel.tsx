@@ -6,11 +6,9 @@ import Carousel,{Pagination} from 'react-native-snap-carousel-v4';
 import { CarouselContainer, CarouselImage, Paragraph } from './styles';
 //#Resources
 import { bell, calendar, facebook, note } from '../../resources';
+import { CarouselItem } from '../../interfaces/componentInterfaces';
 
-interface CarouselItem {
-  title: string;
-  image: any; // Cambia el tipo de 'image' a 'any' si 'bell', 'calendar', 'facebook', etc., son rutas de imágenes
-}
+
 
 export const ImagesCarousel: React.FC = () => {
   const [activeSlide, setActiveSlide] = useState(0);

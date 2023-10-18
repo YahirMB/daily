@@ -4,12 +4,8 @@ import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 //#Icon
 import Icon from 'react-native-vector-icons/Ionicons'
-
-interface cardProps {
-  info: string
-  titleCard: string
-
-}
+//#Interfaces
+import { cardProps } from '../../interfaces/componentInterfaces'
 
 export const Card = ({ info, titleCard }: cardProps) => {
   return (

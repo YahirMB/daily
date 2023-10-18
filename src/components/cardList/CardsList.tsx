@@ -4,12 +4,10 @@ import React from 'react'
 import { Card } from '../card/Card'
 //#Styles
 import { Text, View } from 'react-native'
+//#Interfaces
+import { propsCardList } from '../../interfaces/componentInterfaces'
 
 
-interface propsCardList {
-    data: Array<any>
-
-}
 
 export const CardsList = ({ data }: propsCardList) => {
 

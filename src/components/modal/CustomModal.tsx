@@ -1,13 +1,9 @@
 //#Libraries
 import React from 'react'
 //#Styles
-import { Modal, Pressable, StyleSheet, Text, View, TouchableOpacity } from 'react-native'
-
-interface modalProps {
-  visible : boolean,
-  event : () => void
-  children:any
-}
+import { Modal, StyleSheet, Text, View, TouchableOpacity } from 'react-native'
+//#Interfaces
+import { modalProps } from '../../interfaces/componentInterfaces';
 
 export const CustomModal = ({visible,event,children}:modalProps) => {
  

@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 //#Styles
 import { CustomIcon, Input, InputBase, InputWithIcon, Label } from './styles'
 import { StyleSheet } from 'react-native'
+import { Text } from 'react-native'
 
 
 
@@ -16,15 +17,18 @@ interface FCInput {
     event?: (text: string) => void,
     value?: string,
     background?: string
+    fieldValid?:boolean
+    fieldEmpty?:boolean
+    messageError?:string
 }
 
-export const InputFilled = ({ nameLabel, placeholderText, typeOfInput, icon = "", identity, event, value, background }: FCInput) => {
+export const InputFilled = ({ nameLabel, fieldValid ,placeholderText, typeOfInput, icon = "", identity, event, value, background,fieldEmpty,messageError}: FCInput) => {
 
     const [isEnable, setIsEnable] = useState(true)
 
 
 
-
+    
 
     const onShowPassword = () => {
         setIsEnable(!isEnable);
@@ -57,7 +61,7 @@ export const InputFilled = ({ nameLabel, placeholderText, typeOfInput, icon = ""
 
     return (
         <InputBase>
-            <Label style={check.labelInvalid}>{nameLabel}</Label>
+            <Label>{nameLabel}</Label>
             <InputWithIcon>
                 {
                     typeOfInput === 'password' ?
@@ -68,13 +72,12 @@ export const InputFilled = ({ nameLabel, placeholderText, typeOfInput, icon = ""
                             onFocus={identity}
                             backgroundColor={background}
                             
-
+                           
                         /> :
                         <Input
                             onChangeText={event}
                             value={value}
                             onFocus={identity}
-                            style={{ borderStyle: 'solid', borderWidth: 1, borderColor: 'red' }}
                             backgroundColor={background}
                         />
                 }
@@ -86,6 +89,7 @@ export const InputFilled = ({ nameLabel, placeholderText, typeOfInput, icon = ""
                         color={'#6D6B6B'} />
                 }
             </InputWithIcon>
+            { fieldEmpty  && <Text style={check.labelInvalid}>{messageError}</Text>}
         </InputBase>
     )
 }

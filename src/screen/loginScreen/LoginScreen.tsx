@@ -11,6 +11,7 @@ import { imageLogin } from '../../resources';
 import { LayoutScreen } from '../../layout/LayoutScreen';
 import { AuthContext } from '../../context/AuthContext';
 import { Text, Alert } from 'react-native';
+import { useForm } from '../../hooks/useForm';
 
 
 interface propsCredential {
@@ -25,14 +26,9 @@ interface EmptyFiel {
 
 export const LoginScreen = ({ navigation }: any) => {
 
-  const { logIn, user, errorMessage, codeStatus, status, removeMessage,typeOperation } = useContext(AuthContext)
-  const [datLogIn, setDatLogIn] = useState<propsCredential>({ email: '', password: '' })
-
-  const [keys, setKeys] = useState({ email: false, password: false })
-
-
-  const [name, setName] = useState('')
-
+  const { logIn, user, errorMessage, codeStatus, status, removeMessage, typeOperation } = useContext(AuthContext)
+  const { form, onChange,keys, onSenData,setFormValue} = useForm({ email: '', password: '' }, { email: false, password: false },logIn)
+ 
 
   useEffect(() => {
     navigation.setOptions({
@@ -40,108 +36,59 @@ export const LoginScreen = ({ navigation }: any) => {
     })
   }, [])
 
- 
+  
   useEffect(() => {
-    if (errorMessage.length > 0  && typeOperation == ''){
+    if (errorMessage.length > 0 && typeOperation == '') {
       console.log('ok')
       MiAlert()
     }
 
   }, [errorMessage])
+  
 
 
   useEffect(() => {
     if (status == 'authenticated') {
       navigation.navigate('Home')
-      setDatLogIn({ email: '', password: '' })
+      setFormValue({ email: '', password: '' })
     }
   }, [status])
 
 
-  const onFocus = (name: string) => {
-    setName(name);
-  }
+  const MiAlert = () => {
 
-  const onChangeValue = (text: string) => {
-    setDatLogIn({ ...datLogIn, [name]: text });
-
-
-    if (text.length > 0) {
-
-      setKeys({ ...keys, [name]: false });
-
-    }
-
-
-  }
-
-  const MiAlert = () =>
     Alert.alert('Error de credenciales', errorMessage, [
 
       { text: 'OK', onPress: removeMessage },
     ]);
-
-
-  const onSenData = () => {
-
-    let fill = true
-    const newKeys: EmptyFiel = {}
-
-    for (const key in datLogIn) {
-
-      if (datLogIn[key] == '') {
-
-    
-        fill = false
-        newKeys[key] = true;
-
-      } else {
-        newKeys[key] = false;
-      }
-
-    }
-
-    setKeys({ ...keys, ...newKeys });
-
-    if (fill) {
-      logIn(datLogIn);
-
-
-    }
-
   }
-
-
-
 
   return (
     <LayoutScreen imgSrc={imageLogin} isLogin>
       <InputFilled
-
-        identity={() => onFocus('email')}
         nameLabel='Correo electronico'
         icon='at-sharp'
-        value={datLogIn.email}
-        event={onChangeValue}
+        value={form.email}
+        event={value => onChange(value, "email")}
         fieldEmpty={keys.email}
         messageError={'Correo eletronico vacio @'}
+        typeOfInput='email-address'
       />
       <InputFilled
-
-        identity={() => onFocus('password')}
+        
         nameLabel='Contraseña'
         icon='eye-sharp'
         typeOfInput='password'
-        value={datLogIn.password}
-        event={onChangeValue}
+        value={form.password}
+        event={value => onChange(value, "password")}
         fieldEmpty={keys.password}
-        messageError={'Contraseña mayor de 4 caracteres'}
+        messageError={'Contraseña mayor de 8 caracteres'}
       />
 
       <InputBase>
         <LoginLabel color='white'>¿Olvidaste tu contraseña?</LoginLabel>
 
-        <LoginLabel color='#44FFB0' onPress={()=> navigation.navigate('RecoverAccount')}>Recuperar contraseña</LoginLabel>
+        <LoginLabel color='#44FFB0' onPress={() => navigation.navigate('RecoverAccount')}>Recuperar contraseña</LoginLabel>
 
       </InputBase>
 
@@ -160,7 +107,7 @@ export const LoginScreen = ({ navigation }: any) => {
 
           colorText='#32BC82'
           backgroundColor={'white'}
-          event={() => navigation.navigate("Home")}
+          event={onSenData}
           title='Iniciar sesion' />
       </ContainerLoginBtn>
 

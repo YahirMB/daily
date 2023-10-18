@@ -10,6 +10,7 @@ import { imageStartCalendario } from '../../resources';
 //#Components
 import { LayoutScreen } from '../../layout/LayoutScreen';
 import { ScrollView } from 'react-native';
+import { useForm } from '../../hooks/useForm';
 
 interface propStateSignUp {
     Name: string,
@@ -23,53 +24,19 @@ interface KeysEmptys {
 
 export const SignUpScreen1 = ({ navigation }: any) => {
 
-    const [dataSignUp, setdataSignUp] = useState<propStateSignUp>({ Name: '', Lastname: '' })
+    const nextScreen = () => {
+        navigation.navigate('SignUp2', { data: form })
+    }
 
-    const [emptyField, setemptyField] = useState({ Name: false, Lastname: false });
+    const {form,keys,onChange,onSenData,} =useForm({ Name: '', Lastname: ''},{ Name: false, Lastname: false },nextScreen)
 
+   
     useEffect(() => {
         navigation.setOptions({
             title: 'Crear cuenta',
         })
     }, [])
-
-    const onChangeValue = (valor: any, key: string) => {
-
-        if (valor.length > 0) {
-            setemptyField({ ...emptyField, [key]: false })
-        }
-
-        setdataSignUp({ ...dataSignUp, [key]: valor });
-    }
-
-
-    const nextScreen = () => {
-
-        let AllFieldFille = true;
-
-        let keysEmptys: KeysEmptys = {}
-
-        for (const key in dataSignUp) {
-
-            if (dataSignUp[key] == '') {
-                AllFieldFille = false
-                console.log('esta vacio', key)
-
-                keysEmptys[key] = true;
-            } else {
-                keysEmptys[key] = false;
-            }
-        }
-
-        setemptyField({ ...emptyField, ...keysEmptys })
-
-        if (AllFieldFille) {
-            
-            navigation.navigate('SignUp2', { data: dataSignUp })
-        }
-
-
-    }
+   
 
     return (
 
@@ -79,13 +46,13 @@ export const SignUpScreen1 = ({ navigation }: any) => {
 
            
                 <InputFilled
-                    fieldEmpty={emptyField.Name}
-                    event={e => onChangeValue(e, 'Name')}
+                    fieldEmpty={keys.Name}
+                    event={valor => onChange(valor, 'Name')}
                     messageError='Necesitamos tu nombre'
                     nameLabel='Nombres' />
                 <InputFilled
-                    fieldEmpty={emptyField.Lastname}
-                    event={e => onChangeValue(e, 'Lastname')}
+                    fieldEmpty={keys.Lastname}
+                    event={valor => onChange(valor, 'Lastname')}
                     nameLabel='Apellidos'
                     messageError='Necesitamos tus apellidos'
                 />
@@ -97,7 +64,7 @@ export const SignUpScreen1 = ({ navigation }: any) => {
                         title='Tengo cuenta' />
                     <ButtonFilled
                         colorText='#32BC82'
-                        event={nextScreen}
+                        event={onSenData}
                         backgroundColor={'white'}
                         title='Siguiente' />
                 </BtnContainerSignUp1>

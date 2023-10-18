@@ -29,14 +29,16 @@ export const InputFilled = ({ nameLabel, fieldValid ,placeholderText, typeOfInpu
                             value={value}
                             onFocus={identity}
                             backgroundColor={background}
-                            
-                           
+                            autoCapitalize="none"
+                               
                         /> :
                         <Input
                             onChangeText={event}
                             value={value}
                             onFocus={identity}
                             backgroundColor={background}
+                            autoCapitalize={typeOfInput == "email-address" ? "none" : "words"}
+                            keyboardType={typeOfInput == "email-address" ? "email-address" : "default"}
                         />
                 }
                 {icon &&

@@ -13,6 +13,7 @@ import { SettingsScreen } from '../screen/settingsScreen/SettingsScreen';
 import { avatar } from '../resources';
 import { Profile } from '../screen/profile/Profile';
 import { EditProfile } from '../screen/editProfile/EditProfile';
+import { AvatarNavBar, NavContainerProfile, SectionContainer, UserNameNav, focus } from './styles';
 
 const Drawer = createDrawerNavigator();
 
@@ -62,54 +63,38 @@ const CustomMenu = ({ navigation }: any) => {
   }
 
 
-  const focus = StyleSheet.create({
-
-    buton: {
-      marginHorizontal: 10,
-      padding: 10
-    },
-
-    active: {
-      backgroundColor: 'white',
-      borderRadius: 5,
-    
-    },
-    inactive: {
-      backgroundColor: '#32BC82',
-      borderRadius: 5
-    },
-    activeColor: {
-      fontWeight: "500",
-      fontSize: 15,
-      color: '#32BC82'
-    },
-    inactiveColor: {
-      fontWeight: "500",
-      fontSize: 15,
-      color: 'white'
-
-    }
-  })
-
-
+  
 
   return (
     <DrawerContentScrollView style={{ flex: 1, backgroundColor: '#32BC82' }}>
 
-      <View style={{flexDirection:'row',alignItems:'center',paddingVertical:20,gap:15,marginHorizontal:10}}>
+      <NavContainerProfile>
         <TouchableOpacity onPress={() => navigation.navigate('profile')}>
-          <Image source={avatar} style={{ width: 45, height: 45 }} />
+          <AvatarNavBar source={avatar} />
         </TouchableOpacity>
-        <Text style={{color:'white',fontSize:18}}>Yahir Alexander</Text>
-      </View>
+        <UserNameNav>Yahir Alexander</UserNameNav>
+      </NavContainerProfile>
 
       <View>
         {itemsNavegation.map((nav, index) =>
-          <TouchableOpacity key={index} onPress={() => onActive(index, nav.nav)} style={[focus.buton, index == isActived ? focus.active : focus.inactive]} >
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-              <Text style={[index == isActived ? focus.activeColor : focus.inactiveColor]}>{nav.title}</Text>
-              <Icon name={nav.iconName} color={`${index == isActived ? '#32BC82' : 'white'}`} size={20} />
-            </View>
+          <TouchableOpacity 
+            key={index} 
+            onPress={() => onActive(index, nav.nav)} 
+            style={
+              [focus.buton,index == isActived ? focus.active
+                : focus.inactive]} >
+            <SectionContainer>
+              <Text
+                style={
+                  [index == isActived ? focus.activeColor
+                    : focus.inactiveColor]}>
+                {nav.title}
+              </Text>
+              <Icon 
+                name={nav.iconName} 
+                color={`${index == isActived ? '#32BC82' : 'white'}`} 
+                size={20} />
+            </SectionContainer>
           </TouchableOpacity>
 
         )}

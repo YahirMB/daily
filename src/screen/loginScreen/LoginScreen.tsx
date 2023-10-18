@@ -160,7 +160,7 @@ export const LoginScreen = ({ navigation }: any) => {
 
           colorText='#32BC82'
           backgroundColor={'white'}
-          event={onSenData}
+          event={() => navigation.navigate("Home")}
           title='Iniciar sesion' />
       </ContainerLoginBtn>
 

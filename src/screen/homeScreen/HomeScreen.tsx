@@ -1,10 +1,11 @@
+//#Libraries
 import React, { useEffect, useContext } from 'react'
-import { Button, FlatList, Text, View, ScrollView, VirtualizedList } from 'react-native'
-
-import Icon from 'react-native-vector-icons/Ionicons';
-import { NoteContext } from '../../context/NotesContext';
-import { Card } from '../../components/card/Card';
+//#Components
 import { CardsList } from '../../components/cardList/CardsList';
+//#Styles
+import { VirtualizedList } from 'react-native'
+//#Context
+import { NoteContext } from '../../context/NotesContext';
 
 
 export const HomeScreen = ({ navigation }: any) => {
@@ -26,18 +27,13 @@ export const HomeScreen = ({ navigation }: any) => {
 
 
   return (
-  
-
-
     <VirtualizedList
-      style={{ marginTop: 40 }}
+      style={{ paddingTop: 40 }}
       data={data}
       renderItem={(item) => <CardsList data={data} />}
       keyExtractor={(item, index) => index.toString()}
       getItemCount={() => data.length}
       getItem={(data, index) => data[index]}
     />
-
-
   )
 }

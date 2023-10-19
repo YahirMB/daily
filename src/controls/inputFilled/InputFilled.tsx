@@ -20,9 +20,10 @@ interface FCInput {
     fieldValid?:boolean
     fieldEmpty?:boolean
     messageError?:string
+    colorLabel?:string
 }
 
-export const InputFilled = ({ nameLabel, fieldValid ,placeholderText, typeOfInput, icon = "", identity, event, value, background,fieldEmpty,messageError}: FCInput) => {
+export const InputFilled = ({ nameLabel, fieldValid ,placeholderText, typeOfInput, icon = "", identity, event, value, background,fieldEmpty,messageError, colorLabel}: FCInput) => {
 
     const [isEnable, setIsEnable] = useState(true)
 
@@ -61,7 +62,10 @@ export const InputFilled = ({ nameLabel, fieldValid ,placeholderText, typeOfInpu
 
     return (
         <InputBase>
-            <Label>{nameLabel}</Label>
+            <Label
+                textColor={colorLabel}
+                
+            >{nameLabel}</Label>
             <InputWithIcon>
                 {
                     typeOfInput === 'password' ?
@@ -71,6 +75,7 @@ export const InputFilled = ({ nameLabel, fieldValid ,placeholderText, typeOfInpu
                             value={value}
                             onFocus={identity}
                             backgroundColor={background}
+                            
                             
                            
                         /> :

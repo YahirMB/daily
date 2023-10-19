@@ -1,6 +1,9 @@
 import React, { useEffect } from 'react'
 import { Text, TouchableOpacity, View } from 'react-native'
 import Icon from 'react-native-vector-icons/Ionicons'
+import { AreaView, Container, InputContainer } from './styles'
+import { InputFilled } from '../../controls/inputFilled/InputFilled'
+import { ButtonFilled } from '../../controls/buttonFilled/ButtonFilled'
 
 export const EditProfile = ({navigation}:any) => {
 
@@ -28,8 +31,19 @@ export const EditProfile = ({navigation}:any) => {
     }, [])
 
     return (
-        <View>
+        <Container>
+            <AreaView>
+                <InputContainer>
+                    <InputFilled nameLabel='Nombre(s): ' placeholderText='Actualiza tu nombre ' background='#D9D9D9' icon='person' colorLabel='#888888'/>
+                    <InputFilled nameLabel='Apellidos: ' placeholderText='Actualiza tus apellidos 'background='#D9D9D9' icon='person' colorLabel='#888888'/>
+                    <InputFilled nameLabel='Correo electrónico: ' placeholderText='Actualiza tu correo 'background='#D9D9D9' icon='at' colorLabel='#888888'/>
+                    <InputFilled nameLabel='Contraseña: ' placeholderText='Actualiza tu contraseña 'typeOfInput='password' background='#D9D9D9' icon='eye' colorLabel='#888888'/>
+                    <InputFilled nameLabel='Confirmar contraseña: ' placeholderText='Confirma tu contraseña 'typeOfInput='password' background='#D9D9D9' icon='eye' colorLabel='#888888'/>
+                    <InputFilled nameLabel='Telefono: ' placeholderText='Actualiza tu telefono 'background='#D9D9D9' icon='call' colorLabel='#888888'/>
+                    <ButtonFilled  event={() => navigation.navigate('')} title={'Guardar'} />
+                </InputContainer>
+            </AreaView> 
             
-        </View>
+        </Container>
     )
 }

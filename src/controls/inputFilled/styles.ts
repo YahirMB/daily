@@ -4,8 +4,8 @@ import styled from "styled-components/native"
 export const InputBase = styled.View`
   width:100%;
 `
-export const Label = styled.Text`
-  color: white;
+export const Label = styled.Text<{textColor?:string}>`
+  color: ${props => props.textColor || 'white'};
   font-size: 18px;
   font-weight: 600;
   margin-bottom: 15px;

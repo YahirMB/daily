@@ -88,6 +88,7 @@ export const LoginScreen = ({ navigation }: any) => {
 
   const onSenData = () => {
 
+    //navigation.navigate("Home")
     let fill = true
     const newKeys: EmptyFiel = {}
 

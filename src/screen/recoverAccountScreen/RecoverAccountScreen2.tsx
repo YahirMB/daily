@@ -18,8 +18,8 @@ export const RecoverAccountScreen2 = ({ navigation }: any) => {
             <TitleView style={{marginBottom:30}}>Restablece tu contraseña</TitleView>
 
             <BtnContainer>
-                <InputFilled nameLabel='Nueva contraseña' placeholderText='Ingresa nueva contraseña' typeOfInput='password'  background='#D9D9D9' icon='eye' />
-                <InputFilled nameLabel='Confirmar contraseña' placeholderText='Confirma nueva contraseña' typeOfInput='password'  background='#D9D9D9' icon='eye' />
+                <InputFilled nameLabel='Nueva contraseña' placeholderText='Ingresa nueva contraseña' typeOfInput='password'  background='#D9D9D9' icon='eye' colorLabel='#888888'/>
+                <InputFilled nameLabel='Confirmar contraseña' placeholderText='Confirma nueva contraseña' typeOfInput='password'  background='#D9D9D9' icon='eye' colorLabel='#888888'/>
                 <ButtonFilled event={() => navigation.navigate('Login')} title={'Restablecer'} />
             </BtnContainer>
 

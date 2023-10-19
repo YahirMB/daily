@@ -22,6 +22,7 @@ type AuthAction =
     | { type: 'checking', payload: { type:string} }
     | { type: 'removeMessage',payload: { type:string} }
     | { type: 'signUp', payload: { user: User, codeStatus: 0 } }
+    | { type: 'updateImg', payload: { user: User, codeStatus: 0 } }
 
 
 
@@ -72,6 +73,12 @@ export const authReducer = (state: AuthState, action: AuthAction): AuthState => 
                 user: action.payload.user,
                 codeStatus: action.payload.codeStatus,
                 status: 'authenticated'
+            }
+        case 'updateImg':
+            return {
+                ...state,
+                user: action.payload.user,
+                codeStatus: action.payload.codeStatus,
             }
 
         default:

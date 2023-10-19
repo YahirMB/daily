@@ -1,34 +1,41 @@
+//#Libraries
 import React from 'react'
-import { Text, View } from 'react-native'
+//#Components
 import { Card } from '../card/Card'
+//#Styles
+import { Text, View } from 'react-native'
+//#Interfaces
+import { propsCardList } from '../../interfaces/componentInterfaces'
+import { CardContainer, Circle, CircleDown, Container, DayText, Line, LineContainer } from './styles'
 
 
-interface propsCardList {
-    data: Array<any>
-
-}
 
 export const CardsList = ({ data }: propsCardList) => {
 
     return (
-        <View style={{ flexDirection: 'row', justifyContent: 'space-evenly',marginBottom:80 }}>
 
-            <View style={{ position: 'relative', height: "100%", alignItems: 'center' }}>
-                <View style={{ flex: 1, borderColor: '#32BC82', borderWidth: 2, borderStyle: 'solid' }}></View>
-                <View style={{ width: 15, height: 15, backgroundColor: '#32BC82', borderRadius: 20, position: 'absolute' }}></View>
-                <View style={{ width: 15, height: 15, backgroundColor: '#32BC82', borderRadius: 20, position: 'absolute', bottom: 0 }}></View>
-            </View>
+        <Container>
 
-            <View style={{ width: 300, gap: 25 }}>
-                <Text style={{ fontSize: 22, color: '#888888', fontWeight: 'bold' }}>HOY</Text>
+            <LineContainer>
+                <Line></Line>
+                <Circle></Circle>
+                <CircleDown></CircleDown>
+            </LineContainer>
+            
 
+            <CardContainer>
+                <DayText>HOY</DayText>
                 {
                     data.map(card =>
 
-                        <Card info='Sacar el perro de la cochera por que siempre se queda a trapado o siempre se queda en su casa' titleCard='COCHERA' key={card} />
+                        <Card 
+                            info='Sacar el perro de la cochera por que siempre se queda a trapado o siempre se queda en su casa' 
+                            titleCard='COCHERA' 
+                            key={card} />
                     )
                 }
-            </View>
-        </View>
+                </CardContainer>
+        </Container>
+
     )
 }

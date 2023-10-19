@@ -1,6 +1,5 @@
 //#Libraries
 import React from 'react'
-
 //#Styles
 import { BntText, BtnFilled } from './styles'
 

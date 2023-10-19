@@ -2,8 +2,7 @@
 import React, { useState } from 'react'
 
 //#Styles
-import { CustomIcon, Input, InputBase, InputWithIcon, Label } from './styles'
-import { StyleSheet } from 'react-native'
+import { CustomIcon, Input, InputBase, InputWithIcon, Label, check } from './styles'
 import { Text } from 'react-native'
 
 
@@ -22,43 +21,18 @@ interface FCInput {
     messageError?:string
     colorLabel?:string
 }
+import { inputProps } from '../../interfaces/componentInterfaces'
+
+
 
 export const InputFilled = ({ nameLabel, fieldValid ,placeholderText, typeOfInput, icon = "", identity, event, value, background,fieldEmpty,messageError, colorLabel}: FCInput) => {
 
     const [isEnable, setIsEnable] = useState(true)
 
-
-
-    
-
     const onShowPassword = () => {
         setIsEnable(!isEnable);
     }
 
-
-    const check = StyleSheet.create({
-        invalid: {
-            borderWidth: 1,
-            borderColor: 'red',
-            borderStyle: 'solid'
-        },
-
-        valid: {
-            borderColor: 'green',
-            borderWidth: 1,
-            borderStyle: 'solid'
-        },
-
-        labelValid: {
-            color: 'green',
-
-        },
-
-        labelInvalid: {
-            color: 'red',
-        }
-
-    })
 
     return (
         <InputBase>
@@ -75,15 +49,16 @@ export const InputFilled = ({ nameLabel, fieldValid ,placeholderText, typeOfInpu
                             value={value}
                             onFocus={identity}
                             backgroundColor={background}
-                            
-                            
-                           
+                            autoCapitalize="none"
+                               
                         /> :
                         <Input
                             onChangeText={event}
                             value={value}
                             onFocus={identity}
                             backgroundColor={background}
+                            autoCapitalize={typeOfInput == "email-address" ? "none" : "words"}
+                            keyboardType={typeOfInput == "email-address" ? "email-address" : "default"}
                         />
                 }
                 {icon &&

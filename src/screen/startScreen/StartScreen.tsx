@@ -1,9 +1,12 @@
+//#Libraries
 import React from 'react';
-
-import { TitleApp } from '../../styles/titles/styles';
-import { BtnContainer, Column, Container } from './styles';
+//#Components
 import { ButtonFilled } from '../../controls/buttonFilled/ButtonFilled';
 import { ImagesCarousel } from '../../components/carucel/ImagesCarucel';
+//#Styles
+import { TitleApp } from '../../styles/titles/styles';
+import { BtnContainer, Column, Container } from './styles';
+
 
 
 

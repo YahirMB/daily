@@ -1,3 +1,4 @@
+import { StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import styled from "styled-components/native"
 
@@ -29,3 +30,27 @@ export const CustomIcon = styled(Icon)`
   position:absolute;
   padding-right:10px;
 `
+
+export const check = StyleSheet.create({
+  invalid: {
+      borderWidth: 1,
+      borderColor: 'red',
+      borderStyle: 'solid'
+  },
+
+  valid: {
+      borderColor: 'green',
+      borderWidth: 1,
+      borderStyle: 'solid'
+  },
+
+  labelValid: {
+      color: 'green',
+
+  },
+
+  labelInvalid: {
+      color: 'red',
+  }
+
+})

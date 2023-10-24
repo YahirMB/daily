@@ -9,6 +9,7 @@ import { SignUpScreen1 } from '../screen/signUpScreen/SignUpScreen1';
 import { SignUpScreen2 } from '../screen/signUpScreen/SignUpScreen2';
 import { SignUpScreen3 } from '../screen/signUpScreen/SignUpScreen3';
 import { RecoverAccountScreen1 } from '../screen/recoverAccountScreen/RecoverAccountScreen1';
+import { RecoverAccountScreen2 } from '../screen/recoverAccountScreen/RecoverAccountScreen2';
 
 export type RootStackParams = {
   Start: undefined,
@@ -17,7 +18,8 @@ export type RootStackParams = {
   SignUp2: undefined,
   SignUp3: undefined,
   Home:undefined,
-  RecoverAccount: undefined
+  RecoverAccount: undefined,
+  RecoverAccount2: undefined
 }
 
 
@@ -33,6 +35,7 @@ export const StackNavigator = () => {
       <Stack.Screen name="SignUp3" component={SignUpScreen3} options={{ headerLeft: () => null}}/>
       <Stack.Screen name="Home" component={MenuLateral} options={{headerShown:false}} />
       <Stack.Screen name="RecoverAccount" component={RecoverAccountScreen1} options={{headerShown:false}} />
+      <Stack.Screen name="RecoverAccount2" component={RecoverAccountScreen2} options={{headerShown:false}} />
     </Stack.Navigator>
   )
 }

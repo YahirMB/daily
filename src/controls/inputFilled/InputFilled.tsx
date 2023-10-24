@@ -4,11 +4,28 @@ import React, { useState } from 'react'
 //#Styles
 import { CustomIcon, Input, InputBase, InputWithIcon, Label, check } from './styles'
 import { Text } from 'react-native'
+
+
+
+interface FCInput {
+    nameLabel?: string,
+    placeholderText?: string,
+    typeOfInput?: string,
+    icon?: string
+    identity?: () => void,
+    event?: (text: string) => void,
+    value?: string,
+    background?: string
+    fieldValid?:boolean
+    fieldEmpty?:boolean
+    messageError?:string
+    colorLabel?:string
+}
 import { inputProps } from '../../interfaces/componentInterfaces'
 
 
 
-export const InputFilled = ({ nameLabel, fieldValid ,placeholderText, typeOfInput, icon = "", identity, event, value, background,fieldEmpty,messageError}: inputProps) => {
+export const InputFilled = ({ nameLabel, fieldValid ,placeholderText, typeOfInput, icon = "", identity, event, value, background,fieldEmpty,messageError, colorLabel}: FCInput) => {
 
     const [isEnable, setIsEnable] = useState(true)
 
@@ -19,7 +36,10 @@ export const InputFilled = ({ nameLabel, fieldValid ,placeholderText, typeOfInpu
 
     return (
         <InputBase>
-            <Label>{nameLabel}</Label>
+            <Label
+                textColor={colorLabel}
+                
+            >{nameLabel}</Label>
             <InputWithIcon>
                 {
                     typeOfInput === 'password' ?

@@ -1,15 +1,19 @@
+//#Libraries
 import React, { useState } from 'react'
-
-
+//#Styles
+import Icon from 'react-native-vector-icons/Ionicons';
+import { View, Text, TouchableOpacity, StyleSheet,Image } from 'react-native';
+//#Components
 import { DrawerContentScrollView, createDrawerNavigator } from '@react-navigation/drawer';
 import { HomeScreen } from '../screen/homeScreen/HomeScreen';
 import { LoginScreen } from '../screen/loginScreen/LoginScreen';
-import { View, Text, TouchableOpacity, StyleSheet,Image } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
 import { ScheduleScreen } from '../screen/scheduleScreen/ScheduleScreen';
 import { DiaryScreen } from '../screen/diaryScreen/DiaryScreen';
 import { SettingsScreen } from '../screen/settingsScreen/SettingsScreen';
 import { avatar } from '../resources';
+import { Profile } from '../screen/profile/Profile';
+import { EditProfile } from '../screen/editProfile/EditProfile';
+import { AvatarNavBar, NavContainerProfile, SectionContainer, UserNameNav, focus } from './styles';
 
 const Drawer = createDrawerNavigator();
 
@@ -26,6 +30,8 @@ const routeNavegation = [
   {title: 'Agendar', nav: 'Schedule', component:ScheduleScreen },
   {title: 'Recordatorio', nav: 'diary', component:DiaryScreen },
   {title: 'Configuración', nav: 'settings', component:SettingsScreen },
+  {title: 'Daily plan', nav: 'profile', component:Profile },
+  {title: 'Editar perfil', nav: 'editProfile', component:EditProfile },
 ]
 
 export const MenuLateral = () => {
@@ -57,52 +63,38 @@ const CustomMenu = ({ navigation }: any) => {
   }
 
 
-  const focus = StyleSheet.create({
-
-    buton: {
-      marginHorizontal: 10,
-      padding: 10
-    },
-
-    active: {
-      backgroundColor: 'white',
-      borderRadius: 5,
-    
-    },
-    inactive: {
-      backgroundColor: '#32BC82',
-      borderRadius: 5
-    },
-    activeColor: {
-      fontWeight: "500",
-      fontSize: 15,
-      color: '#32BC82'
-    },
-    inactiveColor: {
-      fontWeight: "500",
-      fontSize: 15,
-      color: 'white'
-
-    }
-  })
-
-
+  
 
   return (
     <DrawerContentScrollView style={{ flex: 1, backgroundColor: '#32BC82' }}>
 
-      <View style={{flexDirection:'row',alignItems:'center',paddingVertical:20,gap:15,marginHorizontal:10}}>
-        <Image source={avatar} style={{width:45,height:45}}/>
-        <Text style={{color:'white',fontSize:18}}>Yahir Alexander</Text>
-      </View>
+      <NavContainerProfile>
+        <TouchableOpacity onPress={() => navigation.navigate('profile')}>
+          <AvatarNavBar source={avatar} />
+        </TouchableOpacity>
+        <UserNameNav>Yahir Alexander</UserNameNav>
+      </NavContainerProfile>
 
       <View>
         {itemsNavegation.map((nav, index) =>
-          <TouchableOpacity key={index} onPress={() => onActive(index, nav.nav)} style={[focus.buton, index == isActived ? focus.active : focus.inactive]} >
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-              <Text style={[index == isActived ? focus.activeColor : focus.inactiveColor]}>{nav.title}</Text>
-              <Icon name={nav.iconName} color={`${index == isActived ? '#32BC82' : 'white'}`} size={20} />
-            </View>
+          <TouchableOpacity 
+            key={index} 
+            onPress={() => onActive(index, nav.nav)} 
+            style={
+              [focus.buton,index == isActived ? focus.active
+                : focus.inactive]} >
+            <SectionContainer>
+              <Text
+                style={
+                  [index == isActived ? focus.activeColor
+                    : focus.inactiveColor]}>
+                {nav.title}
+              </Text>
+              <Icon 
+                name={nav.iconName} 
+                color={`${index == isActived ? '#32BC82' : 'white'}`} 
+                size={20} />
+            </SectionContainer>
           </TouchableOpacity>
 
         )}

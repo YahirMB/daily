@@ -1,13 +1,25 @@
+//#Libraries
 import React, { useEffect, useContext } from 'react'
+<<<<<<< HEAD
 import { Button, FlatList, Text, View, StyleSheet} from 'react-native'
 import { Title, Paragraph } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/Ionicons';
+=======
+//#Components
+import { CardsList } from '../../components/cardList/CardsList';
+//#Styles
+import { VirtualizedList } from 'react-native'
+//#Context
+>>>>>>> dev
 import { NoteContext } from '../../context/NotesContext';
 import { Card } from 'react-native-paper'
+
 
 export const HomeScreen = ({ navigation }: any) => {
 
   const { loadNotes, notes } = useContext(NoteContext)
+
+  const data = [1, 2, 3]
 
   useEffect(() => {
 
@@ -21,21 +33,8 @@ export const HomeScreen = ({ navigation }: any) => {
   }, [])
 
 
-
-  console.log(notes)
-
-
-  interface note {
-    title: String
-  }
-  const ListNotes = ({ title }: note) =>
-
-  (<View>
-    <Text style={{ color: 'black' }}>{title}</Text>
-  </View>)
-
-
   return (
+<<<<<<< HEAD
     
     <View>
     
@@ -54,6 +53,16 @@ export const HomeScreen = ({ navigation }: any) => {
         keyExtractor={item => item.Id}
 
       />   </View>
+=======
+    <VirtualizedList
+      style={{ paddingTop: 40 }}
+      data={data}
+      renderItem={(item) => <CardsList data={data} />}
+      keyExtractor={(item, index) => index.toString()}
+      getItemCount={() => data.length}
+      getItem={(data, index) => data[index]}
+    />
+>>>>>>> dev
   )
 }
 

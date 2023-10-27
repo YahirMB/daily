@@ -1,26 +1,40 @@
 import React, { createContext, useReducer } from 'react';
-import { authReducer } from './authReducer';
+import { AuthState, authReducer } from './authReducer';
+import apiDaily from '../api/dailyplanApi';
+import { User } from '../interfaces/apiInterfaces';
+import { fileUpload } from '../helpers/uploadFileImg';
 
 
-// Definir cómo luce, qué información tendré aquí
-export interface AuthState {
+//propiedades del context
+type AuthContextProps = {
     isLoggedIn: boolean;
-    username?: string;
+    user: User | null;
+    codeStatus: number;
+    errorMessage: string;
+    typeOperation:string;
+    status: 'checking' | 'authenticated' | 'not-authenticated' | null;
+    logIn: (body: object) => Promise<void>;
+    logout: () => void;
+    removeMessage: () => void;
+    signUp: (body:object) => void
+    updateImg: (email:string,file:object) => void
+
 }
+
 
 // Estado inicial
 export const authInitialState: AuthState = {
+    status: null,
     isLoggedIn: false,
-    username: undefined,
+    user: null,
+    errorMessage: '',
+    codeStatus: 0,
+    typeOperation:''
 }
 
 
-// Lo usaremos para decirle a React cómo luce y qué expone el context
-export interface AuthContextProps {
-    authState: AuthState;
-    signIn: () => void;
-    logout: () => void;
-}
+
+
 
 
 // Crear el contexto
@@ -31,20 +45,93 @@ export const AuthProvider = ({ children }: any) => {
 
     const [authState, dispatch] = useReducer(authReducer, authInitialState);
 
-    const signIn = () => {
-        dispatch({ type: 'signIn' });
+
+    const logIn = async (body: object) => {
+
+        dispatch({type:'checking',payload:{type:''}});
+
+        const { data } = await apiDaily.post('user/logIn', body)
+
+
+        if (data.status == 200) {
+            dispatch({
+                type: 'logIn',
+                payload: {
+                    user: data.result,
+                    codeStatus: data.status
+                }
+            });
+
+        } else {
+            dispatch({
+                type: 'error',
+                payload: { message: data.message, codeStatus: data.status }
+            })
+        }
+
+
     }
 
     const logout = () => {
-        dispatch({ type: 'logout' });
+        dispatch({ type: 'logOut' });
+    }
+
+    const removeMessage = () => {
+        dispatch({type:'removeMessage',payload:{type:''}})
+    }
+
+    const signUp = async (body: object) => {
+        dispatch({type:'checking',payload:{type:''}});
+
+        const { data } = await apiDaily.post('user/signIn', body);
+
+        if (data.status == 200) {
+            dispatch(
+                {
+                    type: 'signUp',
+                    payload: {
+                        user: data.result,
+                        codeStatus: data.status
+                    }
+                })
+        } else {
+            dispatch(
+                {
+                    type: 'error',
+                    payload: {
+                        message: data.message,
+                        codeStatus: data.status
+                    }
+                })
+        }
+    }
+
+    const updateImg = async (email:string,file:object) => {
+
+        const urlPhotoCloudnary = await fileUpload(file)
+
+        
+        //obtemos la url de la foto y se la pasamos aqui 
+
+       const {data} = await apiDaily.put(`user/updateImg/${email}`,{Img:urlPhotoCloudnary})
+
+       if (data.status == 200) {
+            dispatch({type:'updateImg',payload:{user:data.result,codeStatus:data.status}})
+       }else{
+            dispatch({type:'error',payload:{codeStatus:data.status,message:data.message}})
+       }
+
     }
 
 
     return (
         <AuthContext.Provider value={{
-            authState,
-            signIn,
+            ...authState,
+            logIn,
             logout,
+            updateImg,
+            removeMessage,
+            signUp
         }}>
             {children}
         </AuthContext.Provider>

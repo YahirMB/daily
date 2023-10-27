@@ -1,19 +1,20 @@
+import { StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import styled from "styled-components/native"
 
 export const InputBase = styled.View`
   width:100%;
 `
-export const Label = styled.Text`
-  color: white;
+export const Label = styled.Text<{textColor?:string}>`
+  color: ${props => props.textColor || 'white'};
   font-size: 18px;
   font-weight: 600;
   margin-bottom: 15px;
 `
 
-export const Input = styled.TextInput`
+export const Input = styled.TextInput<{backgroundColor?:string}>`
   height: 40px;
-  backgroundColor: white;
+  background-color: ${props => props.backgroundColor ||'white'};
   color: black;
   width:100%;
   padding-right:40px;
@@ -29,3 +30,27 @@ export const CustomIcon = styled(Icon)`
   position:absolute;
   padding-right:10px;
 `
+
+export const check = StyleSheet.create({
+  invalid: {
+      borderWidth: 1,
+      borderColor: 'red',
+      borderStyle: 'solid'
+  },
+
+  valid: {
+      borderColor: 'green',
+      borderWidth: 1,
+      borderStyle: 'solid'
+  },
+
+  labelValid: {
+      color: 'green',
+
+  },
+
+  labelInvalid: {
+      color: 'red',
+  }
+
+})

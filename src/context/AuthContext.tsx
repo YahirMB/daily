@@ -12,12 +12,16 @@ type AuthContextProps = {
     codeStatus: number;
     errorMessage: string;
     typeOperation:string;
+    recoverCode:string;
     status: 'checking' | 'authenticated' | 'not-authenticated' | null;
     logIn: (body: object) => Promise<void>;
     logout: () => void;
     removeMessage: () => void;
     signUp: (body:object) => void
     updateImg: (email:string,file:object) => void
+    recoverAccount: (body:object) => void
+    removeCodeStatus: () => void
+    restorePassword: (body:object) => void
 
 }
 
@@ -29,7 +33,8 @@ export const authInitialState: AuthState = {
     user: null,
     errorMessage: '',
     codeStatus: 0,
-    typeOperation:''
+    typeOperation:'',
+    recoverCode:''
 }
 
 
@@ -123,6 +128,35 @@ export const AuthProvider = ({ children }: any) => {
 
     }
 
+    const recoverAccount = async (body:object) => {
+
+        
+        const {data} = await apiDaily.post(`user/recoverAccount`,body)
+
+        console.log(data)
+
+        if (data.status != 200) {
+            dispatch({type:'error',payload:{codeStatus:data.status,message:data.message}})
+        }else{
+            dispatch({type:'recoverAccount',payload:{codeStatus:data.status,recoverCode:data.recoverCode}})
+        }
+    }
+
+    const removeCodeStatus = () => {
+        dispatch({type:'removeStatus'})   
+    }
+
+    const restorePassword = async (body:object) => {
+
+        const {data} = await apiDaily.put(`user/restorePassword`,body);
+
+        if(data.status == 200){
+            dispatch({type:'restorePassword',payload:{codeStatus:data.status}})
+        }else{
+            dispatch({type:'error',payload:{message:data.message,codeStatus:data.status}})
+        }
+    }
+
 
     return (
         <AuthContext.Provider value={{
@@ -131,7 +165,10 @@ export const AuthProvider = ({ children }: any) => {
             logout,
             updateImg,
             removeMessage,
-            signUp
+            signUp,
+            removeCodeStatus,
+            recoverAccount,
+            restorePassword
         }}>
             {children}
         </AuthContext.Provider>

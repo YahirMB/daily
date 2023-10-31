@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "78774301670",
+    "project_id": "dailyplan-402505",
+    "storage_bucket": "dailyplan-402505.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:78774301670:android:cdcbe788f4349134629c27",
+        "android_client_info": {
+          "package_name": "com.daily"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBt9rgOrd37Jmj0uNG_eFRnnWOb_D-gbr0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

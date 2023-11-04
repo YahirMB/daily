@@ -7,7 +7,7 @@ import { View, Text, TouchableOpacity, StyleSheet,Image } from 'react-native';
 import { DrawerContentScrollView, createDrawerNavigator } from '@react-navigation/drawer';
 import { HomeScreen } from '../screen/homeScreen/HomeScreen';
 import { LoginScreen } from '../screen/loginScreen/LoginScreen';
-import { ScheduleScreen } from '../screen/scheduleScreen/ScheduleScreen';
+import { BookNoteScreen } from '../screen/BookNoteScreen/BookNoteScreen';
 import { DiaryScreen } from '../screen/diaryScreen/DiaryScreen';
 import { SettingsScreen } from '../screen/settingsScreen/SettingsScreen';
 import { avatar } from '../resources';
@@ -19,7 +19,7 @@ const Drawer = createDrawerNavigator();
 
 const itemsNavegation = [
   { title: 'Inicio', iconName: 'home', nav: 'Inicio',component : HomeScreen },
-  { title: 'Agendar', iconName: 'calendar-sharp', nav: 'Schedule', component:ScheduleScreen },
+  { title: 'Agendar', iconName: 'calendar-sharp', nav: 'addNote', component:BookNoteScreen },
   { title: 'Recordatorio', iconName: 'book-sharp', nav: 'diary', component:DiaryScreen },
   { title: 'Configuración', iconName: 'settings-sharp', nav: 'settings', component:SettingsScreen },
   { title: 'Cerrar sesión', iconName: 'log-out-sharp', nav: 'Login', component:LoginScreen },
@@ -27,7 +27,7 @@ const itemsNavegation = [
 
 const routeNavegation = [
   {title: 'Inicio', nav: 'Inicio',component : HomeScreen },
-  {title: 'Agendar', nav: 'Schedule', component:ScheduleScreen },
+  {title: 'Agendar', nav: 'addNote', component:BookNoteScreen },
   {title: 'Recordatorio', nav: 'diary', component:DiaryScreen },
   {title: 'Configuración', nav: 'settings', component:SettingsScreen },
   {title: 'Daily plan', nav: 'profile', component:Profile },
@@ -38,10 +38,13 @@ export const MenuLateral = () => {
   return (
     <Drawer.Navigator
       drawerContent={(props) => <CustomMenu {...props} />}
+    
       screenOptions={{
         headerStyle: { backgroundColor: '#32BC82' },
         headerTintColor: 'white',
-      }}>
+        sceneContainerStyle:{backgroundColor:'white'}
+      }}
+      >
       {routeNavegation.map((nav, index) =>
         <Drawer.Screen key={index} name={nav.nav} options={{ title:nav.title }} component={nav.component} />
       )}

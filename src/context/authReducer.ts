@@ -11,6 +11,7 @@ export interface AuthState {
     errorMessage: string
     codeStatus: number
     typeOperation:string
+    recoverCode:string
 }
 
 //tipos de acciones a realizar
@@ -23,6 +24,9 @@ type AuthAction =
     | { type: 'removeMessage',payload: { type:string} }
     | { type: 'signUp', payload: { user: User, codeStatus: 0 } }
     | { type: 'updateImg', payload: { user: User, codeStatus: 0 } }
+    | { type: 'recoverAccount', payload: { codeStatus: 0,recoverCode:'' } }
+    | { type: 'removeStatus'}
+    | { type: 'restorePassword',payload: { codeStatus: 0}}
 
 
 
@@ -79,6 +83,22 @@ export const authReducer = (state: AuthState, action: AuthAction): AuthState => 
                 ...state,
                 user: action.payload.user,
                 codeStatus: action.payload.codeStatus,
+            }
+        case 'recoverAccount':
+            return {
+                ...state,
+                codeStatus: action.payload.codeStatus,
+                recoverCode: action.payload.recoverCode,
+            }
+        case 'removeStatus':
+            return {
+                ...state,
+                codeStatus: 0
+            }
+        case 'restorePassword':
+            return {
+                ...state,
+                codeStatus: action.payload.codeStatus
             }
 
         default:

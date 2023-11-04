@@ -26,7 +26,7 @@ interface EmptyFiel {
 
 export const LoginScreen = ({ navigation }: any) => {
 
-  const { logIn, user, errorMessage, codeStatus, status, removeMessage, typeOperation } = useContext(AuthContext)
+  const { logIn, user, errorMessage, codeStatus, status, removeMessage, typeOperation,removeCodeStatus } = useContext(AuthContext)
   const { form, onChange,keys, onSenData,setFormValue} = useForm({ email: '', password: '' }, { email: false, password: false },logIn)
  
   
@@ -51,15 +51,21 @@ export const LoginScreen = ({ navigation }: any) => {
     if (status == 'authenticated') {
       navigation.navigate('Home')
       setFormValue({ email: '', password: '' })
+      removeCodeStatus()
     }
   }, [status])
 
+
+  const removeState = () => {
+    removeMessage()
+    removeCodeStatus()
+  }
 
   const MiAlert = () => {
 
     Alert.alert('Error de credenciales', errorMessage, [
 
-      { text: 'OK', onPress: removeMessage },
+      { text: 'OK', onPress: removeState },
     ]);
   }
 
@@ -107,7 +113,7 @@ export const LoginScreen = ({ navigation }: any) => {
 
           colorText='#32BC82'
           backgroundColor={'white'}
-          event={onSenData}
+          event={() => navigation.navigate('Home')}
           title='Iniciar sesion' />
       </ContainerLoginBtn>
 

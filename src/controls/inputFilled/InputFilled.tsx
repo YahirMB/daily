@@ -20,12 +20,25 @@ interface FCInput {
     fieldEmpty?:boolean
     messageError?:string
     colorLabel?:string
+    disabled?:boolean
 }
+
+
+type typeOfInput = 
+    {type:'email'} 
+    |{type:'tel'}
+    |{type:'text'}
+    |{type:'numeric'}
+
 import { inputProps } from '../../interfaces/componentInterfaces'
 
 
 
-export const InputFilled = ({ nameLabel, fieldValid ,placeholderText, typeOfInput, icon = "", identity, event, value, background,fieldEmpty,messageError, colorLabel}: FCInput) => {
+export const InputFilled = (
+    { nameLabel, fieldValid ,placeholderText, 
+    typeOfInput, icon = "", identity, event, 
+    value, background,fieldEmpty,messageError, 
+    colorLabel,disabled}: FCInput) => {
 
     const [isEnable, setIsEnable] = useState(true)
 
@@ -56,6 +69,7 @@ export const InputFilled = ({ nameLabel, fieldValid ,placeholderText, typeOfInpu
                             onChangeText={event}
                             value={value}
                             onFocus={identity}
+                            editable={disabled}
                             backgroundColor={background}
                             autoCapitalize={typeOfInput == "email-address" ? "none" : "words"}
                             keyboardType={typeOfInput == "email-address" ? "email-address" : "default"}

@@ -1,43 +1,63 @@
-import React, { useEffect, useState } from 'react'
-import { Image, Text, TouchableOpacity, View, KeyboardAvoidingView } from 'react-native'
+import React, { useContext, useEffect, useState } from 'react'
+import { Image, Text, TouchableOpacity, View, KeyboardAvoidingView, Alert } from 'react-native'
 import { Avatar } from '../../components/avatar/Avatar'
 import { avatar } from '../../resources'
 import Icon from 'react-native-vector-icons/Ionicons'
 import { ButtonFilled } from '../../controls/buttonFilled/ButtonFilled'
 import { InputFilled } from '../../controls/inputFilled/InputFilled'
 import { CustomModal } from '../../components/modal/CustomModal'
+import { AuthContext } from '../../context/AuthContext'
+import { requestCameraPermission } from '../../helpers/permissions'
+import { launchCamera, launchImageLibrary } from 'react-native-image-picker'
+import { useTakePhoto } from '../../hooks/useTakePhoto'
+
+
 
 export const Profile = ({ navigation }: any) => {
 
-  const [modalVisible, setModalVisible] = useState(false);
+  const { user } = useContext(AuthContext);
 
-  const data = [
-    { tag: 'Nombres', value: 'Yahir Alexander' },
-    { tag: 'Apellidos', value: 'Manjarrez Belevi' },
-    { tag: 'Correo electronico', value: 'alexander@gmail.co' },
-    { tag: 'Telefono', value: '4993645346' }
-  ]
+  
+ 
+  const { Img, Lastname, Name, Email } = { ...user }
+
+  
+  const { selectedImage, onTakePhoto,onTakePhotoGallery,onCloseModal,onOpenModal,visible,onAlertSavePhoto } = useTakePhoto( {initImg : Img});
 
 
-  const onOpenModal = () => {
-    setModalVisible(true)
+
+
+  const newFormatUsuer: { [key: string]: string } = {
+    'Nombres': Name || '',
+    'Apellidos': Lastname || '',
+    'Correo electrónico': Email || '',
+  };
+
+  const onSavePhoto = () =>{
+
   }
 
-  const onCloseModal = () => {
-    setModalVisible(false)
-  }
+
+  useEffect(() => {
+
+    if (selectedImage.uri != Img) {
+      onAlertSavePhoto(onSavePhoto)
+    }
+
+  }, [selectedImage.uri])
+
 
   useEffect(() => {
     navigation.setOptions({
       headerStyle: {
         backgroundColor: 'white', // Cambia el color del fondo del encabezado
-        
+
       },
       headerTitleStyle: {
-        letterSpacing:1,
+        letterSpacing: 1,
         color: '#32BC82', // Cambia el color del título del encabezado
       },
-      
+
       headerLeft: () => (
         <TouchableOpacity onPress={() => navigation.navigate('Inicio')}>
           <View style={{ paddingHorizontal: 10 }}>
@@ -52,27 +72,20 @@ export const Profile = ({ navigation }: any) => {
 
   return (
 
-    <View style={{ flex: 1, backgroundColor: 'white' }}>
-      <View style={{ height: '30%', alignItems: 'center', gap: 15, padding: 20}}>
+    <View style={{ flex: 1 }}>
+      <View style={{ height: '50%', alignItems: 'center', gap: 15, padding: 20 }}>
 
-        <Avatar img={avatar} />
-        <Text style={{ letterSpacing:1, fontSize: 20, color: '#32BC82', fontWeight:'bold' }}>Yahir Alexander</Text>
+        <Avatar img={selectedImage.uri} event={onOpenModal} />
+        <Text style={{ letterSpacing: 1, fontSize: 20, color: '#32BC82', fontWeight: 'bold' }}>{Name}</Text>
 
 
 
       </View>
       <View style={{
-        height: '70%',
+        height: '50%',
         gap: 20,
         backgroundColor: '#32BC82',
         padding: 20,
-        borderTopLeftRadius:50,
-        borderTopRightRadius:50,
-        shadowColor: 'gray', // Color de la sombra
-        shadowOffset: { width: 150, height: 150 }, // Offset de la sombra (horizontal y vertical)
-        shadowOpacity: .5, // Opacidad de la sombra
-        shadowRadius: 5, // Radio de la sombra
-
       }}>
 
         <View style={{ alignSelf: 'flex-end' }}>
@@ -80,28 +93,40 @@ export const Profile = ({ navigation }: any) => {
           <TouchableOpacity style={{
             flexDirection: 'row',
             alignItems: 'center',
-            gap: 15}}
+            gap: 15
+          }}
             onPress={() => navigation.navigate('editProfile')}
-            >
+          >
             <Icon name='pencil' color={'white'} size={17} />
             <Text style={{
-              color:'white',
-              fontSize:17,
-              fontWeight:'bold'
-          }}>Editar</Text>
+              color: 'white',
+              fontSize: 17,
+              fontWeight: 'bold'
+            }}>Editar</Text>
           </TouchableOpacity>
-          {/* <ButtonFilled title={'Editar'} event={onOpenModal}/> */}
+         
         </View>
 
-        {data.map(tag =>
-          <View style={{ gap: 5 }} key={tag.tag}>
-            <Text style={{ fontSize: 18, color: 'white' }}>{tag.tag}</Text>
-            <Text style={{ fontSize: 18, color: 'gray' }}>{tag.value}</Text>
+        {
+          Object.keys(newFormatUsuer).map(key =>
 
-          </View>
-        )}
+            <View style={{ gap: 5 }} key={key}>
+              <Text style={{ fontSize: 18, color: 'white' }}>{key}</Text>
+              <Text style={{ fontSize: 18, color: '#5F5F5F' }}>{newFormatUsuer[key]}</Text>
+
+            </View>
+          )
+        }
       </View>
 
+
+      <CustomModal 
+        takeGallery={onTakePhotoGallery} 
+        takePhoto={onTakePhoto} 
+        closeModal={onCloseModal} 
+        visible={visible} />
     </View>
+
+
   )
 }

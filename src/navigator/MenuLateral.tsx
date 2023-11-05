@@ -1,5 +1,5 @@
 //#Libraries
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 //#Styles
 import Icon from 'react-native-vector-icons/Ionicons';
 import { View, Text, TouchableOpacity, StyleSheet,Image } from 'react-native';
@@ -14,6 +14,7 @@ import { avatar } from '../resources';
 import { Profile } from '../screen/profile/Profile';
 import { EditProfile } from '../screen/editProfile/EditProfile';
 import { AvatarNavBar, NavContainerProfile, SectionContainer, UserNameNav, focus } from './styles';
+import { AuthContext } from '../context/AuthContext';
 
 const Drawer = createDrawerNavigator();
 
@@ -33,6 +34,10 @@ const routeNavegation = [
   {title: 'Daily plan', nav: 'profile', component:Profile },
   {title: 'Editar perfil', nav: 'editProfile', component:EditProfile },
 ]
+
+
+const imgDefault ="https://res.cloudinary.com/df4cwuvkh/image/upload/v1698723299/dailyPlan/kn2iyw7r52rd4ue9yzxo.jpg";
+
 
 export const MenuLateral = () => {
   return (
@@ -58,7 +63,10 @@ export const MenuLateral = () => {
 
 const CustomMenu = ({ navigation }: any) => {
 
+
   const [isActived, setIsActived] = useState(0)
+
+  const {user} = useContext(AuthContext)
 
   const onActive = (index: any, nav: string) => {
     setIsActived(index)
@@ -73,9 +81,9 @@ const CustomMenu = ({ navigation }: any) => {
 
       <NavContainerProfile>
         <TouchableOpacity onPress={() => navigation.navigate('profile')}>
-          <AvatarNavBar source={avatar} />
+          <AvatarNavBar source={{uri:(user?.Img) ? user?.Img : imgDefault }} />
         </TouchableOpacity>
-        <UserNameNav>Yahir Alexander</UserNameNav>
+        <UserNameNav>{user?.Name}</UserNameNav>
       </NavContainerProfile>
 
       <View>

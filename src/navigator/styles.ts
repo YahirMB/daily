@@ -12,6 +12,7 @@ export const NavContainerProfile = styled.View`
 export const AvatarNavBar = styled.Image`
     width: 45px;
     height: 45px;
+    border-radius:45px;
 `
 export const UserNameNav = styled.Text`
     color: white;

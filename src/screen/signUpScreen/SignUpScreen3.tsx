@@ -1,6 +1,6 @@
 //#Libraries
 import React, { useContext, useEffect, useState } from 'react'
-import { Text, TouchableOpacity, View } from 'react-native';
+import { Text, TouchableOpacity, View,Alert } from 'react-native';
 //#Controls
 import { ButtonFilled } from '../../controls/buttonFilled/ButtonFilled';
 //#Styles
@@ -15,18 +15,41 @@ import { Avatar } from '../../components/avatar/Avatar';
 import { fileUpload } from '../../helpers/uploadFileImg';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { AuthContext } from '../../context/AuthContext';
+import { useTakePhoto } from '../../hooks/useTakePhoto';
+import { CustomModal } from '../../components/modal/CustomModal';
+import { EventSubscriptionVendor } from 'react-native/Libraries/vendor/emitter/EventEmitter';
 
 
-
+const imgDefault = "https://res.cloudinary.com/df4cwuvkh/image/upload/v1698723299/dailyPlan/kn2iyw7r52rd4ue9yzxo"
 
 export const SignUpScreen3 = ({ navigation }: any) => {
 
-    const [selectedImage, setSelectedImage] = useState(avatar);
 
-    const [showButtons, setShowButtons] = useState(false)
+    const { updateImg, user,removeCodeStatus,codeStatus } = useContext(AuthContext)
 
-    const {updateImg,user} = useContext(AuthContext)
+    const { onTakePhoto, onTakePhotoGallery, onCloseModal, onOpenModal, visible, selectedImage,onAlertSavePhoto } = useTakePhoto({initImg: imgDefault})
 
+ 
+
+    const onSavePhoto = () => {
+
+        if (!user?.Email) return
+
+        updateImg(user?.Email, {
+            uri: selectedImage.uri,
+            type: selectedImage.type,
+            name: selectedImage.fileName
+        })
+       
+    }
+
+    useEffect(() => {
+      if(codeStatus == 200){
+        removeCodeStatus()
+        navigation.replace('Home')
+      }
+    }, [codeStatus])
+    
 
 
     useEffect(() => {
@@ -35,69 +58,21 @@ export const SignUpScreen3 = ({ navigation }: any) => {
         })
     }, [])
 
+    useEffect(() => {
 
-    const onTakePhoto = async () => {
-        if (await requestCameraPermission()) {
-            launchCamera({ mediaType: 'photo' }, (response: any) => {
-                if (response.didCancel) {
-                    // El usuario canceló la acción
-                } else if (response.errorCode) {
-                    // Hubo un error al acceder a la galería de imágenes
-                } else {
-                    // La imagen seleccionada está en response.assets[0].uri
-
-                    setShowButtons(true)
-                    const image = response.assets[0];
-                    setSelectedImage(image)
-                }
-            })
+        if(selectedImage.uri != imgDefault){
+            onAlertSavePhoto(onSavePhoto)
         }
-    }
-    const onTakePhotoGallery = async () => {
-        if (await requestCameraPermission()) {
-            launchImageLibrary({ mediaType: 'photo' }, (response: any) => {
-                if (response.didCancel) {
-                    // El usuario canceló la acción
-                } else if (response.errorCode) {
-                    // Hubo un error al acceder a la galería de imágenes
-                } else {
-                    // La imagen seleccionada está en response.assets[0].uri
-                    
-                    setShowButtons(true)
-                    const image = response.assets[0];
-                    
-                    setSelectedImage(image)
-
-                }
-            })
-        }
-    }
-
+     
+    }, [selectedImage.uri])
+    
   
 
-    const onSavePhoto = () => {
-
-        if(!user?.Email) return
-
-        updateImg(user?.Email, {
-            uri: selectedImage.uri,
-            type: selectedImage.type,
-            name: selectedImage.fileName
-        })
-        
-        setShowButtons(false)
-        navigation.navigate('Home')
+    const onSkip = () => {
+        navigation.navigate('Home');
     }
 
-    const onDeletePhoto = () => {
-        
-        setShowButtons(false)
-        setSelectedImage(avatar)
 
-    }
-
-    
-    
 
     return (
 
@@ -107,29 +82,34 @@ export const SignUpScreen3 = ({ navigation }: any) => {
 
 
 
-            <Avatar img={selectedImage} event={onTakePhoto} />
+            <Avatar img={selectedImage.uri} event={onOpenModal} />
 
-            {showButtons &&
+            {/* {showButtons &&
                 <View style={{ flexDirection: 'row', columnGap: 15 }}>
-                    <Icon 
-                        onPress={onDeletePhoto} 
-                        name='close' size={24} 
-                        color={'red'} 
+                    <Icon
+                        onPress={onDeletePhoto}
+                        name='close' size={24}
+                        color={'red'}
                         style={{ backgroundColor: 'white', padding: 2 }}  />
-                    <Icon 
-                        onPress={onSavePhoto} 
-                        name='checkmark' 
-                        size={24} 
-                        color={'green'} 
+                    <Icon
+                        onPress={onSavePhoto}
+                        name='checkmark'
+                        size={24}
+                        color={'green'}
                         style={{ backgroundColor: 'white', padding: 2 }} />
                 </View>
-            }
+            } */}
 
 
             <BtnContainer>
-                <ButtonFilled colorText='#32BC82' event={onTakePhotoGallery} backgroundColor={'white'} title='Subir de galería' />
-                <ButtonFilled colorText='#32BC82' event={() => navigation.navigate('Home')} backgroundColor={'white'} title='Omitir' />
+                <ButtonFilled colorText='#32BC82' event={onSkip} backgroundColor={'white'} title='Omitir' />
             </BtnContainer>
+            <CustomModal
+                closeModal={onCloseModal}
+                takeGallery={onTakePhotoGallery}
+                visible={visible}
+                takePhoto={onTakePhoto}
+            />
         </LayoutScreen>
 
     )

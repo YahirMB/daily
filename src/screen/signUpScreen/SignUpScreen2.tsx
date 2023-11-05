@@ -26,9 +26,9 @@ interface KeysEmptys {
 
 export const SignUpScreen2 = ({ navigation, route }: any) => {
 
-    const { data } = route.params
+    const { data  } = route.params
 
-    const { errorMessage,signUp,removeMessage,typeOperation ,codeStatus} = useContext(AuthContext)
+    const { errorMessage,signUp,removeMessage,typeOperation ,codeStatus,removeCodeStatus} = useContext(AuthContext)
 
     
     const onValidatePassword = () => {
@@ -67,50 +67,12 @@ export const SignUpScreen2 = ({ navigation, route }: any) => {
     useEffect(() => {
 
         if(codeStatus == 200){
-            navigation.navigate('SignUp3')
+            navigation.replace('SignUp3')
+            removeCodeStatus();
         }
    
     }, [codeStatus])
     
-
-
-
-    // const nextScreen = () => {
-
-    //     let AllFieldFille = true;
-
-    //     let keysEmptys: KeysEmptys = {}
-
-    //     for (const key in dataSignUp) {
-
-    //         if (dataSignUp[key] == '') {
-    //             AllFieldFille = false
-    //             keysEmptys[key] = true;
-    //         } else {
-    //             keysEmptys[key] = false;
-    //         }
-    //     }
-
-    //     setemptyField({ ...emptyField, ...keysEmptys })
-        
-
-    //     if (AllFieldFille) {
-
-    //         if (dataSignUp.Password == dataSignUp.ConfirmPassword) {
-    //             const { ConfirmPassword = '', ...newData } = { ...dataSignUp, ...data }
-    //             signUp(newData)
-    //             setShowAlert(true)
-    //         } else {
-    //             Alert.alert('Error de datos', 'Las contraseñas no coinciden', [
-    //                 { text: 'Ok', onPress: () => null }
-    //             ])
-    //         }
-    //     }
-    // }
-
-
-    
-
 
     return (
 

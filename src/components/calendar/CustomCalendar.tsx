@@ -8,10 +8,10 @@ const renderCustomArrow = (direction:any) => {
 
 
 export const CustomCalendar = () => {
-  const [state, setState] = useState({ selectedDate: '' });
+  const [getDate, setGetDate] = useState('');
 
   const onDayPress = (day:any) => {
-    setState({ selectedDate: day.dateString });
+    setGetDate(day.dateString);
     // Puedes hacer lo que quieras con la fecha seleccionada aquí
     console.log('Fecha seleccionada:', day.dateString);
   };
@@ -38,7 +38,7 @@ export const CustomCalendar = () => {
       }}
       onDayPress={onDayPress}
       markedDates={{
-        [state.selectedDate]: { selected: true, selectedColor: '#32BC82' }
+        [getDate]: { selected: true, selectedColor: '#32BC82' }
       }}
     />
   );

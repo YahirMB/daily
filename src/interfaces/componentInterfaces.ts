@@ -20,12 +20,17 @@ export interface propsCardList {
 }
 
 export interface modalProps {
-    visible : boolean,
-    event : () => void
-    children:any
-  }
+    visible: boolean,
+    event?: () => void
+    children?: any,
+    closeModal: () => void
+    takePhoto: () => void
+    takeGallery: () => void
+}
 
-  
+
+
+
 
 export interface inputProps {
     nameLabel?: string,
@@ -36,7 +41,7 @@ export interface inputProps {
     event?: (text: string) => void,
     value?: string,
     background?: string
-    fieldValid?:boolean
-    fieldEmpty?:boolean
-    messageError?:string
+    fieldValid?: boolean
+    fieldEmpty?: boolean
+    messageError?: string
 }

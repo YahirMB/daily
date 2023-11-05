@@ -29,7 +29,7 @@ export const LoginScreen = ({ navigation }: any) => {
   const { logIn, user, errorMessage, codeStatus, status, removeMessage, typeOperation,removeCodeStatus } = useContext(AuthContext)
   const { form, onChange,keys, onSenData,setFormValue} = useForm({ email: '', password: '' }, { email: false, password: false },logIn)
  
-
+  
   useEffect(() => {
     navigation.setOptions({
       title: 'Daily plan',

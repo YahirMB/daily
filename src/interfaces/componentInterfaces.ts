@@ -6,6 +6,8 @@ export interface avatarProps {
 export interface cardProps {
     info: string
     titleCard: string
+    idCard:number
+    // event:() => void | undefined
 
 }
 
@@ -16,6 +18,7 @@ export interface CarouselItem {
 
 export interface propsCardList {
     data: Array<any>
+    // event: () => void
 
 }
 
@@ -24,8 +27,16 @@ export interface modalProps {
     event?: () => void
     children?: any,
     closeModal: () => void
-    takePhoto: () => void
-    takeGallery: () => void
+    takePhoto?: () => void
+    takeGallery?: () => void
+}
+
+
+export interface modalBasicProps {
+    visible: boolean,
+    event?: () => void
+    children?: any,
+    closeModal: () => void
 }
 
 

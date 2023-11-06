@@ -10,8 +10,8 @@ export interface AuthState {
     user: User | null;
     errorMessage: string
     codeStatus: number
-    typeOperation:string
-    recoverCode:string
+    typeOperation: string
+    recoverCode: string
 }
 
 //tipos de acciones a realizar
@@ -20,13 +20,13 @@ type AuthAction =
     { type: 'logIn', payload: { user: User, codeStatus: 0 } }
     | { type: 'logOut' }
     | { type: 'error', payload: { message: '', codeStatus: 0 } }
-    | { type: 'checking', payload: { type:string} }
-    | { type: 'removeMessage',payload: { type:string} }
+    | { type: 'checking', payload: { type: string } }
+    | { type: 'removeMessage', payload: { type: string } }
     | { type: 'signUp', payload: { user: User, codeStatus: 0 } }
     | { type: 'updateImg', payload: { user: User, codeStatus: 0 } }
-    | { type: 'recoverAccount', payload: { codeStatus: 0,recoverCode:'' } }
-    | { type: 'removeStatus'}
-    | { type: 'restorePassword',payload: { codeStatus: 0}}
+    | { type: 'recoverAccount', payload: { codeStatus: 0, recoverCode: '' } }
+    | { type: 'removeStatus' }
+    | { type: 'restorePassword', payload: { codeStatus: 0 } }
 
 
 
@@ -46,7 +46,13 @@ export const authReducer = (state: AuthState, action: AuthAction): AuthState => 
         case 'logOut':
             return {
                 ...state,
+                status: null,
                 isLoggedIn: false,
+                user: null,
+                errorMessage: '',
+                codeStatus: 0,
+                typeOperation: '',
+                recoverCode: ''
             }
 
         case 'error':
@@ -55,21 +61,21 @@ export const authReducer = (state: AuthState, action: AuthAction): AuthState => 
                 errorMessage: action.payload.message,
                 codeStatus: action.payload.codeStatus,
                 status: 'not-authenticated',
-                isLoggedIn:false
+                isLoggedIn: false
 
             }
 
         case 'checking':
             return {
                 ...state,
-                status:'checking',
-                typeOperation:action.payload.type
+                status: 'checking',
+                typeOperation: action.payload.type
             }
         case 'removeMessage':
             return {
                 ...state,
-                errorMessage:'',
-                typeOperation:'',
+                errorMessage: '',
+                typeOperation: '',
             }
         case 'signUp':
             return {

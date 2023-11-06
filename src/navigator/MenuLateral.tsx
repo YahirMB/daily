@@ -66,11 +66,16 @@ const CustomMenu = ({ navigation }: any) => {
 
   const [isActived, setIsActived] = useState(0)
 
-  const {user} = useContext(AuthContext)
+  const {user,logout} = useContext(AuthContext)
 
   const onActive = (index: any, nav: string) => {
     setIsActived(index)
     navigation.navigate(nav)
+
+    if(nav == 'Login'){
+      logout()
+    }
+
   }
 
 

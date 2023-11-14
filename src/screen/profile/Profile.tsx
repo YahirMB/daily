@@ -15,14 +15,14 @@ import { useTakePhoto } from '../../hooks/useTakePhoto'
 
 export const Profile = ({ navigation }: any) => {
 
-  const { user } = useContext(AuthContext);
+  const { user, updateImg,codeStatus,removeCodeStatus } = useContext(AuthContext);
 
-  
- 
+
+
   const { Img, Lastname, Name, Email } = { ...user }
 
-  
-  const { selectedImage, onTakePhoto,onTakePhotoGallery,onCloseModal,onOpenModal,visible,onAlertSavePhoto } = useTakePhoto( {initImg : Img});
+
+  const { selectedImage, onTakePhoto, onTakePhotoGallery, onCloseModal, onOpenModal, visible, onAlertSavePhoto } = useTakePhoto({ initImg: Img });
 
 
 
@@ -33,11 +33,24 @@ export const Profile = ({ navigation }: any) => {
     'Correo electrónico': Email || '',
   };
 
-  const onSavePhoto = () =>{
+  const onSavePhoto = () => {
+
+    if (!user?.Email) return
+
+    updateImg(user?.Email, {
+      uri: selectedImage.uri,
+      type: selectedImage.type,
+      name: selectedImage.fileName
+    })
 
   }
 
-
+  useEffect(() => {
+    if(codeStatus == 200){
+      removeCodeStatus()
+    }
+  }, [codeStatus])
+  
   useEffect(() => {
 
     if (selectedImage.uri != Img) {
@@ -59,7 +72,7 @@ export const Profile = ({ navigation }: any) => {
       },
 
       headerLeft: () => (
-        <TouchableOpacity onPress={() => navigation.navigate('Inicio')}>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
           <View style={{ paddingHorizontal: 10 }}>
             <Icon name='arrow-back' color={'#32BC82'} size={24} />
           </View>
@@ -104,7 +117,7 @@ export const Profile = ({ navigation }: any) => {
               fontWeight: 'bold'
             }}>Editar</Text>
           </TouchableOpacity>
-         
+
         </View>
 
         {
@@ -120,10 +133,10 @@ export const Profile = ({ navigation }: any) => {
       </View>
 
 
-      <CustomModal 
-        takeGallery={onTakePhotoGallery} 
-        takePhoto={onTakePhoto} 
-        closeModal={onCloseModal} 
+      <CustomModal
+        takeGallery={onTakePhotoGallery}
+        takePhoto={onTakePhoto}
+        closeModal={onCloseModal}
         visible={visible} />
     </View>
 

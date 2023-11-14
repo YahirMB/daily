@@ -15,8 +15,7 @@ export const AreaView = styled.View`
 `
 
 export const AreaCred = styled(AreaView)`
-    opacity: 0.5;   
-
+  
 `
 
 export const InputContainer = styled.View`
@@ -27,6 +26,15 @@ export const InputContainer = styled.View`
     paddingRight: 15px;
 
 `
+
+export const InputContainer2 = styled.View`
+    gap: 5px;
+    flex-direction:row;
+    align-items:center;
+    justify-content:space-between;
+    margin:10px;
+`
+
 export const TitleSection = styled.Text`
     fontSize: 22px;
     fontWeight: bold;

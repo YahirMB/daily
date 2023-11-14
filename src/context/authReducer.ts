@@ -23,10 +23,11 @@ type AuthAction =
     | { type: 'checking', payload: { type: string } }
     | { type: 'removeMessage', payload: { type: string } }
     | { type: 'signUp', payload: { user: User, codeStatus: 0 } }
-    | { type: 'updateImg', payload: { user: User, codeStatus: 0 } }
+    | { type: 'updateUser', payload: { user: User, codeStatus: 0 } }
     | { type: 'recoverAccount', payload: { codeStatus: 0, recoverCode: '' } }
     | { type: 'removeStatus' }
     | { type: 'restorePassword', payload: { codeStatus: 0 } }
+
 
 
 
@@ -84,7 +85,7 @@ export const authReducer = (state: AuthState, action: AuthAction): AuthState => 
                 codeStatus: action.payload.codeStatus,
                 status: 'authenticated'
             }
-        case 'updateImg':
+        case 'updateUser':
             return {
                 ...state,
                 user: action.payload.user,
@@ -106,7 +107,6 @@ export const authReducer = (state: AuthState, action: AuthAction): AuthState => 
                 ...state,
                 codeStatus: action.payload.codeStatus
             }
-
         default:
             return state;
     }

@@ -1,12 +1,23 @@
-import React, { useEffect } from 'react'
-import { Text, TouchableOpacity, View } from 'react-native'
+import React, { useContext, useEffect } from 'react'
+import { Text, TouchableOpacity, View, ScrollView,Alert } from 'react-native'
 import Icon from 'react-native-vector-icons/Ionicons'
-import { AreaCred, AreaView, ButtonContainer, Container, InputContainer, TitleSection } from './styles'
+import { AreaCred, AreaView, ButtonContainer, Container, InputContainer, InputContainer2, TitleSection } from './styles'
 import { InputFilled } from '../../controls/inputFilled/InputFilled'
 import { ButtonFilled } from '../../controls/buttonFilled/ButtonFilled'
+import { useForm } from '../../hooks/useForm'
+import { AuthContext } from '../../context/AuthContext'
 
-export const EditProfile = ({navigation}:any) => {
 
+
+export const EditProfile = ({ navigation }: any) => {
+
+    const { user,updateProfile,removeCodeStatus,removeMessage,codeStatus } = useContext(AuthContext)
+
+    const { onChange, onSenData, keys, form } = useForm(
+        { Name: user?.Name, Lastname: user?.Lastname, Email: user?.Email},
+        { Name: false, Lastname: false, Email: false},
+        () => { }
+    )
 
     useEffect(() => {
         navigation.setOptions({
@@ -20,7 +31,7 @@ export const EditProfile = ({navigation}:any) => {
             },
 
             headerLeft: () => (
-                <TouchableOpacity onPress={() => navigation.navigate('Inicio')}>
+                <TouchableOpacity onPress={() => navigation.navigate('profile')}>
                     <View style={{ paddingHorizontal: 10 }}>
                         <Icon name='arrow-back' color={'#32BC82'} size={24} />
                     </View>
@@ -30,30 +41,115 @@ export const EditProfile = ({navigation}:any) => {
 
     }, [])
 
+    useEffect(() => {
+        if(codeStatus == 200){
+            navigation.navigate('profile');
+            removeCodeStatus();
+            removeMessage();
+        }
+    }, [codeStatus])
+    
+
+    const onEditProfile = () => {
+        if (user?.Id) {
+
+            const {IdRol,Id,Img,Password,Phone,...resetForm} = user
+            
+            let dataModified = false
+
+            for (const key in form) {
+                if(resetForm[key] != form[key]) {
+                    dataModified = true;
+                }
+            }
+           
+            if(dataModified) {             
+                updateProfile(user.Id, form)
+            } else{
+              Alert.alert('Error al editar perfil','No se ha modicado ningun datos',[{text:'Ok',onPress : () => null}])
+            }
+
+        }
+    }
+
+
     return (
-        <Container>
-            <AreaView>
-                <TitleSection>Datos generales</TitleSection>
-                <InputContainer>
-                    <InputFilled nameLabel='Nombre(s): ' placeholderText='Actualiza tu nombre ' background='#D9D9D9' icon='person' colorLabel='#888888' />
-                    <InputFilled nameLabel='Apellidos: ' placeholderText='Actualiza tus apellidos 'background='#D9D9D9' icon='person' colorLabel='#888888'/>
-                    <InputFilled nameLabel='Telefono: ' placeholderText='Actualiza tu telefono 'background='#D9D9D9' icon='call' colorLabel='#888888'/>
-                </InputContainer>
-            </AreaView> 
+        <ScrollView>
 
-            <AreaCred>
-                <TitleSection>Credenciales</TitleSection>
-                <InputContainer>
-                    <InputFilled nameLabel='Correo electrónico: ' placeholderText='Actualiza tu correo 'background='#D9D9D9' icon='at' colorLabel='#888888'/>
-                    <InputFilled nameLabel='Contraseña: ' placeholderText='Actualiza tu contraseña 'typeOfInput='password' background='#D9D9D9' icon='eye' colorLabel='#888888'/>
-                    <InputFilled nameLabel='Confirmar contraseña: ' placeholderText='Confirma tu contraseña 'typeOfInput='password' background='#D9D9D9' icon='eye' colorLabel='#888888'/>
-                </InputContainer>
-            </AreaCred>
+            <Container>
+                <AreaView>
+                    <TitleSection>Datos generales</TitleSection>
+                    <InputContainer>
+                        <InputFilled
+                            value={form?.Name}
+                            fieldEmpty={keys.Name}
+                            messageError='No puedes dejar campo vacio'
+                            event={text => onChange(text, "Name")}
+                            nameLabel='Nombre(s): '
+                            placeholderText='Actualiza tu nombre '
+                            background='#D9D9D9'
+                            icon='person'
+                            colorLabel='#888888' />
+                        <InputFilled
+                            value={form?.Lastname}
+                            fieldEmpty={keys.Lastname}
+                            messageError='No puedes dejar campo vacio'
+                            event={text => onChange(text, "Lastname")}
+                            nameLabel='Apellidos: '
+                            placeholderText='Actualiza tus apellidos '
+                            background='#D9D9D9'
+                            icon='person'
+                            colorLabel='#888888' />
 
-            <ButtonContainer>
-                    <ButtonFilled event={() => navigation.navigate('')} title={'Guardar'} />
-            </ButtonContainer>
+                        <InputFilled
+                            value={form?.Email}
+                            fieldEmpty={keys.Email}
+                            messageError='No puedes dejar campo vacio'
+                            event={text => onChange(text, "Email")}
+                            nameLabel='Correo electrónico: '
+                            placeholderText='Actualiza tu correo '
+                            background='#D9D9D9'
+                            icon='at'
+                            colorLabel='#888888' />
 
-        </Container>
+                        {/* <InputFilled nameLabel='Telefono: ' placeholderText='Actualiza tu telefono 'background='#D9D9D9' icon='call' colorLabel='#888888'/> */}
+                    </InputContainer>
+                </AreaView>
+
+                <ButtonContainer>
+                    <ButtonFilled event={onEditProfile} title={'Guardar'} />
+                </ButtonContainer>
+{/* 
+                <AreaCred>
+                    <TitleSection>Contraseñas</TitleSection>
+                    <InputContainer2>
+
+
+                        <Text style={{color:'#6D6B6B',fontSize:18}}>Crear un nueva contraseña</Text>
+                        <Icon name='chevron-forward' size={20}  />
+                        {/* <InputFilled
+                            value={form?.Password}
+                            event={text => onChange(text, "Password")}
+                            nameLabel='Contraseña: '
+                            placeholderText='Actualiza tu contraseña '
+                            typeOfInput='password'
+                            background='#D9D9D9'
+                            icon='eye'
+                            colorLabel='#888888' />
+                        <InputFilled
+                            value={form?.Password}
+                            event={text => onChange(text, "ConfirmPassword")}
+                            nameLabel='Confirmar contraseña: '
+                            placeholderText='Confirma tu contraseña '
+                            typeOfInput='password'
+                            background='#D9D9D9'
+                            icon='eye'
+                            colorLabel='#888888' /> 
+                    </InputContainer2>
+                </AreaCred>
+                 */}
+
+            </Container>
+        </ScrollView>
     )
 }

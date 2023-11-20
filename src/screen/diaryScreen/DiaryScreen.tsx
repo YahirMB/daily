@@ -13,14 +13,7 @@ export const DiaryScreen = () => {
       <CustomCalendar />
       <View style={{ borderBottomColor: '#D9D9D9', borderBottomWidth: 1, marginTop: 20, marginHorizontal: 20 }}></View>
 
-      <VirtualizedList
-        style={{ paddingTop: 40 }}
-        data={data}
-        renderItem={(item) => <CardsList data={data} />}
-        keyExtractor={(item, index) => index.toString()}
-        getItemCount={() => data.length}
-        getItem={(data, index) => data[index]}
-      />
+     
     </View>
   )
 }

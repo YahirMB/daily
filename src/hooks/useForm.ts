@@ -36,7 +36,7 @@ export const useForm = <T,K extends Object>( initState: T,initKeys:K,event:any )
     }
 
 
-    const onSenData = () => {
+    const onSenData = (recivedData?:any) => {
 
         let fill = true
         const newKeys: EmptyFiel = {}
@@ -55,7 +55,9 @@ export const useForm = <T,K extends Object>( initState: T,initKeys:K,event:any )
         }
 
         if(fill){
-            event(state)
+            console.log(recivedData)
+            !recivedData ? event(state) : event(recivedData)
+
         }
        
 
@@ -70,7 +72,6 @@ export const useForm = <T,K extends Object>( initState: T,initKeys:K,event:any )
         onChange,
         setFormValue,
         setKeysValue,
-        fillData,
         onSenData
     }
 }

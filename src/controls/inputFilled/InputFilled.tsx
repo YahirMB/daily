@@ -8,6 +8,7 @@ import { Text } from 'react-native'
 
 
 interface FCInput {
+    iconEvent?: () => void;
     nameLabel?: string,
     placeholderText?: string,
     typeOfInput?: string,
@@ -16,29 +17,29 @@ interface FCInput {
     event?: (text: string) => void,
     value?: string,
     background?: string
-    fieldValid?:boolean
-    fieldEmpty?:boolean
-    messageError?:string
-    colorLabel?:string
-    disabled?:boolean
+    // fieldValid?: boolean
+    fieldEmpty?: boolean
+    messageError?: string
+    colorLabel?: string
+    disabled?: boolean
 }
 
 
-type typeOfInput = 
-    {type:'email'} 
-    |{type:'tel'}
-    |{type:'text'}
-    |{type:'numeric'}
+type typeOfInput =
+    { type: 'email' }
+    | { type: 'tel' }
+    | { type: 'text' }
+    | { type: 'numeric' }
 
 import { inputProps } from '../../interfaces/componentInterfaces'
 
 
 
 export const InputFilled = (
-    { nameLabel, fieldValid ,placeholderText, 
-    typeOfInput, icon = "", identity, event, 
-    value, background,fieldEmpty,messageError, 
-    colorLabel,disabled}: FCInput) => {
+    { nameLabel, placeholderText,
+        typeOfInput, icon = "", identity, event,
+        iconEvent, value, background, fieldEmpty, messageError,
+        colorLabel, disabled }: FCInput) => {
 
     const [isEnable, setIsEnable] = useState(true)
 
@@ -51,7 +52,7 @@ export const InputFilled = (
         <InputBase>
             <Label
                 textColor={colorLabel}
-                
+
             >{nameLabel}</Label>
             <InputWithIcon>
                 {
@@ -63,11 +64,13 @@ export const InputFilled = (
                             onFocus={identity}
                             backgroundColor={background}
                             autoCapitalize="none"
-                               
+
                         /> :
                         <Input
+                            placeholderTextColor="#999"
                             onChangeText={event}
                             value={value}
+                            placeholder={placeholderText}
                             onFocus={identity}
                             editable={disabled}
                             backgroundColor={background}
@@ -75,15 +78,23 @@ export const InputFilled = (
                             keyboardType={typeOfInput == "email-address" ? "email-address" : "default"}
                         />
                 }
-                {icon &&
+                { typeOfInput === 'password' ? 
                     <CustomIcon
                         onPress={onShowPassword}
-                        name={typeOfInput === 'password' ? (isEnable ? 'eye-sharp' : 'eye-off-sharp') : icon}
+                        name={isEnable ? 'eye-sharp' : 'eye-off-sharp'}
                         size={20}
                         color={'#6D6B6B'} />
+                :
+                icon ? 
+                    <CustomIcon
+                        onPress={iconEvent}
+                        name={icon}
+                        size={20}
+                        color={'#6D6B6B'} />
+                    :''
                 }
             </InputWithIcon>
-            { fieldEmpty  && <Text style={check.labelInvalid}>{messageError}</Text>}
+            {fieldEmpty && <Text style={check.labelInvalid}>{messageError}</Text>}
         </InputBase>
     )
 }

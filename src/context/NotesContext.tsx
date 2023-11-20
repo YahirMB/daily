@@ -1,104 +1,118 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useEffect, useReducer, useState } from "react";
 import apiDaily from "../api/dailyplanApi";
+import { Note } from "../interfaces/apiInterfaces";
+import { NoteState, noteReducer } from "./noteReducer";
 
 
-interface Note {
-    Id: string,
-    Title: string,
-    Descripcion: string
-}
+
 
 type NoteCotextProps = {
-    notes: Note[];
-    loadNotes: () => Promise<void>;
-    // addNote: (categoryId: string, productName: string) => Promise<Note>;
-    // updateNote: (categoryId: string, productName: string, productId: string) => Promise<void>;
-    // deleteNote: (id: string) => Promise<void>;
+    note: Note | null;
+    status: 'checking' | 'authenticated' | 'not-authenticated' | null;
+    errorMessage: string
+    notes: Array<Note | null>
+    codeStatus: number
+    typeOperation: string
+    loadNotes: (idUser: number) => Promise<void>
+    creatNote: (body: object) => Promise<void>
+    removeCodeStatu: () => void
+
 }
 
+export const noteInitialState: NoteState = {
+    status: null,
+    note: null,
+    notes: [],
+    errorMessage: '',
+    codeStatus: 0,
+    typeOperation: '',
+}
 
 export const NoteContext = createContext({} as NoteCotextProps);
 
 export const NoteProvider = ({ children }: any) => {
 
-    const [notes, setNotes] = useState<Note[]>([]);
-
-    useEffect(() => {
-        loadNotes();
-    }, [])
+    const [noteState, dispatch] = useReducer(noteReducer, noteInitialState);
 
 
-    const loadNotes = async () => {
+    const loadNotes = async (idUser: number) => {
         try {
-            
-            const {data} = await apiDaily.get('note/getAllNotes');
 
 
-            setNotes(data.result)
-           
-        } catch (error) {
-            console.log(error)
+            const { data } = await apiDaily.get(`note/getAllNotesWithLimit/${idUser}`);
+
+
+            if (data.status == 200) {
+                dispatch({
+                    type: 'loadNotes',
+                    payload: {
+                        notes: data.result,
+                    }
+                })
+            } else {
+                dispatch({
+                    type: 'error',
+                    payload: {
+                        errorMessages: data.message,
+                        codeStatus: data.status
+                    }
+                })
+            }
+        } catch (error: any) {
+            dispatch({
+                type: 'error',
+                payload: {
+                    errorMessages: error.message,
+                    codeStatus: error.status
+                }
+            })
         }
-        // setNotes([...resp.data.productos]);
+
     }
 
-    // const addProduct = async (categoryId: string, productName: string): Promise<Producto> => {
+    const creatNote = async (body: object) => {
+        try {
+            const { data } = await apiDaily.post('note/createNote', body);
 
-    //     const resp = await cafeApi.post<Producto>('/productos', {
-    //         nombre: productName,
-    //         categoria: categoryId
-    //     });
-    //     setProducts([...products, resp.data]);
+            if (data.status == 200) {
+                dispatch({
+                    type: 'createNote',
+                    payload: {
+                        codeStatus: data.status
+                    }
+                })
+            } else {
+                dispatch({
+                    type: 'error',
+                    payload: {
+                        errorMessages: data.message,
+                        codeStatus: data.status
+                    }
+                })
+            }
 
-    //     return resp.data;
-    // }
+        } catch (error: any) {
+            dispatch({
+                type: 'error',
+                payload: {
+                    errorMessages: error.message,
+                    codeStatus: error.status
+                }
+            })
+        }
+    }
 
-    // const updateProduct = async (categoryId: string, productName: string, productId: string) => {
-    //     const resp = await cafeApi.put<Producto>(`/productos/${productId}`, {
-    //         nombre: productName,
-    //         categoria: categoryId
-    //     });
-    //     setProducts(products.map(prod => {
-    //         return (prod._id === productId)
-    //             ? resp.data
-    //             : prod;
-    //     }));
-    // }
-
-    // const deleteProduct = async (id: string) => {
-
-    // }
-
-    // const loadProductById = async (id: string): Promise<Producto> => {
-    //     const resp = await cafeApi.get<Producto>(`productos/${id}`);
-    //     return resp.data;
-    // };
-
-    // const uploadImage = async (data: ImagePickerResponse, id: string) => {
-
-    //     const fileToUpload = {
-    //         uri: data.uri,
-    //         type: data.type,
-    //         name: data.fileName
-    //     }
-
-    //     const formData = new FormData();
-    //     formData.append('archivo', fileToUpload);
-
-    //     try {
-
-    //         const resp = await cafeApi.put(`/uploads/productos/${id}`, formData)
-    //         console.log(resp);
-    //     } catch (error) {
-    //         console.log({ error })
-    //     }
-
-    // }
-
+    const removeCodeStatu = () => {
+        dispatch({
+            type:'removeCodeStatus'
+        })
+    }
     return (
         <NoteContext.Provider value={{
+            ...noteState,
             loadNotes,
-            notes
+            creatNote,
+            removeCodeStatu
         }}>
             {children}
 

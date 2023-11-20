@@ -1,47 +1,36 @@
-//#Libraries
-import React, { useEffect, useContext } from 'react'
-//#Components
+import React, { useEffect, useContext, useState } from 'react';
+import { ScrollView, RefreshControl } from 'react-native';
 import { CardsList } from '../../components/cardList/CardsList';
-//#Styles
-import { VirtualizedList } from 'react-native'
-//#Context
 import { NoteContext } from '../../context/NotesContext';
-import { CustomModal } from '../../components/modal/CustomModal';
-import { ModalBasic } from '../../components/modalBasic/ModalBasic';
-import { useModalBasic } from '../../hooks/useModalBasic';
-
+import { AuthContext } from '../../context/AuthContext';
 
 export const HomeScreen = ({ navigation }: any) => {
+  const { user } = useContext(AuthContext);
+  const { loadNotes, notes } = useContext(NoteContext);
+  const [refreshing, setRefreshing] = useState(false);
 
-  const { loadNotes, notes } = useContext(NoteContext)
+  const fetchData = async () => {
+    await loadNotes(user?.Id);
+  };
 
-  const {onCloseModal,onOpenModal,visible} = useModalBasic()
 
-
-
-  const data = [1, 2, 3]
+  const onRefresh = React.useCallback(() => {
+    fetchData();
+    setTimeout(() => {
+      setRefreshing(false);
+    }, 2000);
+  }, []);
 
   useEffect(() => {
-
-    const loadNotesBackend = async () => {
-      await loadNotes();
-
-
-    }
-
-    loadNotesBackend();
-  }, [])
+    fetchData(); // Cargar datos al montar la pantalla inicialmente
+  }, []);
 
 
   return (
-      <VirtualizedList
-        style={{ paddingTop: 40 }}
-        data={data}
-        renderItem={(item) => <CardsList data={data} />}
-        keyExtractor={(item, index) => index.toString()}
-        getItemCount={() => data.length}
-        getItem={(data, index) => data[index]}
-      />
-     
-  )
-}
+    <ScrollView
+      refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} colors={['#32BC82']} />}
+    >
+      <CardsList item={''} data={notes} />
+    </ScrollView>
+  );
+};

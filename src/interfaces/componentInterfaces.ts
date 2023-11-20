@@ -18,6 +18,7 @@ export interface CarouselItem {
 
 export interface propsCardList {
     data: Array<any>
+    item:any
     // event: () => void
 
 }

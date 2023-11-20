@@ -18,6 +18,7 @@ export const Input = styled.TextInput<{backgroundColor?:string}>`
   color: black;
   width:100%;
   padding-right:40px;
+  
 `
 
 export const InputWithIcon = styled.View`

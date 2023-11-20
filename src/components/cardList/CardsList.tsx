@@ -12,38 +12,44 @@ import { useModalBasic } from '../../hooks/useModalBasic'
 
 
 
-export const CardsList = ({ data }: propsCardList) => {
-
-    
+export const CardsList = ({ data, item }: propsCardList) => {
 
     return (
         <>
-            <Container>
 
-                <LineContainer>
-                    <Line></Line>
-                    <Circle></Circle>
-                    <CircleDown></CircleDown>
-                </LineContainer>
+            {
+                Object.keys(data).map((key) =>
 
+                    <Container key={key}>
 
-                <CardContainer>
-                    <DayText>HOY</DayText>
-                    {
-                        data.map(card =>
+                        <LineContainer>
+                            <Line></Line>
+                            <Circle></Circle>
+                            <CircleDown></CircleDown>
+                        </LineContainer>
 
-                            <Card
-                                info='Sacar el perro de la cochera por que siempre se queda a trapado o siempre se queda en su casa'
-                                titleCard='COCHERA'
-                                key={card}
-                                idCard={card}
-                               
-                            />
-                        )
-                    }
-                </CardContainer>
-            </Container>
-          
+                        <CardContainer>
+                            <DayText>{key}</DayText>
+
+                            {data[key].map((card) =>
+
+                                <Card
+                                    info={card.Description}
+                                    titleCard={card.Title}
+                                    key={card.Id}
+                                    idCard={card.Id}
+
+                                />
+
+                            )
+                            }
+
+                        </CardContainer>
+                    </Container>
+                )
+
+            }
+
         </>
 
     )

@@ -8,3 +8,13 @@ export interface User {
     Img:string,
     Password:string
 }
+
+export interface Note {
+    Id: number,
+    Title: string,
+    Description:string,
+    ExpirationDate:string,
+    Location:string,
+    CreationHours:string,
+    
+}

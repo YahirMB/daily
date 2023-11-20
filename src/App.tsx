@@ -25,7 +25,6 @@ const AppState = ({ children }: any) => {
 
     <AuthProvider>
       <NoteProvider>
-
         {children}
       </NoteProvider>
     </AuthProvider>

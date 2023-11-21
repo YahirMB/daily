@@ -13,10 +13,12 @@ interface propUseTakePhoto {
 
 export const useModalBasic =() => {
     const [visible, setVisible] = useState(false)
+    const [idCard, setIdCard] = useState<number>()
    
 
-    const onOpenModal = () => {
+    const onOpenModal = (idCard:number) => {
         setVisible(!visible)
+        setIdCard(idCard)
     }
 
 
@@ -29,5 +31,6 @@ export const useModalBasic =() => {
         visible,
         onCloseModal,
         onOpenModal,
+        idCard
     }
 }

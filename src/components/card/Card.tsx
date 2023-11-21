@@ -6,18 +6,17 @@ import { StyleSheet, Text, View } from 'react-native'
 import Icon from 'react-native-vector-icons/Ionicons'
 //#Interfaces
 import { cardProps } from '../../interfaces/componentInterfaces'
-import { useModalBasic } from '../../hooks/useModalBasic'
-import { ModalBasic } from '../modalBasic/ModalBasic'
 
-export const Card = ({ info, titleCard, idCard }: cardProps) => {
+export const Card = ({ info, titleCard, idCard,onOpenModal,hour }: cardProps) => {
 
-
-  const {onCloseModal,onOpenModal,visible} = useModalBasic()
 
   const onTestCard = (id: number) => {
     console.log('El id de la card', id)
-    
+    if (onOpenModal) {
+      onOpenModal(id)
+    }
   }
+
 
 
   return (
@@ -32,10 +31,10 @@ export const Card = ({ info, titleCard, idCard }: cardProps) => {
           <View style={{ flexDirection: 'row', gap: 10 }}>
 
             <Text style={{ color: 'white', fontSize: 18 }}>
-              15:40hrs
+            {hour.substring(0,5)}hrs
             </Text>
 
-            <Icon name="ellipsis-vertical-sharp" color={'white'} size={25} onPress={onOpenModal} />
+            <Icon name="ellipsis-vertical-sharp" color={'white'} size={25} onPress={() => onTestCard(idCard)} />
           </View>
         </View>
         <Text style={{ color: '#6D6B6B', fontSize: 20, fontWeight: 'bold', textAlign: 'auto', margin: 10 }}>
@@ -46,7 +45,7 @@ export const Card = ({ info, titleCard, idCard }: cardProps) => {
         </Text>
 
       </View>
-      <ModalBasic closeModal={onCloseModal} visible={visible} />
+    
 
     </>
   )

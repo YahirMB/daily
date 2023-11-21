@@ -20,6 +20,7 @@ type AuthAction =
     | { type: 'loadNotes'; payload: { notes: []} }
     | { type: 'error'; payload: { errorMessages: '', codeStatus: 0 } }
     | { type: 'removeCodeStatus' }
+    | { type: 'delete' ,payload: { codeStatus: 0 } }
      
 
 
@@ -41,6 +42,11 @@ export const noteReducer = (state: NoteState, action: AuthAction): NoteState => 
             return {
                 ...state,
                 codeStatus: 0,
+            }
+        case 'delete':
+            return {
+                ...state,
+                codeStatus: action.payload.codeStatus,
             }
 
         default:

@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { modalBasicProps, modalProps } from '../../interfaces/componentInterfaces';
 
 
-export const ModalBasic = ({ visible, closeModal}: modalBasicProps) => {
+export const ModalBasic = ({ visible, closeModal,onDeleteNote}: modalBasicProps) => {
   const [animation] = useState(new Animated.Value(0));
 
   const openModal = () => {
@@ -57,7 +57,7 @@ export const ModalBasic = ({ visible, closeModal}: modalBasicProps) => {
             <View style={{ width: '100%' }}>
               <TouchableOpacity
                 activeOpacity={0.5}
-                // onPress={takePhoto}
+                onPress={onDeleteNote}
                 style={{ paddingHorizontal: 20, paddingTop: 15 }}
               >
                 <View style={{ flexDirection: 'row', alignItems: 'center', gap: 15 }}>

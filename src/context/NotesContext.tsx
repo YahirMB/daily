@@ -15,6 +15,7 @@ type NoteCotextProps = {
     typeOperation: string
     loadNotes: (idUser: number) => Promise<void>
     creatNote: (body: object) => Promise<void>
+    deleteNote: (idNote: number) => Promise<void>
     removeCodeStatu: () => void
 
 }
@@ -104,14 +105,38 @@ export const NoteProvider = ({ children }: any) => {
 
     const removeCodeStatu = () => {
         dispatch({
-            type:'removeCodeStatus'
+            type: 'removeCodeStatus'
         })
     }
+
+    const deleteNote = async (idNote: number) => {
+        try {
+            const { data } = await apiDaily.delete(`note/deleteNote/${idNote}`)
+
+            if (data.status == 200) {
+
+                dispatch({ type: 'delete', payload: { codeStatus: data.status } })
+                
+            } else {
+                dispatch({ type: 'delete', payload: { codeStatus: data.status } })
+            }
+        } catch (error: any) {
+            dispatch({
+                type: 'error',
+                payload: {
+                    errorMessages: error.message,
+                    codeStatus: error.status
+                }
+            })
+        }
+    }
+
     return (
         <NoteContext.Provider value={{
             ...noteState,
             loadNotes,
             creatNote,
+            deleteNote,
             removeCodeStatu
         }}>
             {children}

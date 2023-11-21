@@ -6,7 +6,9 @@ export interface avatarProps {
 export interface cardProps {
     info: string
     titleCard: string
+    hour:string
     idCard:number
+    onOpenModal? :(id:number) => void
     // event:() => void | undefined
 
 }
@@ -34,9 +36,10 @@ export interface modalProps {
 
 
 export interface modalBasicProps {
-    visible: boolean,
+    visible: boolean
     event?: () => void
-    children?: any,
+    children?: any
+    onDeleteNote?: () => void
     closeModal: () => void
 }
 

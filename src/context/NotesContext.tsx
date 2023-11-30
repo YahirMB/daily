@@ -47,8 +47,11 @@ export const NoteProvider = ({ children }: any) => {
     const loadAllNotes = async (idUser: number) => {
         const { data } = await apiDaily.get(`note/getAllNotes/${idUser}`);
 
+        
+        let onlyDates = data.result.map(note => note.ExpiriationDate.replace(/\//g, '-'));
+        
         if (data.status == 200) {
-            dispatch({ type: 'loadAllNotes', payload: { dates: data.result } })
+            dispatch({ type: 'loadAllNotes', payload: { dates:onlyDates } })
         } else {
             dispatch({
                 type: 'error',

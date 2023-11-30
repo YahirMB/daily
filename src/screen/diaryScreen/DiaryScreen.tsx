@@ -47,10 +47,10 @@ export const DiaryScreen = ({ navigation }: any) => {
 
   const onDayPress = (date: any) => {
 
-    const newDate = new Date(date.dateString);
-    const year = newDate.getFullYear();
-    const month = String(newDate.getMonth() + 1).padStart(2, '0'); // Asegura que tenga dos dígitos
-    const day = String(newDate.getDate()).padStart(2, '0'); // Asegura que tenga dos dígitos
+    // const newDate = new Date(date.dateString);
+    const year = date.year
+    const month = String(date.month).padStart(2, '0'); // Asegura que tenga dos dígitos
+    const day = String(date.day).padStart(2, '0'); // Asegura que tenga dos dígitos
 
     const formDate = `${year}/${month}/${day}`;
 
@@ -58,19 +58,17 @@ export const DiaryScreen = ({ navigation }: any) => {
 
     getNoteByDate(user?.Id, { expirationDate: formDate })
 
-
   };
 
 
- 
-  let onlyDates = dates.map(note => note.ExpiriationDate.replace(/\//g, '-'));
 
- 
+
+
 
 
   return (
     <View style={{ flex: 1 }}>
-      <CustomCalendar dates={onlyDates} event={(day: any) => onDayPress(day)} getDate={getDate} />
+      <CustomCalendar dates={dates} event={(day: any) => onDayPress(day)} getDate={getDate} />
       <View style={{ borderBottomColor: '#D9D9D9', borderBottomWidth: 1, marginTop: 20, marginHorizontal: 20 }}></View>
       <ScrollView>
         {noteDates.length > 0 ?

@@ -11,24 +11,25 @@ export interface NoteState {
     note: Note | null;
     notes: Array<any>;
     typeOperation: string;
-    noteDates : []
-    dates:[]
+    noteDates: []
+    dates: []
 }
 
 //tipos de acciones a realizar
 
 type AuthAction =
     { type: 'createNote', payload: { codeStatus: 0 } }
-    | { type: 'loadNotes'; payload: { notes: []} }
-    | { type: 'noteToUpdate'; payload: { note:Note}}
+    | { type: 'loadNotes'; payload: { notes: [] } }
+    | { type: 'noteToUpdate'; payload: { note: Note } }
     | { type: 'error'; payload: { errorMessages: '', codeStatus: 0 } }
     | { type: 'removeCodeStatus' }
-    | { type: 'delete' ,payload: { codeStatus: 0 } }
-    | { type: 'updateNote' ,payload: { codeStatus: 0 } }
+    | { type: 'delete', payload: { codeStatus: 0 } }
+    | { type: 'updateNote', payload: { codeStatus: 0 } }
     | { type: 'removeTypeOperation' }
     | { type: 'getNotesByDate', payload: { noteDates: [] } }
     | { type: 'loadAllNotes', payload: { dates: [] } }
-     
+    | { type: 'removeAllState' }
+
 
 
 // generaEstado
@@ -38,8 +39,8 @@ export const noteReducer = (state: NoteState, action: AuthAction): NoteState => 
         case 'createNote':
             return {
                 ...state,
-                codeStatus:action.payload.codeStatus,
-                typeOperation:'createNote'
+                codeStatus: action.payload.codeStatus,
+                typeOperation: 'createNote'
             }
         case 'loadNotes':
             return {
@@ -55,7 +56,7 @@ export const noteReducer = (state: NoteState, action: AuthAction): NoteState => 
             return {
                 ...state,
                 codeStatus: action.payload.codeStatus,
-                typeOperation:'deleteNote'
+                typeOperation: 'deleteNote'
             }
         case 'noteToUpdate':
             return {
@@ -66,22 +67,34 @@ export const noteReducer = (state: NoteState, action: AuthAction): NoteState => 
             return {
                 ...state,
                 codeStatus: action.payload.codeStatus,
-                typeOperation:'updateNote'
+                typeOperation: 'updateNote'
             }
         case 'removeTypeOperation':
-            return{
+            return {
                 ...state,
-                typeOperation:''
+                typeOperation: ''
             }
         case 'getNotesByDate':
-            return{
+            return {
                 ...state,
-                noteDates:action.payload.noteDates
+                noteDates: action.payload.noteDates
             }
         case 'loadAllNotes':
-            return{
+            return {
                 ...state,
-                dates:action.payload.dates
+                dates: action.payload.dates
+            }
+        case 'removeAllState':
+            return {
+                ...state,
+                status: null,
+                note: null,
+                notes: [],
+                noteDates: [],
+                errorMessage: '',
+                codeStatus: 0,
+                typeOperation: '',
+                dates: []
             }
 
         default:

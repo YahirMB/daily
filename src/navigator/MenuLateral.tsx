@@ -1,5 +1,5 @@
 //#Libraries
-import React, { useContext, useState,useEffect } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 //#Styles
 import Icon from 'react-native-vector-icons/Ionicons';
 import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
@@ -16,6 +16,7 @@ import { EditProfile } from '../screen/editProfile/EditProfile';
 import { AvatarNavBar, NavContainerProfile, SectionContainer, UserNameNav, focus } from './styles';
 import { AuthContext } from '../context/AuthContext';
 import { EditNote } from '../screen/EditNote/EditNote';
+import { NoteContext } from '../context/NotesContext';
 
 const Drawer = createDrawerNavigator();
 
@@ -23,7 +24,6 @@ const itemsNavegation = [
   { title: 'Inicio', iconName: 'home', nav: 'Inicio', component: HomeScreen },
   { title: 'Agendar', iconName: 'calendar-sharp', nav: 'addNote', component: BookNoteScreen },
   { title: 'Recordatorio', iconName: 'book-sharp', nav: 'diary', component: DiaryScreen },
-  { title: 'Configuración', iconName: 'settings-sharp', nav: 'settings', component: SettingsScreen },
   { title: 'Cerrar sesión', iconName: 'log-out-sharp', nav: 'Login', component: LoginScreen },
 ]
 
@@ -31,7 +31,6 @@ const routeNavegation = [
   { title: 'Inicio', nav: 'Inicio', component: HomeScreen },
   { title: 'Agendar', nav: 'addNote', component: BookNoteScreen },
   { title: 'Recordatorio', nav: 'diary', component: DiaryScreen },
-  { title: 'Configuración', nav: 'settings', component: SettingsScreen },
   { title: 'Daily plan', nav: 'profile', component: Profile },
   { title: 'Editar perfil', nav: 'editProfile', component: EditProfile },
   { title: 'Actualizar nota', nav: 'editNote', component: EditNote },
@@ -63,12 +62,13 @@ export const MenuLateral = () => {
 
 }
 
-const CustomMenu = ({ navigation,initials = 0 }: any) => {
+const CustomMenu = ({ navigation, initials = 0 }: any) => {
 
 
   const [isActived, setIsActived] = useState(initials)
 
   const { user, logout } = useContext(AuthContext)
+  const { removeAllState } = useContext(NoteContext)
 
   const onActive = (index: any, nav: string) => {
     setIsActived(index)
@@ -76,6 +76,7 @@ const CustomMenu = ({ navigation,initials = 0 }: any) => {
 
     if (nav == 'Login') {
       logout()
+      removeAllState()
     }
 
   }

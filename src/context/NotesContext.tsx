@@ -13,8 +13,8 @@ type NoteCotextProps = {
     notes: Array<Note | null>
     codeStatus: number
     typeOperation: string
-    noteDates:[]
-    dates:[]
+    noteDates: []
+    dates: []
     loadNotes: (idUser: number) => Promise<void>
     creatNote: (body: object) => Promise<void>
     deleteNote: (idNote: number) => Promise<void>
@@ -22,8 +22,9 @@ type NoteCotextProps = {
     loadNoteById: (idNote: number) => void
     updateNote: (body: Note) => void
     removeTypeOperation: () => void
-    getNoteByDate: (idUser: number, date:string) => void
-    loadAllNotes:(idUser:number) => void
+    getNoteByDate: (idUser: number, date: string) => void
+    loadAllNotes: (idUser: number) => void
+    removeAllState: () => void
 
 }
 
@@ -31,11 +32,11 @@ export const noteInitialState: NoteState = {
     status: null,
     note: null,
     notes: [],
-    noteDates:[],
+    noteDates: [],
     errorMessage: '',
     codeStatus: 0,
     typeOperation: '',
-    dates:[]
+    dates: []
 }
 
 export const NoteContext = createContext({} as NoteCotextProps);
@@ -47,11 +48,11 @@ export const NoteProvider = ({ children }: any) => {
     const loadAllNotes = async (idUser: number) => {
         const { data } = await apiDaily.get(`note/getAllNotes/${idUser}`);
 
-        
-        let onlyDates = data.result.map(note => note.ExpiriationDate.replace(/\//g, '-'));
-        
+
+        let onlyDates = data.result.map((note: any) => note.ExpiriationDate.replace(/\//g, '-'));
+
         if (data.status == 200) {
-            dispatch({ type: 'loadAllNotes', payload: { dates:onlyDates } })
+            dispatch({ type: 'loadAllNotes', payload: { dates: onlyDates } })
         } else {
             dispatch({
                 type: 'error',
@@ -218,7 +219,7 @@ export const NoteProvider = ({ children }: any) => {
 
     const getNoteByDate = async (idUser: number, date: string) => {
 
-        const { data } = await apiDaily.post(`note/getNoteByDate/${idUser}`,date)
+        const { data } = await apiDaily.post(`note/getNoteByDate/${idUser}`, date)
 
         if (data.status == 200) {
             dispatch({ type: 'getNotesByDate', payload: { noteDates: data.result } })
@@ -230,7 +231,9 @@ export const NoteProvider = ({ children }: any) => {
 
     }
 
-
+    const removeAllState = () => {
+        dispatch({ type: 'removeAllState' })
+    }
 
     return (
         <NoteContext.Provider value={{
@@ -243,8 +246,9 @@ export const NoteProvider = ({ children }: any) => {
             updateNote,
             removeTypeOperation,
             getNoteByDate,
-            loadAllNotes
-            
+            loadAllNotes,
+            removeAllState
+
         }}>
             {children}
 

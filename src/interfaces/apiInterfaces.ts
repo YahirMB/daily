@@ -13,8 +13,9 @@ export interface Note {
     Id: number,
     Title: string,
     Description:string,
-    ExpirationDate:string,
+    ExpiriationDate:string,
+    IdTypeOfNote:number
+    IdUser:number
     Location:string,
-    CreationHours:string,
-    
+    CreationHour:string,
 }

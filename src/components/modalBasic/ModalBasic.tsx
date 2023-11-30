@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { modalBasicProps, modalProps } from '../../interfaces/componentInterfaces';
 
 
-export const ModalBasic = ({ visible, closeModal,onDeleteNote}: modalBasicProps) => {
+export const ModalBasic = ({ visible, closeModal,onDeleteNote,onEditNote}: modalBasicProps) => {
   const [animation] = useState(new Animated.Value(0));
 
   const openModal = () => {
@@ -64,26 +64,26 @@ export const ModalBasic = ({ visible, closeModal,onDeleteNote}: modalBasicProps)
                   <View style={{ backgroundColor: '#218F61', borderRadius: 100, padding: 8 }}>
                     <Icon name="trash" size={25} />
                   </View>
-                  <Text style={{ fontSize: 18, color: "white", fontWeight: "600" }}>Eliminar permanente</Text>
+                  <Text style={{ fontSize: 18, color: "white", fontWeight: "600" }}>Eliminar</Text>
                 </View>
               </TouchableOpacity>
 
               <TouchableOpacity
                 activeOpacity={0.5}
                 style={{ paddingHorizontal: 20, paddingVertical: 15 }}
-                // onPress={takeGallery}
+                onPress={onEditNote}
               >
                 <View style={{ flexDirection: 'row', alignItems: 'center', gap: 15 }}>
                   <View style={{ backgroundColor: '#218F61', borderRadius: 100, padding: 8 }}>
-                    <Icon name="alarm" size={25} />
+                    <Icon name="create" size={25} />
                   </View>
-                  <Text style={{ fontSize: 18, color: "white", fontWeight: "600" }}>Desactivar nota</Text>
+                  <Text style={{ fontSize: 18, color: "white", fontWeight: "600" }}>Editar nota</Text>
                 </View>
               </TouchableOpacity>
               <TouchableOpacity
                 activeOpacity={0.5}
                 style={{ paddingHorizontal: 20,paddingBottom:15}}
-                // onPress={takeGallery}
+                // onPress={onEditNote}
               >
                  <View style={{ flexDirection: 'row', alignItems: 'center', gap: 15 }}>
                   <View style={{ backgroundColor: '#218F61', borderRadius: 100, padding: 8 }}>

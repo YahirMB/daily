@@ -21,6 +21,8 @@ export interface CarouselItem {
 export interface propsCardList {
     data: Array<any>
     item:any
+    naviagtion:any
+    type:boolean
     // event: () => void
 
 }
@@ -41,6 +43,7 @@ export interface modalBasicProps {
     children?: any
     onDeleteNote?: () => void
     closeModal: () => void
+    onEditNote: () => void
 }
 
 

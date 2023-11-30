@@ -10,7 +10,9 @@ export const HomeScreen = ({ navigation }: any) => {
   const [refreshing, setRefreshing] = useState(false);
 
   const fetchData = async () => {
-    await loadNotes(user?.Id);
+    if(user?.Id){
+      await loadNotes(user?.Id);
+    }
   };
 
 
@@ -30,7 +32,7 @@ export const HomeScreen = ({ navigation }: any) => {
     <ScrollView
       refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} colors={['#32BC82']} />}
     >
-      <CardsList item={''} data={notes} />
+      <CardsList naviagtion={navigation} item={''} data={notes} type={true} />
     </ScrollView>
   );
 };

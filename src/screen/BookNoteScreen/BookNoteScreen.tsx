@@ -9,7 +9,7 @@ import { AuthContext } from '../../context/AuthContext';
 
 export const BookNoteScreen = () => {
 
-  const {creatNote,codeStatus,removeCodeStatu} = useContext(NoteContext)
+  const {creatNote,codeStatus,removeCodeStatu,typeOperation,removeTypeOperation,loadAllNotes} = useContext(NoteContext)
   const {user} = useContext(AuthContext)
 
   const { onChange, onSenData, form, keys, setFormValue, setKeysValue } = useForm(
@@ -24,7 +24,7 @@ export const BookNoteScreen = () => {
 
   const [formDate, setFormDate] = useState({ ExpiriationDate: '', CreationHour: '' })
 
-console.log(codeStatus)
+
   const onShowModal = () => {
     setIsVisible(true);
   };
@@ -59,18 +59,22 @@ console.log(codeStatus)
     (mode === 'time') ? setFormDate({ ...formDate, CreationHour: resetTime }) :
       setFormDate({ ...formDate, ExpiriationDate: resetDate })
 
-
-    console.log("A date has been picked: ", resetDate, resetTime);
     onHideModal();
   };
 
+  const removeStates = () => {
+    loadAllNotes(user?.Id)
+    removeTypeOperation()
+    removeCodeStatu()
+  }
+
   useEffect(() => {
-    if(codeStatus == 200){
+    if(codeStatus == 200 && typeOperation == 'createNote'){
       setFormValue( {Title: '', Description: ''})
       setFormDate({CreationHour:'',ExpiriationDate:''})
       Alert.alert('Nota creada',
         'La nota se ha creado correctamente',
-        [{ text: 'ok', onPress: removeCodeStatu}])
+        [{ text: 'ok', onPress: removeStates}])
     }
   }, [codeStatus])
 

@@ -15,6 +15,7 @@ import { Profile } from '../screen/profile/Profile';
 import { EditProfile } from '../screen/editProfile/EditProfile';
 import { AvatarNavBar, NavContainerProfile, SectionContainer, UserNameNav, focus } from './styles';
 import { AuthContext } from '../context/AuthContext';
+import { EditNote } from '../screen/EditNote/EditNote';
 
 const Drawer = createDrawerNavigator();
 
@@ -33,6 +34,7 @@ const routeNavegation = [
   { title: 'Configuración', nav: 'settings', component: SettingsScreen },
   { title: 'Daily plan', nav: 'profile', component: Profile },
   { title: 'Editar perfil', nav: 'editProfile', component: EditProfile },
+  { title: 'Actualizar nota', nav: 'editNote', component: EditNote },
 ]
 
 

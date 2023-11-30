@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 interface EmptyFiel {
     [key: string]: boolean;
@@ -55,7 +55,6 @@ export const useForm = <T,K extends Object>( initState: T,initKeys:K,event:any )
         }
 
         if(fill){
-            console.log(recivedData)
             !recivedData ? event(state) : event(recivedData)
 
         }

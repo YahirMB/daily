@@ -4,6 +4,7 @@ export const Container = styled.View`
     flex-direction: row;
     justify-content: space-evenly;
     margin-bottom:80px;
+    padding-top:15px;
 `
 export const LineContainer = styled.View`
     position: relative;

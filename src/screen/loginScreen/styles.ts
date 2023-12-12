@@ -1,13 +1,10 @@
 import styled from 'styled-components/native'
-import Icon from 'react-native-vector-icons/Ionicons';
-
 
 export const ContainerLogIn = styled.View`
   flex: 1;
   background-color:#32BC82;
   padding-horizontal:35px;
   gap:25px;
-
 `
 
 export const FormContainer = styled.View`

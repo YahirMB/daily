@@ -15,22 +15,9 @@ import * as globalColors from '../../styles/colors/customColors'
 
 //#Components
 import { AuthContext } from '../../context/AuthContext';
-import { Text, Alert, ActivityIndicator, View, TextInput } from 'react-native';
+import { View } from 'react-native';
 import { useForm } from '../../hooks/useForm';
-import { Loading } from '../../components/loading/Loading';
 
-
-
-
-interface propsCredential {
-  email: string,
-  password: string
-  [key: string]: string;
-}
-
-interface EmptyFiel {
-  [key: string]: boolean;
-}
 
 export const LoginScreen = ({ navigation }: any) => {
 

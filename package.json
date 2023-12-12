@@ -10,8 +10,6 @@
     "test": "jest"
   },
   "dependencies": {
-    "@mui/material": "^5.14.18",
-    "@mui/styled-engine-sc": "^6.0.0-alpha.6",
     "@react-native-community/datetimepicker": "^7.6.1",
     "@react-native-masked-view/masked-view": "^0.2.9",
     "@react-navigation/drawer": "^6.6.3",
@@ -25,6 +23,7 @@
     "react-native-gesture-handler": "^2.12.1",
     "react-native-image-picker": "^7.0.1",
     "react-native-modal-datetime-picker": "^17.1.0",
+    "react-native-paper": "^5.11.4",
     "react-native-reanimated": "^3.4.2",
     "react-native-safe-area-context": "^4.7.2",
     "react-native-screens": "^3.25.0",

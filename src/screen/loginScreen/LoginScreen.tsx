@@ -1,18 +1,25 @@
 //#Libraries
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
+
 //#Controls
-import { ButtonFilled } from '../../controls/buttonFilled/ButtonFilled';
-import { InputFilled } from '../../controls/inputFilled/InputFilled';
+import { CInput } from '../../controls/CInput/CInput';
+import { CButton } from '../../controls/CButton/CButton';
+
 //#Styles
-import { ContainerLoginBtn, InputBase, LoginLabel } from './styles'
+import { LoginLabel, RecoverContainer, Row } from './styles'
+import { TitleApp } from '../../styles/titles/styles';
+import { ContainerLogIn, FormContainer } from './styles';
+
 //#Resources
-import { imageLogin } from '../../resources';
+import * as globalColors from '../../styles/colors/customColors'
+
 //#Components
-import { LayoutScreen } from '../../layout/LayoutScreen';
 import { AuthContext } from '../../context/AuthContext';
-import { Text, Alert, ActivityIndicator } from 'react-native';
+import { Text, Alert, ActivityIndicator, View, TextInput } from 'react-native';
 import { useForm } from '../../hooks/useForm';
 import { Loading } from '../../components/loading/Loading';
+
+
 
 
 interface propsCredential {
@@ -30,6 +37,7 @@ export const LoginScreen = ({ navigation }: any) => {
   const { logIn, user, errorMessage, codeStatus, status, removeMessage, typeOperation, removeCodeStatus } = useContext(AuthContext)
   const { form, onChange, keys, onSenData, setFormValue } = useForm({ email: '', password: '' }, { email: false, password: false }, logIn)
 
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     navigation.setOptions({
@@ -37,104 +45,52 @@ export const LoginScreen = ({ navigation }: any) => {
     })
   }, [])
 
-
-  useEffect(() => {
-    if (errorMessage.length > 0 && typeOperation == '') {
-      console.log('ok')
-      MiAlert()
-    }
-
-  }, [errorMessage])
-
-
-
-  useEffect(() => {
-
-
-    if (status == 'authenticated') {
-
-      
-      removeCodeStatus()
-      setFormValue({ email: '', password: '' })
-      
-      setTimeout(() => {
-        navigation.navigate('Home')
-      }, 3000);
-
-    }
-  }, [status])
-
-
-  const removeState = () => {
-    removeMessage()
-    removeCodeStatus()
+  const onSeePassword = () => {
+    setIsVisible(!isVisible);
   }
 
-  const MiAlert = () => {
-
-    Alert.alert('Error de credenciales', errorMessage, [
-
-      { text: 'OK', onPress: removeState },
-    ]);
-  }
-
-  console.log(status)
   return (
-
     <>
-      {(status == 'authenticated') ?
-        <Loading /> :
-
-        <LayoutScreen imgSrc={imageLogin} isLogin>
-          <InputFilled
-            nameLabel='Correo electronico'
-            icon='at-sharp'
-            value={form.email}
-            event={value => onChange(value, "email")}
-            fieldEmpty={keys.email}
-            messageError={'Correo eletronico vacio @'}
-            typeOfInput='email-address'
+      <ContainerLogIn>
+        <TitleApp style={{ alignSelf: 'center' }} color='white'>Daily Plan</TitleApp>
+        <FormContainer>
+          <CInput
+            autoCapitalize='none'
+            keyboardType='email-address'
+            label='Correo electrónico'
+            icon='at'
+            type='email'
           />
-          <InputFilled
-
-            nameLabel='Contraseña'
-            icon='eye-sharp'
-            typeOfInput='password'
-            value={form.password}
-            event={value => onChange(value, "password")}
-            fieldEmpty={keys.password}
-            messageError={'Contraseña mayor de 8 caracteres'}
+          <CInput
+            isVisibleText={isVisible}
+            type='password'
+            autoCapitalize='none'
+            icon={isVisible ? 'eye-off' : 'eye'}
+            label='Contraseña'
+            event={onSeePassword}
           />
+        </FormContainer>
 
-          <InputBase>
-            <LoginLabel color='white'>¿Olvidaste tu contraseña?</LoginLabel>
-
-            <LoginLabel color='#44FFB0' onPress={() => navigation.navigate('RecoverAccount')}>Recuperar contraseña</LoginLabel>
-
-          </InputBase>
-
-
-          <InputBase>
-            <LoginLabel color='white'>¿Primera vez?
+        <RecoverContainer>
+          <View>
+            <Row>
+              <LoginLabel color='white'>¿Olvidaste tu contraseña?</LoginLabel>
+              <LoginLabel color='#55FFAD' onPress={() => navigation.navigate('RecoverAccount')}>Recuperar contraseña</LoginLabel>
+            </Row>
+            <Row>
+              <LoginLabel color='white'>¿Primera vez?</LoginLabel>
               <LoginLabel
-                color='#44FFB0'
+                color='#55FFAD'
                 onPress={() => navigation.navigate('SignUp')}> Crear cuenta</LoginLabel>
-            </LoginLabel>
-          </InputBase>
-
-
-          <ContainerLoginBtn>
-            <ButtonFilled
-
-              colorText='#32BC82'
-              backgroundColor={'white'}
-              event={() => onSenData()}
-              title='Iniciar sesion' />
-          </ContainerLoginBtn>
-
-        </LayoutScreen>
-
-      }
+            </Row>
+          </View>
+          <CButton
+            backgroundColor={globalColors.green300}
+            text='Iniciar sesión'
+            event={() => navigation.navigate('Home')}
+          />
+        </RecoverContainer>
+      </ContainerLogIn>
     </>
   )
 }

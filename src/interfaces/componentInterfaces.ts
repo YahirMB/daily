@@ -1,3 +1,6 @@
+import { KeyboardTypeOptions } from "react-native"
+import { letter, typeInput } from "../type/properties"
+
 export interface avatarProps {
     img: any
     event?: () => void
@@ -62,4 +65,24 @@ export interface inputProps {
     fieldValid?: boolean
     fieldEmpty?: boolean
     messageError?: string
+}
+
+
+export interface CButtonOutlinedProps {
+    backgroundColor?: string,
+    event?: () => void,
+    text?: string,
+    typeButton?: string
+}
+
+export interface CInputProps {
+    label?: string,
+    placeholder?: string,
+    backgroundColor?: string
+    keyboardType?: KeyboardTypeOptions
+    icon?: string
+    autoCapitalize: letter
+    type: typeInput
+    event?: () => void;
+    isVisibleText?: boolean;
 }

@@ -1,31 +1,13 @@
+//#libraies
 import React, { useState } from 'react'
+
+//#components
 import { HelperText, TextInput } from 'react-native-paper'
-import { CustomInput } from './styles'
-import { create } from 'react-test-renderer'
 import { KeyboardTypeOptions, StyleSheet, View } from 'react-native'
-import Ionicons from 'react-native-vector-icons/Ionicons'
 
-
-type letter = "none" | "characters" | "sentences" | "words"
-type typeInput = "text" | "number" | "email" | "password"
-
-interface CInputProps {
-    label?: string,
-    placeholder?: string,
-    backgroundColor?: string
-    keyboardType?: KeyboardTypeOptions
-    icon?: string
-    autoCapitalize: letter
-    type: typeInput
-    event?: () => void;
-    isVisibleText?: boolean;
-}
-
-const SeePassword = (icon: string) => {
-    return (
-        <TextInput.Icon icon={icon} color={'white'} />
-    )
-}
+//#styles
+import { CustomInput } from './styles'
+import { CInputProps } from '../../interfaces/componentInterfaces'
 
 
 export const CInputOutlined = (

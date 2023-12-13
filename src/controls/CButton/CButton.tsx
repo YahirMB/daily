@@ -2,6 +2,7 @@ import React from 'react'
 import { Button } from 'react-native-paper'
 import { CustomButton } from './styles'
 
+
 interface CButtonProps {
     backgroundColor?: string,
     event?: () => void,

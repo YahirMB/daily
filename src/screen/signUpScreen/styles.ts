@@ -1,22 +1,28 @@
 import Icon  from "react-native-vector-icons/Ionicons";
 import styled from "styled-components/native";
 
-
-export const ContainerSingUp = styled.View`
-    flex:1px;
+export const ContainerSignUp = styled.View`
+  flex: 1;
+  background-color:#32BC82;
+  padding-horizontal:35px;
+  gap:25px;
 `
+
+export const FormContainer = styled.View`
+  width: 100%;
+  margin-top:100px;
+`
+
 export const Phrase = styled.Text`
     color: white;
     width: 100%;
     font-weight:400;
     font-size: 20px; 
-    margin-bottom: 50px;
+    margin-bottom:10px;
 `
 export const BtnContainer = styled.View`
-    flex-direction: row;
-    width: 100%; 
-    justify-content: space-between;
-    margin-top: 50px;
+    flex-direction:row;
+    justify-content:space-between;
 `
 export const BtnContainerSignUp1 = styled(BtnContainer)`
     flex-direction: row;

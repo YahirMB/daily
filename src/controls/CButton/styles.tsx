@@ -8,5 +8,4 @@ interface PropsCustomButtonStyles {
 export const CustomButton = styled(Button) <PropsCustomButtonStyles>`
     background-color:${props => props.backgroundColor || 'green'};
     border-radius:3px;
-    width:100%;
 `;	

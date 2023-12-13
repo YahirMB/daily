@@ -18,7 +18,7 @@ interface CInputProps {
     autoCapitalize: letter
     type: typeInput
     event?: () => void;
-    isVisibleText?:boolean;
+    isVisibleText?: boolean;
 }
 
 const SeePassword = (icon: string) => {
@@ -28,7 +28,7 @@ const SeePassword = (icon: string) => {
 }
 
 
-export const CInput = (
+export const CInputOutlined = (
     { label,
         placeholder = '',
         backgroundColor = '',
@@ -39,7 +39,7 @@ export const CInput = (
         isVisibleText,
         event }: CInputProps) => {
 
-            
+
     const [text, setText] = useState('')
     const [press, setPress] = useState(false)
 

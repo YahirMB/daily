@@ -2,7 +2,7 @@
 import React, { useContext, useEffect, useRef, useState } from 'react'
 
 //#Controls
-import { CInput } from '../../controls/CInput/CInput';
+import { CInputOutlined } from '../../controls/CInputOutlined/CInputOutlined';
 import { CButton } from '../../controls/CButton/CButton';
 
 //#Styles
@@ -41,14 +41,14 @@ export const LoginScreen = ({ navigation }: any) => {
       <ContainerLogIn>
         <TitleApp style={{ alignSelf: 'center' }} color='white'>Daily Plan</TitleApp>
         <FormContainer>
-          <CInput
+          <CInputOutlined
             autoCapitalize='none'
             keyboardType='email-address'
             label='Correo electrónico'
             icon='at'
             type='email'
           />
-          <CInput
+          <CInputOutlined
             isVisibleText={isVisible}
             type='password'
             autoCapitalize='none'

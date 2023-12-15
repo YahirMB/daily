@@ -1,4 +1,4 @@
-import Icon  from "react-native-vector-icons/Ionicons";
+import Icon from "react-native-vector-icons/Ionicons";
 import styled from "styled-components/native";
 
 export const ContainerSignUp = styled.View`
@@ -10,7 +10,7 @@ export const ContainerSignUp = styled.View`
 
 export const FormContainer = styled.View`
   width: 100%;
-  margin-top:100px;
+  margin-top:50px;
 `
 
 export const Phrase = styled.Text`
@@ -21,8 +21,9 @@ export const Phrase = styled.Text`
     margin-bottom:10px;
 `
 export const BtnContainer = styled.View`
-    flex-direction:row;
+    flex-direction:row; 
     justify-content:space-between;
+    align-items:center;
 `
 export const BtnContainerSignUp1 = styled(BtnContainer)`
     flex-direction: row;

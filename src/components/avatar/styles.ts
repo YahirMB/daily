@@ -1,27 +1,24 @@
 import Icon from "react-native-vector-icons/Ionicons";
 import styled from "styled-components/native";
 
+import { Avatar, IconButton } from 'react-native-paper';
+
+import * as globalColors from "../../styles/colors/customColors";
 
 export const AvatarContainer = styled.View`
     position:relative;
     width:150px;
     height:150px;
+    margin:auto;
 `
 
-export const PhotoProfil = styled.Image`
-    border-radius: 100px; 
-    height: 150px;
-    width: 150px;
-`
 
-export const AvatarIcon = styled(Icon)`
+export const AvatarIcon = styled(IconButton)`
     position: absolute;
-    bottom: 20px; 
-    right: 0; 
-    background-color: white; 
-    width: 34px; 
-    height: 34px; 
-    border-radius: 100px;
-    text-align: center;
-    text-align-vertical: center;
+    bottom: 5px; 
+    right: 0px; 
+    background-color:${globalColors.green100} ; 
+   
+    
+  
 `

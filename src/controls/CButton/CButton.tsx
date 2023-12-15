@@ -16,7 +16,6 @@ export const CButton = ({ backgroundColor, text = 'TextBtn', typeButton,event }:
             backgroundColor={backgroundColor}
             mode="contained"
             textColor='white'
-            rippleColor={'#3CDE9A'}
             onPress={event}>
             {text}
         </CustomButton>

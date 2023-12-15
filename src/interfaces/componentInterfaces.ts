@@ -2,7 +2,7 @@ import { KeyboardTypeOptions } from "react-native"
 import { letter, typeInput } from "../type/properties"
 
 export interface avatarProps {
-    img: any
+    img?: any
     event?: () => void
 }
 

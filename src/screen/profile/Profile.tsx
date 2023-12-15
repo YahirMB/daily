@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { Image, Text, TouchableOpacity, View, KeyboardAvoidingView, Alert } from 'react-native'
-import { Avatar } from '../../components/avatar/Avatar'
+import { Avatar } from '../../components/avatar/CAvatar'
 import { avatar } from '../../resources'
 import Icon from 'react-native-vector-icons/Ionicons'
 import { ButtonFilled } from '../../controls/buttonFilled/ButtonFilled'

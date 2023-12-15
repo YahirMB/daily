@@ -1,5 +1,5 @@
 //#Libraries
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 
 //#Controls
 import { CButton } from '../../controls/CButton/CButton';
@@ -14,13 +14,6 @@ import * as globalColors from '../../styles/colors/customColors'
 
 
 export const SignUpScreen1 = ({ navigation }: any) => {
-
-    useEffect(() => {
-        navigation.setOptions({
-            title: 'Crear cuenta',
-        })
-    }, [])
-
 
     return (
 
@@ -48,7 +41,7 @@ export const SignUpScreen1 = ({ navigation }: any) => {
                         text='Tengo cuenta'
                     />
                     <CButton
-                        event={() => console.log('ok')}
+                        event={() => navigation.navigate('SignUp2')}
                         backgroundColor={globalColors.green300}
                         text='Continuar'
                     />

@@ -17,6 +17,7 @@ import * as globalColors from '../../styles/colors/customColors'
 import { AuthContext } from '../../context/AuthContext';
 import { View } from 'react-native';
 import { useForm } from '../../hooks/useForm';
+import { useSeePassword } from '../../hooks/useSeePassword';
 
 
 export const LoginScreen = ({ navigation }: any) => {
@@ -24,7 +25,7 @@ export const LoginScreen = ({ navigation }: any) => {
   const { logIn, user, errorMessage, codeStatus, status, removeMessage, typeOperation, removeCodeStatus } = useContext(AuthContext)
   const { form, onChange, keys, onSenData, setFormValue } = useForm({ email: '', password: '' }, { email: false, password: false }, logIn)
 
-  const [isVisible, setIsVisible] = useState(false);
+ const {isVisible,onSeePassword} = useSeePassword()
 
   useEffect(() => {
     navigation.setOptions({
@@ -32,9 +33,7 @@ export const LoginScreen = ({ navigation }: any) => {
     })
   }, [])
 
-  const onSeePassword = () => {
-    setIsVisible(!isVisible);
-  }
+  
 
   return (
     <>
@@ -59,7 +58,7 @@ export const LoginScreen = ({ navigation }: any) => {
         </FormContainer>
 
         <RecoverContainer>
-          <View>
+          <View style={{gap:5}}>
             <Row>
               <LoginLabel color='white'>¿Olvidaste tu contraseña?</LoginLabel>
               <LoginLabel color='#55FFAD' onPress={() => navigation.navigate('RecoverAccount')}>Recuperar contraseña</LoginLabel>

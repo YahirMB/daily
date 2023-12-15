@@ -10,6 +10,8 @@ import { SignUpScreen2 } from '../screen/signUpScreen/SignUpScreen2';
 import { SignUpScreen3 } from '../screen/signUpScreen/SignUpScreen3';
 import { RecoverAccountScreen1 } from '../screen/recoverAccountScreen/RecoverAccountScreen1';
 import { RecoverAccountScreen2 } from '../screen/recoverAccountScreen/RecoverAccountScreen2';
+import { Text } from 'react-native-paper';
+import { View } from 'react-native';
 
 export type RootStackParams = {
   Start: undefined,
@@ -17,7 +19,7 @@ export type RootStackParams = {
   SignUp: undefined,
   SignUp2: undefined,
   SignUp3: undefined,
-  Home:undefined,
+  Home: undefined,
   RecoverAccount: undefined,
   RecoverAccount2: undefined
 }
@@ -25,17 +27,38 @@ export type RootStackParams = {
 
 const Stack = createStackNavigator<RootStackParams>();
 
+const Titles = ({ title1, title2 }: any) => {
+  return (
+    <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between' }}>
+      <Text style={{ color: 'white', fontSize: 20, fontWeight: '700' }}>{title1}</Text>
+      <Text style={{ color: 'white' }}>{title2}/3</Text>
+    </View>)
+}
+
 export const StackNavigator = () => {
   return (
-    <Stack.Navigator initialRouteName="Start" screenOptions={{headerShown:true,headerStyle:{shadowColor:'white',shadowOpacity:.5,backgroundColor:'#32BC82',},headerTintColor:'white'}}>
-      <Stack.Screen name="Start" component={StartScreen} options={{headerShown:false}} />
-      <Stack.Screen name="Login" component={LoginScreen} options={{headerShown:false}} />
-      <Stack.Screen name="SignUp" component={SignUpScreen1} options={{ headerLeft: () => null}}/>
-      <Stack.Screen name="SignUp2" component={SignUpScreen2} />
-      <Stack.Screen name="SignUp3" component={SignUpScreen3} options={{ headerLeft: () => null}}/>
-      <Stack.Screen name="Home" component={MenuLateral} options={{headerShown:false}} />
-      <Stack.Screen name="RecoverAccount" component={RecoverAccountScreen1} options={{headerShown:false}} />
-      <Stack.Screen name="RecoverAccount2" component={RecoverAccountScreen2} options={{headerShown:false}} />
+    <Stack.Navigator initialRouteName="Start" screenOptions={{ headerShown: true, headerStyle: { shadowColor: 'white', shadowOpacity: .5, backgroundColor: '#32BC82', }, headerTintColor: 'white' }}>
+      <Stack.Screen name="Start" component={StartScreen} options={{ headerShown: false }} />
+      <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
+      <Stack.Screen
+        name="SignUp"
+        component={SignUpScreen1}
+        options={{ headerLeft: () => null, headerTitle: () => <Titles title1='Datos personales' title2='Paso 1' /> }}
+      />
+      <Stack.Screen
+        name="SignUp2"
+        component={SignUpScreen2}
+        options={{ headerTitle: () => <Titles title1='Seguridad' title2='Paso 2' /> }}
+      />
+      <Stack.Screen
+        name="SignUp3"
+        component={SignUpScreen3}
+        options={{ headerLeft: () => null, headerTitle: () => <Titles title1='Foto de perfil' title2='Paso 3' /> }}
+
+      />
+      <Stack.Screen name="Home" component={MenuLateral} options={{ headerShown: false }} />
+      <Stack.Screen name="RecoverAccount" component={RecoverAccountScreen1} options={{ headerShown: false }} />
+      <Stack.Screen name="RecoverAccount2" component={RecoverAccountScreen2} options={{ headerShown: false }} />
     </Stack.Navigator>
   )
 }

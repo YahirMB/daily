@@ -74,7 +74,7 @@ export const LoginScreen = ({ navigation }: any) => {
           <CButton
             backgroundColor={globalColors.green300}
             text='Iniciar sesión'
-            event={() => navigation.navigate(routes.pathInicio)}
+            event={() => navigation.navigate(routes.pathBottomTabsHome)}
           />
         </RecoverContainer>
       </ContainerLogIn>

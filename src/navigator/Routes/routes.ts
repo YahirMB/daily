@@ -6,6 +6,7 @@ export const pathSettings = 'settings';
 export const pathProfile = 'profile';
 export const pathEditNote = 'editnote';
 export const pathNotes = 'notes';
+export const pathAgendarNotas = 'agendar';
 
 //stack routes exteriores
 export const pathStart = 'start';

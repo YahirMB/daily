@@ -59,6 +59,7 @@ function MyTabBar({ state, descriptors, navigation, icons, }: any) {
                 return (
 
                     <TouchableOpacity
+                        key={label}
                         accessibilityRole="button"
                         accessibilityState={isFocused ? { selected: true } : {}}
                         accessibilityLabel={options.tabBarAccessibilityLabel}

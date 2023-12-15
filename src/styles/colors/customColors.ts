@@ -1,4 +1,4 @@
-export const primary = '#3BDA98'
+export const primary = '#32BC82'
 //green
 export const green100 = "#33BC83"
 export const green200 = "#2BA170"

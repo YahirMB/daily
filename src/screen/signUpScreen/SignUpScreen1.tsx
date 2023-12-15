@@ -10,6 +10,7 @@ import { CButtonOutlined } from '../../controls/CButtonOutlined/CButtonOutlined'
 import { BtnContainer, ContainerSignUp, FormContainer, Phrase } from './styles';
 //#Resources
 import * as globalColors from '../../styles/colors/customColors'
+import { pathSignUp2 } from '../../navigator/Routes/routes';
 //#Components
 
 
@@ -41,7 +42,7 @@ export const SignUpScreen1 = ({ navigation }: any) => {
                         text='Tengo cuenta'
                     />
                     <CButton
-                        event={() => navigation.navigate('SignUp2')}
+                        event={() => navigation.navigate(pathSignUp2)}
                         backgroundColor={globalColors.green300}
                         text='Continuar'
                     />

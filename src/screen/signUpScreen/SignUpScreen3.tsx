@@ -12,6 +12,7 @@ import { CAvatar } from '../../components/avatar/CAvatar';
 
 //#Resources
 import * as globalColors from '../../styles/colors/customColors'
+import { pathBottomTabsHome, pathInicio } from '../../navigator/Routes/routes';
 
 export const SignUpScreen3 = ({ navigation }: any) => {
 
@@ -24,7 +25,7 @@ export const SignUpScreen3 = ({ navigation }: any) => {
                 <CAvatar />
                 <BtnContainer style={{ alignSelf: 'flex-end' }}>
                     <CButton
-                        event={() => navigation.navigate('Home')}
+                        event={() => navigation.navigate(pathBottomTabsHome)}
                         backgroundColor={globalColors.green300}
                         text='Omitir'
                     />

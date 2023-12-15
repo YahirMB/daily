@@ -19,6 +19,7 @@ import { View } from 'react-native';
 import { useForm } from '../../hooks/useForm';
 import { useSeePassword } from '../../hooks/useSeePassword';
 
+import * as routes from '../../navigator/Routes/routes'
 
 export const LoginScreen = ({ navigation }: any) => {
 
@@ -61,19 +62,19 @@ export const LoginScreen = ({ navigation }: any) => {
           <View style={{gap:5}}>
             <Row>
               <LoginLabel color='white'>¿Olvidaste tu contraseña?</LoginLabel>
-              <LoginLabel color='#55FFAD' onPress={() => navigation.navigate('RecoverAccount')}>Recuperar contraseña</LoginLabel>
+              <LoginLabel color='#55FFAD' onPress={() => navigation.navigate(routes.pathRecoverAccount)}>Recuperar contraseña</LoginLabel>
             </Row>
             <Row>
               <LoginLabel color='white'>¿Primera vez?</LoginLabel>
               <LoginLabel
                 color='#55FFAD'
-                onPress={() => navigation.navigate('SignUp')}> Crear cuenta</LoginLabel>
+                onPress={() => navigation.navigate(routes.pathSignUp)}> Crear cuenta</LoginLabel>
             </Row>
           </View>
           <CButton
             backgroundColor={globalColors.green300}
             text='Iniciar sesión'
-            event={() => navigation.navigate('Home')}
+            event={() => navigation.navigate(routes.pathInicio)}
           />
         </RecoverContainer>
       </ContainerLogIn>

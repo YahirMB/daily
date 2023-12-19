@@ -82,10 +82,15 @@ function MyTabBar({ state, descriptors, navigation, icons, }: any) {
 
 export const CustomBottomTabs = () => {
     return (
+        
         <Tab.Navigator
             initialRouteName='inicio'
             sceneContainerStyle={{ backgroundColor: globalColors.white }}
             tabBar={props => <MyTabBar icons={icons} {...props} />}
+            // screenOptions={{
+            //     headerStyle:{backgroundColor:globalColors.primary},
+            //     headerTitleStyle:{color:globalColors.white}}}
+
         >
             <Tab.Screen
                 name="agendar"

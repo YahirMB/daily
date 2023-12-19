@@ -6,11 +6,14 @@ import { HelperText, TextInput } from 'react-native-paper'
 import { KeyboardTypeOptions, StyleSheet, View } from 'react-native'
 
 //#styles
-import { CustomInput } from './styles'
+// import { CustomInput } from './styles'
 import { CInputProps } from '../../interfaces/componentInterfaces'
 
+import * as globalColors from '../../styles/colors/customColors'
 
-export const CInputOutlined = (
+
+
+export const CInputFilled = (
     { label,
         placeholder = '',
         backgroundColor = '',
@@ -34,31 +37,23 @@ export const CInputOutlined = (
 
 
     return (
-        <View style={{ width: '100%' }}>
+        <View style={{ width: '100%'}}>
 
-            <CustomInput
-                textColor='white'
-                
-                onFocus={() => setPress(true)}
-                onBlur={() => setPress(false)}
-                activeUnderlineColor='white'
-                underlineColor='transparent'
+            <TextInput
+                keyboardType={keyboardType}
+                autoCapitalize={autoCapitalize}
+                style={styles.inputWithoutBorder}
                 label={label}
                 value={text}
-                autoCapitalize={autoCapitalize}
-                keyboardType={keyboardType}
-                placeholder={placeholder}
-                secureTextEntry={type == 'password' ? !isVisibleText : false}
-                isFocused={press}
+                activeUnderlineColor={globalColors.primary}
+                underlineColor='transparent'
                 onChangeText={text => setText(text)}
-                right={icon && <TextInput.Icon icon={icon} color={'white'} onPress={event} />}
                 theme={{
                     colors: {
-                        onSurfaceVariant: 'white'
+                        onSurfaceVariant: globalColors.primary
                     }
                 }}
             />
-
 
             <HelperText
                 padding='none'
@@ -70,3 +65,20 @@ export const CInputOutlined = (
         </View>
     )
 }
+
+
+const styles = StyleSheet.create({
+    inputWithBorder :{
+        backgroundColor:globalColors.gray100,
+        borderBottomWidth:2,
+        borderBottomColor:globalColors.primary,
+        borderWidth:1,
+        borderColor:globalColors.primary
+    },
+    inputWithoutBorder :{
+        backgroundColor:globalColors.gray100,
+        borderBottomColor:globalColors.primary,
+        borderBottomWidth:2,
+        borderColor:globalColors.primary
+    }
+})

@@ -4,16 +4,23 @@ import { TitleApp } from '../../styles/titles/styles';
 import { Container, Column, TitleView, TextView, BtnContainer, AreaView } from './styles';
 import { InputFilled } from '../../controls/inputFilled/InputFilled';
 import { ButtonFilled } from '../../controls/buttonFilled/ButtonFilled';
-import { KeyboardAvoidingView, View, Alert, Text,ScrollView } from 'react-native';
+import { KeyboardAvoidingView, View, Alert, Text, ScrollView } from 'react-native';
 
 import { AuthContext } from '../../context/AuthContext';
+import { CInputOutlined } from '../../controls/CInputOutlined/CInputOutlined';
+import { CInputFilled } from '../../controls/CInputFilled/CInputFilled';
 
+import * as globalColors from '../../styles/colors/customColors'
+import { CText } from '../../controls/CText/CText';
+import { CButton } from '../../controls/CButton/CButton';
+import { CButtonOutlined } from '../../controls/CButtonOutlined/CButtonOutlined';
+import { pathLogin } from '../../navigator/Routes/routes';
 
 export const RecoverAccountScreen1 = ({ navigation }: any) => {
 
   const [generatedCode, setGeneratedCode] = useState('')
 
-  const [fieldEmpty, setFieldEmpty] = useState({email:false,checkCode:false});
+  const [fieldEmpty, setFieldEmpty] = useState({ email: false, checkCode: false });
 
   const [showSection, setShowSection] = useState(false)
 
@@ -54,10 +61,10 @@ export const RecoverAccountScreen1 = ({ navigation }: any) => {
 
     let code = generarCodigoRandom();
 
-    if(email.length == 0){
-      setFieldEmpty({...fieldEmpty,email:true})
-    }else{
-      setFieldEmpty({...fieldEmpty,email:false})
+    if (email.length == 0) {
+      setFieldEmpty({ ...fieldEmpty, email: true })
+    } else {
+      setFieldEmpty({ ...fieldEmpty, email: false })
       recoverAccount({ email, code: code })
       setShowSection(false)
     }
@@ -72,18 +79,18 @@ export const RecoverAccountScreen1 = ({ navigation }: any) => {
 
   const validateCode = () => {
 
-    if(checkCode.length == 0){
-      setFieldEmpty({...fieldEmpty,checkCode:true})
+    if (checkCode.length == 0) {
+      setFieldEmpty({ ...fieldEmpty, checkCode: true })
     }
     else if (checkCode != recoverCode) {
-      
+
       Alert.alert('Verificación de codigo', 'El codigo que insertaste es incorrecto o ya expiró', [
         { text: 'OK', onPress: () => null },
       ]);
       return
-    }else{
-      setFieldEmpty({...fieldEmpty,checkCode:false});
-      navigation.replace('RecoverAccount2',{email})
+    } else {
+      setFieldEmpty({ ...fieldEmpty, checkCode: false });
+      navigation.replace('RecoverAccount2', { email })
     }
 
   }
@@ -101,60 +108,67 @@ export const RecoverAccountScreen1 = ({ navigation }: any) => {
 
         </Column>
 
-        <ScrollView>
-          <AreaView>
+        <AreaView>
 
-            <TitleView>Recuperación de cuenta</TitleView>
+          <CText
+            fontSize={25}
+            fontWeight='500'
+            color={globalColors.gray400}
+            text='Recuperación de cuenta'
+          />
 
-            <TextView>Necesitas tu correo electrónico enlazado a tu cuenta para enviar un código de recuperación</TextView>
+          <CText
+            fontSize={16}
+            color={globalColors.gray400}
+            text='Necesitas tu correo electrónico para enviarte un código de recuperación'
+          />
 
-            <InputFilled
-              event={setEmail}
-              value={email}
-              placeholderText='Ingresa tu correo electrónico'
-              icon='at-outline'
-              typeOfInput='email-address'
-              background='#D9D9D9' />
+          <CInputFilled
+            label='Correo electrónico'
+            autoCapitalize='none'
+            type='email'
+            backgroundColor={globalColors.gray100}
+          />
 
-             
-              { fieldEmpty.email &&  <Text style={{color:'red'}}>El campo esta vacio</Text> }
+          <BtnContainer
+            style={{ flexDirection: 'row',justifyContent: 'space-between' }}>
+            <CButtonOutlined 
+              borderColor={globalColors.primary}
+              event={() => navigation.navigate(pathLogin)}
+              text='Volver'
+              colorText={globalColors.primary}
 
-            <BtnContainer
-              style={{ flexDirection: 'row', marginTop: 25, marginBottom: 40, justifyContent: 'space-between' }}>
-              <ButtonFilled
-                event={() => navigation.navigate('Login')}
-                title={'Cancelar'} />
-              <ButtonFilled
-                title={'Enviar'}
-                event={sendEmail} />
-            </BtnContainer>
+            />
+            <CButton 
+              text='Enviar'
+              backgroundColor={globalColors.primary}
+            />
+          
+          </BtnContainer>
 
-          </AreaView>
+        </AreaView>
 
-          <AreaView style={[showSection ? { opacity: 1 } : { opacity: 0.7 }]}>
+        <AreaView>
+          <CText
+            fontSize={25}
+            fontWeight='500'
+            color={globalColors.gray400}
+            text='Comprobación de codigo'
+          />
 
-            <TitleView>Comprobación</TitleView>
+          <CInputFilled
+            label='Codigo'
+            autoCapitalize='none'
+            type='email'
+            backgroundColor={globalColors.gray100}
+          />
 
-            <TextView>Verificar codigo</TextView>
+          <CButton
+            text='Verificar'
+            backgroundColor={globalColors.primary}
+          />
+        </AreaView>
 
-            <BtnContainer>
-              <InputFilled
-                value={checkCode}
-                event={setCheckCode}
-                placeholderText='Ingresa el código de verificación'
-                icon='checkmark-circle-outline'
-                disabled={showSection}
-                background='#D9D9D9'
-              />
-               { fieldEmpty.checkCode &&  <Text style={{color:'red'}}>El campo esta vacio</Text> }
-              <ButtonFilled
-                disabled={!showSection}
-                event={validateCode}
-                title={'Aceptar'} />
-            </BtnContainer>
-
-          </AreaView>
-        </ScrollView>
 
       </Container>
     </KeyboardAvoidingView>

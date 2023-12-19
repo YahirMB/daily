@@ -73,6 +73,8 @@ export interface CButtonOutlinedProps {
     event?: () => void,
     text?: string,
     typeButton?: string
+    colorText?:string
+    borderColor?:string
 }
 
 export interface CInputProps {

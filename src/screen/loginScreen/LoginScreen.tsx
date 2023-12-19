@@ -20,13 +20,14 @@ import { useForm } from '../../hooks/useForm';
 import { useSeePassword } from '../../hooks/useSeePassword';
 
 import * as routes from '../../navigator/Routes/routes'
+import { CText } from '../../controls/CText/CText';
 
 export const LoginScreen = ({ navigation }: any) => {
 
   const { logIn, user, errorMessage, codeStatus, status, removeMessage, typeOperation, removeCodeStatus } = useContext(AuthContext)
   const { form, onChange, keys, onSenData, setFormValue } = useForm({ email: '', password: '' }, { email: false, password: false }, logIn)
 
- const {isVisible,onSeePassword} = useSeePassword()
+  const { isVisible, onSeePassword } = useSeePassword()
 
   useEffect(() => {
     navigation.setOptions({
@@ -34,7 +35,7 @@ export const LoginScreen = ({ navigation }: any) => {
     })
   }, [])
 
-  
+
 
   return (
     <>
@@ -59,16 +60,25 @@ export const LoginScreen = ({ navigation }: any) => {
         </FormContainer>
 
         <RecoverContainer>
-          <View style={{gap:5}}>
+          <View style={{ gap: 5 }}>
             <Row>
-              <LoginLabel color='white'>¿Olvidaste tu contraseña?</LoginLabel>
-              <LoginLabel color='#55FFAD' onPress={() => navigation.navigate(routes.pathRecoverAccount)}>Recuperar contraseña</LoginLabel>
+              <CText
+                text='¿Olvidaste tu contraseña?'
+                color={globalColors.white} />
+              <CText
+                fontWeight='600'
+                text='Recuperar contraseña'
+                color={globalColors.green400}
+                event={() => navigation.navigate(routes.pathRecoverAccount)} />
             </Row>
             <Row>
-              <LoginLabel color='white'>¿Primera vez?</LoginLabel>
-              <LoginLabel
-                color='#55FFAD'
-                onPress={() => navigation.navigate(routes.pathSignUp)}> Crear cuenta</LoginLabel>
+              <CText text='¿Primera vez?' color={globalColors.white} />
+              <CText
+                fontWeight='600'
+                text='Crear cuenta'
+                color={globalColors.green400}
+                event={() => navigation.navigate(routes.pathSignUp)}
+              />
             </Row>
           </View>
           <CButton

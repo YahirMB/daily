@@ -22,7 +22,7 @@ export const CInputFilled = (
         autoCapitalize = 'sentences',
         type,
         isVisibleText,
-        event }: CInputProps) => {
+        eventIcon }: CInputProps) => {
 
 
     const [text, setText] = useState('')
@@ -46,7 +46,9 @@ export const CInputFilled = (
                 label={label}
                 value={text}
                 activeUnderlineColor={globalColors.primary}
+                secureTextEntry={type == 'password' ? !isVisibleText : false}
                 underlineColor='transparent'
+                right={icon && <TextInput.Icon icon={icon} color={globalColors.primary} onPress={eventIcon} />}
                 onChangeText={text => setText(text)}
                 theme={{
                     colors: {

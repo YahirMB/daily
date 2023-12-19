@@ -19,10 +19,8 @@ export const Column = styled.View`
 
 export const AreaView = styled.View`
     width:100%;
-    paddingLeft:15px;
-    paddingRight:15px;
+    margin-top:25px;
     gap:15px;
-
 `
 export const TitleView = styled.Text`
     fontSize: 24px;

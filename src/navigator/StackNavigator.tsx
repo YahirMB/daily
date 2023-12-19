@@ -30,11 +30,11 @@ export type RootStackParams = {
 
 const Stack = createStackNavigator<RootStackParams>();
 
-const Titles = ({ title1, title2 }: any) => {
+const Titles = ({ title1, title2,step }: any) => {
   return (
     <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between', alignItems:'center' }}>
       <Text style={{ color: 'white', fontSize: 20, fontWeight: '700' }}>{title1}</Text>
-      <Text style={{ color: 'white' }}>{title2}/3</Text>
+      <Text style={{ color: 'white' }}>{title2}/{step}</Text>
     </View>)
 }
 
@@ -46,22 +46,30 @@ export const StackNavigator = () => {
       <Stack.Screen
         name="signup"
         component={SignUpScreen1}
-        options={{ headerLeft: () => null, headerTitle: () => <Titles title1='Datos personales' title2='Paso 1' /> }}
+        options={{ headerLeft: () => null, headerTitle: () => <Titles title1='Datos personales' title2='Paso 1' step='3' /> }}
       />
       <Stack.Screen
         name="signup2"
         component={SignUpScreen2}
-        options={{ headerTitle: () => <Titles title1='Seguridad' title2='Paso 2' /> }}
+        options={{ headerTitle: () => <Titles title1='Seguridad' title2='Paso 2' step='3' /> }}
       />
       <Stack.Screen
         name="signup3"
         component={SignUpScreen3}
-        options={{ headerLeft: () => null, headerTitle: () => <Titles title1='Foto de perfil' title2='Paso 3' /> }}
+        options={{ headerLeft: () => null, headerTitle: () => <Titles title1='Foto de perfil' title2='Paso 3' step='3' /> }}
 
       />
       <Stack.Screen name="navigationHome" component={CustomBottomTabs} options={{ headerShown: false }} />
-      <Stack.Screen name="recoverAccount" component={RecoverAccountScreen1} options={{ headerShown: false }} />
-      <Stack.Screen name="restorePassword" component={RecoverAccountScreen2} options={{ headerShown: false }} />
+      <Stack.Screen 
+        name="recoverAccount" 
+        component={RecoverAccountScreen1} 
+        options={{ headerLeft: () => null, headerTitle: () => <Titles title1='Recuperar contraseña' title2='Paso 1' step='2' />}}
+        />
+      <Stack.Screen 
+        name="restorePassword"
+        component={RecoverAccountScreen2}
+        options={{ headerTitle: () => <Titles title1='Restablecer contraseña' title2='Paso 2' step='2' />}}
+        />
     </Stack.Navigator>
   )
 }

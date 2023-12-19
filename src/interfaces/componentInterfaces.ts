@@ -85,6 +85,7 @@ export interface CInputProps {
     icon?: string
     autoCapitalize: letter
     type: typeInput
-    event?: () => void;
+    event?:() => void;
+    eventIcon?: () => void;
     isVisibleText?: boolean;
 }

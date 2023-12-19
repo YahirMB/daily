@@ -40,6 +40,7 @@ export const SignUpScreen1 = ({ navigation }: any) => {
                     <CButtonOutlined
                         event={() => navigation.goBack()}
                         text='Tengo cuenta'
+                        colorText={globalColors.white}
                     />
                     <CButton
                         event={() => navigation.navigate(pathSignUp2)}

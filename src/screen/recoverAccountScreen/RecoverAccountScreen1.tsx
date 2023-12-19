@@ -14,7 +14,8 @@ import * as globalColors from '../../styles/colors/customColors'
 import { CText } from '../../controls/CText/CText';
 import { CButton } from '../../controls/CButton/CButton';
 import { CButtonOutlined } from '../../controls/CButtonOutlined/CButtonOutlined';
-import { pathLogin } from '../../navigator/Routes/routes';
+
+import * as routes from "../../navigator/Routes/routes";
 
 export const RecoverAccountScreen1 = ({ navigation }: any) => {
 
@@ -102,21 +103,7 @@ export const RecoverAccountScreen1 = ({ navigation }: any) => {
     >
       <Container>
 
-        <Column>
-
-          <TitleApp>Daily Plan</TitleApp>
-
-        </Column>
-
         <AreaView>
-
-          <CText
-            fontSize={25}
-            fontWeight='500'
-            color={globalColors.gray400}
-            text='Recuperación de cuenta'
-          />
-
           <CText
             fontSize={16}
             color={globalColors.gray400}
@@ -128,44 +115,50 @@ export const RecoverAccountScreen1 = ({ navigation }: any) => {
             autoCapitalize='none'
             type='email'
             backgroundColor={globalColors.gray100}
+            icon='at'
+            keyboardType='email-address'
           />
 
           <BtnContainer
-            style={{ flexDirection: 'row',justifyContent: 'space-between' }}>
-            <CButtonOutlined 
-              borderColor={globalColors.primary}
-              event={() => navigation.navigate(pathLogin)}
-              text='Volver'
+            style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+
+            <CButtonOutlined
+              text='En otro momento'
               colorText={globalColors.primary}
+              borderColor={globalColors.primary}
+              event={() => navigation.goBack()}
 
             />
-            <CButton 
+
+            <CButton
               text='Enviar'
               backgroundColor={globalColors.primary}
             />
-          
+
           </BtnContainer>
 
         </AreaView>
 
         <AreaView>
           <CText
-            fontSize={25}
+            fontSize={16}
             fontWeight='500'
             color={globalColors.gray400}
-            text='Comprobación de codigo'
+            text='Por favor ingresa tu codigo que se envío a tu correo'
           />
 
           <CInputFilled
             label='Codigo'
             autoCapitalize='none'
             type='email'
+            icon='code'
             backgroundColor={globalColors.gray100}
           />
 
           <CButton
             text='Verificar'
             backgroundColor={globalColors.primary}
+            event={() => navigation.replace(routes.pathRestorePassword)}
           />
         </AreaView>
 

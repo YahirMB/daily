@@ -13,7 +13,7 @@ interface CustomTextProps {
 
 type TextZise = 16 | 18 | 20 | 22 | 25
 type fontWeight = '100' | '500' | '400' | '600' | '700' | 'bold'
-type alignText = "center" | "justify"
+type alignText = "center" | "justify" | "right" | "left"
 
 
 

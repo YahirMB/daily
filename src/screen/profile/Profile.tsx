@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { Image, Text, TouchableOpacity, View, KeyboardAvoidingView, Alert } from 'react-native'
-import { Avatar } from '../../components/avatar/CAvatar'
-import { avatar } from '../../resources'
+import { Avatar, CAvatar } from '../../components/avatar/CAvatar'
+import { avatar, facebook } from '../../resources'
 import Icon from 'react-native-vector-icons/Ionicons'
 import { ButtonFilled } from '../../controls/buttonFilled/ButtonFilled'
 import { InputFilled } from '../../controls/inputFilled/InputFilled'
@@ -10,12 +10,16 @@ import { AuthContext } from '../../context/AuthContext'
 import { requestCameraPermission } from '../../helpers/permissions'
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker'
 import { useTakePhoto } from '../../hooks/useTakePhoto'
+import { CText } from '../../controls/CText/CText'
+
+import * as globalColors from '../../styles/colors/customColors'
+import { IconContainer, TitleIconContainer } from './styles'
 
 
 
 export const Profile = ({ navigation }: any) => {
 
-  const { user, updateImg,codeStatus,removeCodeStatus } = useContext(AuthContext);
+  const { user, updateImg, codeStatus, removeCodeStatus } = useContext(AuthContext);
 
 
 
@@ -46,11 +50,11 @@ export const Profile = ({ navigation }: any) => {
   }
 
   useEffect(() => {
-    if(codeStatus == 200){
+    if (codeStatus == 200) {
       removeCodeStatus()
     }
   }, [codeStatus])
-  
+
   useEffect(() => {
 
     if (selectedImage.uri != Img) {
@@ -60,84 +64,109 @@ export const Profile = ({ navigation }: any) => {
   }, [selectedImage.uri])
 
 
-  useEffect(() => {
-    navigation.setOptions({
-      headerStyle: {
-        backgroundColor: 'white', // Cambia el color del fondo del encabezado
-
-      },
-      headerTitleStyle: {
-        letterSpacing: 1,
-        color: '#32BC82', // Cambia el color del título del encabezado
-      },
-
-      headerLeft: () => (
-        <TouchableOpacity onPress={() => navigation.goBack()}>
-          <View style={{ paddingHorizontal: 10 }}>
-            <Icon name='arrow-back' color={'#32BC82'} size={24} />
-          </View>
-        </TouchableOpacity>
-      ),
-    })
-
-  }, [])
 
 
   return (
 
-    <View style={{ flex: 1 }}>
-      <View style={{ height: '50%', alignItems: 'center', gap: 15, padding: 20 }}>
+    <View style={{ gap: 20, marginTop: 50, paddingHorizontal: 20 }}>
 
-        <Avatar img={selectedImage.uri} event={onOpenModal} />
-        <Text style={{ letterSpacing: 1, fontSize: 20, color: '#32BC82', fontWeight: 'bold' }}>{Name}</Text>
+      <CAvatar />
 
+      <CText
+        fontSize={25}
+        color={globalColors.primary}
+        align='center'
+        fontWeight='bold'        
+        text='Yahir Manjarrez'
+      />
 
+      <View>
+        <TitleIconContainer>
+
+          <IconContainer>
+
+            <Icon
+              name='person'
+              size={20}
+              color={globalColors.white}
+            />
+          </IconContainer>
+          <CText
+            text='Nombres'
+            color={globalColors.primary}
+            fontSize={20}
+            fontWeight='bold'
+
+          />
+
+        </TitleIconContainer>
+
+        <CText
+          fontSize={16}
+          text='Yahir Alexander'
+          color={globalColors.gray500}
+        />
 
       </View>
-      <View style={{
-        height: '50%',
-        gap: 20,
-        backgroundColor: '#32BC82',
-        padding: 20,
-      }}>
+      <View>
 
-        <View style={{ alignSelf: 'flex-end' }}>
+        <TitleIconContainer>
 
-          <TouchableOpacity style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            gap: 15
-          }}
-            onPress={() => navigation.navigate('editProfile')}
-          >
-            <Icon name='pencil' color={'white'} size={17} />
-            <Text style={{
-              color: 'white',
-              fontSize: 17,
-              fontWeight: 'bold'
-            }}>Editar</Text>
-          </TouchableOpacity>
+          <IconContainer>
 
-        </View>
+            <Icon
+              name='person'
+              size={20}
+              color={globalColors.white}
+            />
+          </IconContainer>
+          <CText
+            text='Apellidos'
+            color={globalColors.primary}
+            fontSize={20}
+            fontWeight='bold'
 
-        {
-          Object.keys(newFormatUsuer).map(key =>
+          />
+        </TitleIconContainer>
 
-            <View style={{ gap: 5 }} key={key}>
-              <Text style={{ fontSize: 18, color: 'white' }}>{key}</Text>
-              <Text style={{ fontSize: 18, color: '#5F5F5F' }}>{newFormatUsuer[key]}</Text>
-
-            </View>
-          )
-        }
+        <CText
+          fontSize={16}
+          text='Manjarrez Belevin'
+          color={globalColors.gray500}
+        />
       </View>
 
+      <View>
 
-      <CustomModal
-        takeGallery={onTakePhotoGallery}
-        takePhoto={onTakePhoto}
-        closeModal={onCloseModal}
-        visible={visible} />
+
+        <TitleIconContainer>
+
+          <IconContainer>
+
+            <Icon
+              name='at'
+              size={20}
+              color={globalColors.white}
+            />
+          </IconContainer>
+
+          <CText
+            text='Correo electrónico'
+            color={globalColors.primary}
+            fontSize={20}
+            fontWeight='bold'
+
+          />
+        </TitleIconContainer>
+
+
+        <CText
+          fontSize={16}
+          color={globalColors.gray500}
+          text='alexandermanjarrez18@gmail.com'
+        />
+
+      </View>
     </View>
 
 

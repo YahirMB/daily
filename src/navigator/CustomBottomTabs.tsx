@@ -10,6 +10,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { Text, TouchableOpacity, View } from 'react-native';
 import { DiaryScreen } from '../screen/diaryScreen/DiaryScreen';
 import { BookNoteScreen } from '../screen/bookNoteScreen/BookNoteScreen';
+import { Profile } from '../screen/profile/Profile';
 
 
 
@@ -20,9 +21,11 @@ type TabNavigator = {
     [routes.pathInicio]: undefined,
     [routes.pathAgendarNotas]: undefined,
     [routes.pathNotes]: undefined,
+    [routes.pathProfile]: undefined,
+
 }
 
-const icons = ['book', 'home', 'calendar']
+const icons = ['book', 'home', 'calendar','person']
 
 function MyTabBar({ state, descriptors, navigation, icons, }: any) {
     return (
@@ -107,6 +110,11 @@ export const CustomBottomTabs = () => {
                 name="notes"
                 component={DiaryScreen}
                 options={{ title: 'Calendario' }}
+            />
+            <Tab.Screen
+                name="profile"
+                component={Profile}
+                options={{ title: 'Perfil' }}
             />
         </Tab.Navigator>
     )

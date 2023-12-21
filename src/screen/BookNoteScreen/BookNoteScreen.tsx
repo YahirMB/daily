@@ -1,18 +1,27 @@
+//#Libraies
 import React, { useContext, useEffect, useState } from 'react'
-import { Text, View, Alert } from 'react-native'
-import { InputFilled } from '../../controls/inputFilled/InputFilled'
-import { ButtonFilled } from '../../controls/buttonFilled/ButtonFilled'
-import DateTimePickerModal from "react-native-modal-datetime-picker";
+
+//#Hooks
 import { useForm } from '../../hooks/useForm';
+
+//#Components
+import DateTimePickerModal from "react-native-modal-datetime-picker";
+import { View, Alert } from 'react-native'
+
+//#Controls
+import { CButton } from '../../controls/CButton/CButton';
+import { CText } from '../../controls/CText/CText';
+import { CInputFilled } from '../../controls/CInputFilled/CInputFilled';
+
+//#Styles
+import { ScreenContainer, TimeContainer } from './styles';
+
+//#Resources
+import * as globalColors from '../../styles/colors/customColors'
+
+//#Api
 import { NoteContext } from '../../context/NotesContext';
 import { AuthContext } from '../../context/AuthContext';
-import { CInputFilled } from '../../controls/CInputFilled/CInputFilled';
-import { CInputOutlined } from '../../controls/CInputOutlined/CInputOutlined';
-import { CButton } from '../../controls/CButton/CButton';
-
-import * as globalColors from '../../styles/colors/customColors'
-import { ScreenContainer, TimeContainer } from './styles';
-import { CText } from '../../controls/CText/CText';
 
 export const BookNoteScreen = () => {
 
@@ -101,9 +110,6 @@ export const BookNoteScreen = () => {
     }
 
   }
-
-
-
 
 
   return (

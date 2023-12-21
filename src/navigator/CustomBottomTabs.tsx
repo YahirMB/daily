@@ -1,19 +1,21 @@
+//#Libraies
 import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { HomeScreen } from '../screen/homeScreen/HomeScreen';
+
+//#Screen
 import { EditProfile } from '../screen/editProfile/EditProfile';
-
-import * as routes from '../navigator/Routes/routes'
-
-import * as globalColors from '../styles/colors/customColors'
-import Icon from 'react-native-vector-icons/Ionicons';
-import { Text, TouchableOpacity, View } from 'react-native';
-import { DiaryScreen } from '../screen/diaryScreen/DiaryScreen';
+import { HomeScreen } from '../screen/homeScreen/HomeScreen';
 import { BookNoteScreen } from '../screen/bookNoteScreen/BookNoteScreen';
+import { DiaryScreen } from '../screen/diaryScreen/DiaryScreen';
 import { Profile } from '../screen/profile/Profile';
 
+//#Controls
+import { Text, TouchableOpacity, View } from 'react-native';
+import Icon from 'react-native-vector-icons/Ionicons';
 
-
+//#Resources
+import * as routes from '../navigator/Routes/routes'
+import * as globalColors from '../styles/colors/customColors'
 
 const Tab = createBottomTabNavigator<TabNavigator>();
 
@@ -25,12 +27,12 @@ type TabNavigator = {
 
 }
 
-const icons = ['book', 'home', 'calendar','person']
+const icons = ['home', 'book', 'calendar', 'person']
 
 function MyTabBar({ state, descriptors, navigation, icons, }: any) {
     return (
         <View style={{ flexDirection: 'row', backgroundColor: globalColors.primary, height: 'auto', alignItems: 'center', justifyContent: 'center' }}>
-            {state.routes.map((route:any, index:number) => {
+            {state.routes.map((route: any, index: number) => {
                 const { options } = descriptors[route.key];
                 const label =
                     options.tabBarLabel !== undefined
@@ -86,25 +88,26 @@ function MyTabBar({ state, descriptors, navigation, icons, }: any) {
 
 export const CustomBottomTabs = () => {
     return (
-        
+
         <Tab.Navigator
             initialRouteName='inicio'
             sceneContainerStyle={{ backgroundColor: globalColors.white }}
             tabBar={props => <MyTabBar icons={icons} {...props} />}
             screenOptions={{
-                headerStyle:{backgroundColor:globalColors.primary},
-                headerTitleStyle:{color:globalColors.white}}}
+                headerStyle: { backgroundColor: globalColors.primary },
+                headerTitleStyle: { color: globalColors.white }
+            }}
 
         >
-            <Tab.Screen
-                name="agendar"
-                component={BookNoteScreen}
-                options={{ title: 'Agendar' }}
-            />
             <Tab.Screen
                 name="inicio"
                 component={HomeScreen}
                 options={{ title: 'Inicio' }}
+            />
+            <Tab.Screen
+                name="agendar"
+                component={BookNoteScreen}
+                options={{ title: 'Agendar' }}
             />
             <Tab.Screen
                 name="notes"

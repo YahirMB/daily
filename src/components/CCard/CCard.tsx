@@ -1,10 +1,17 @@
+//#Libraies
 import React from 'react'
-import { Text, View } from 'react-native'
-import { Button, Card, IconButton } from 'react-native-paper'
 
-import * as globalColors from '../../styles/colors/customColors'
+//#Components
+import { Card, IconButton } from 'react-native-paper'
+
+//#Controls
 import { CText } from '../../controls/CText/CText';
+
+//#Styles
 import { Contet, Header, IconContainer } from './styles';
+
+//#Resources
+import * as globalColors from '../../styles/colors/customColors'
 
 interface CustomCardProps {
     title: string;

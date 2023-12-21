@@ -1,12 +1,24 @@
+//#Libraies
 import React, { useContext, useEffect } from 'react'
+
+//#Hooks
+import { useForm } from '../../hooks/useForm'
+
+//#Components
 import { Text, TouchableOpacity, View, ScrollView,Alert } from 'react-native'
-import Icon from 'react-native-vector-icons/Ionicons'
-import { AreaCred, AreaView, ButtonContainer, Container, InputContainer, InputContainer2, TitleSection } from './styles'
+
+//#Controls
 import { InputFilled } from '../../controls/inputFilled/InputFilled'
 import { ButtonFilled } from '../../controls/buttonFilled/ButtonFilled'
-import { useForm } from '../../hooks/useForm'
-import { AuthContext } from '../../context/AuthContext'
 
+//#Styles
+import { AreaView, ButtonContainer, Container, InputContainer, TitleSection } from './styles'
+
+//#Resources
+import Icon from 'react-native-vector-icons/Ionicons'
+
+//#Api
+import { AuthContext } from '../../context/AuthContext'
 
 
 export const EditProfile = ({ navigation }: any) => {

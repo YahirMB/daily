@@ -1,9 +1,15 @@
+//#Libraies
 import React from 'react'
-import { Text, View } from 'react-native'
-import Icon from 'react-native-vector-icons/Ionicons'
+
+//#Controls
 import { CText } from '../../controls/CText/CText'
 
+//#Styles
+import {View } from 'react-native'
+
+//#Resources
 import * as globalColors from '../../styles/colors/customColors'
+import Icon from 'react-native-vector-icons/Ionicons'
 
 export const CMessage = ({ message, iconName = 'sad', color = globalColors.white,backgroundColor = globalColors.primary,iconColor = globalColors.white }: any) => {
     return (

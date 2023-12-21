@@ -1,19 +1,21 @@
+//#Libraies
 import React, { useContext, useEffect } from 'react'
 import { AreaView, BtnContainer, Column, Container, TitleView } from './styles'
-import { TitleApp } from '../../styles/titles/styles'
-import { InputFilled } from '../../controls/inputFilled/InputFilled'
-import { ButtonFilled } from '../../controls/buttonFilled/ButtonFilled'
-import { useForm } from '../../hooks/useForm'
-import { AuthContext } from '../../context/AuthContext'
-import { Alert } from 'react-native'
-import { CText } from '../../controls/CText/CText'
+
+//#Components
+//#Controls
 import { CInputFilled } from '../../controls/CInputFilled/CInputFilled'
-
-
-import * as globalColors from '../../styles/colors/customColors'
 import { CButton } from '../../controls/CButton/CButton'
+
+//#Hooks
 import { useSeePassword } from '../../hooks/useSeePassword'
+
+//#Resources
+import * as globalColors from '../../styles/colors/customColors'
 import { pathLogin } from '../../navigator/Routes/routes'
+
+//#Styles
+
 export const RecoverAccountScreen2 = ({ navigation, route }: any) => {
 
   const {isVisbleConfirm,isVisible,onSeePassword,onSeePasswordConfirm} = useSeePassword();

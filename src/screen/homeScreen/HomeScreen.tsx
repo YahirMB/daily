@@ -1,9 +1,18 @@
+//#Libraies
 import React, { useEffect, useContext, useState } from 'react';
-import { ScrollView, RefreshControl, View } from 'react-native';
-import { CardsList } from '../../components/cardList/CardsList';
+
+//#Hooks
 import { NoteContext } from '../../context/NotesContext';
 import { AuthContext } from '../../context/AuthContext';
+
+//#Components
+import { ScrollView, RefreshControl, View } from 'react-native';
+// import { CardsList } from '../../components/cardList/CardsList';
 import { CCard } from '../../components/CCard/CCard';
+
+//#Controls
+//#Styles
+//#Resources
 
 export const HomeScreen = ({ navigation }: any) => {
   const { user } = useContext(AuthContext);

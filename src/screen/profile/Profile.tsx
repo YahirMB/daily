@@ -1,21 +1,23 @@
+//#Libraies
 import React, { useContext, useEffect, useState } from 'react'
-import { Image, Text, TouchableOpacity, View, KeyboardAvoidingView, Alert } from 'react-native'
-import { Avatar, CAvatar } from '../../components/avatar/CAvatar'
-import { avatar, facebook } from '../../resources'
-import Icon from 'react-native-vector-icons/Ionicons'
-import { ButtonFilled } from '../../controls/buttonFilled/ButtonFilled'
-import { InputFilled } from '../../controls/inputFilled/InputFilled'
-import { CustomModal } from '../../components/modal/CustomModal'
-import { AuthContext } from '../../context/AuthContext'
-import { requestCameraPermission } from '../../helpers/permissions'
-import { launchCamera, launchImageLibrary } from 'react-native-image-picker'
-import { useTakePhoto } from '../../hooks/useTakePhoto'
+
+//#Components
+import { CAvatar } from '../../components/avatar/CAvatar'
+import { View} from 'react-native'
+
+//#Controls
 import { CText } from '../../controls/CText/CText'
 
-import * as globalColors from '../../styles/colors/customColors'
+//#Styles
 import { IconContainer, TitleIconContainer } from './styles'
 
+//#Hooks
+import { useTakePhoto } from '../../hooks/useTakePhoto'
 
+//#Resources
+import * as globalColors from '../../styles/colors/customColors'
+import Icon from 'react-native-vector-icons/Ionicons'
+import { AuthContext } from '../../context/AuthContext'
 
 export const Profile = ({ navigation }: any) => {
 

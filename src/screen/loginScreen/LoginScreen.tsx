@@ -1,9 +1,15 @@
 //#Libraries
 import React, { useContext, useEffect, useRef, useState } from 'react'
+import { StatusBar, View } from 'react-native';
 
 //#Controls
 import { CInputOutlined } from '../../controls/CInputOutlined/CInputOutlined';
 import { CButton } from '../../controls/CButton/CButton';
+import { CText } from '../../controls/CText/CText';
+
+//#Hooks
+import { useForm } from '../../hooks/useForm';
+import { useSeePassword } from '../../hooks/useSeePassword';
 
 //#Styles
 import { LoginLabel, RecoverContainer, Row } from './styles'
@@ -12,15 +18,11 @@ import { ContainerLogIn, FormContainer } from './styles';
 
 //#Resources
 import * as globalColors from '../../styles/colors/customColors'
+import * as routes from '../../navigator/Routes/routes'
 
 //#Components
 import { AuthContext } from '../../context/AuthContext';
-import { StatusBar, View } from 'react-native';
-import { useForm } from '../../hooks/useForm';
-import { useSeePassword } from '../../hooks/useSeePassword';
 
-import * as routes from '../../navigator/Routes/routes'
-import { CText } from '../../controls/CText/CText';
 
 export const LoginScreen = ({ navigation }: any) => {
 

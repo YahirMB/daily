@@ -1,21 +1,22 @@
+//#Libraies
 import React, { useContext, useEffect, useState } from 'react';
 
-import { TitleApp } from '../../styles/titles/styles';
-import { Container, Column, TitleView, TextView, BtnContainer, AreaView } from './styles';
-import { InputFilled } from '../../controls/inputFilled/InputFilled';
-import { ButtonFilled } from '../../controls/buttonFilled/ButtonFilled';
-import { KeyboardAvoidingView, View, Alert, Text, ScrollView } from 'react-native';
+//#Components
+//#Styles
+import { Container, BtnContainer, AreaView } from './styles';
+import { KeyboardAvoidingView, Alert } from 'react-native';
 
-import { AuthContext } from '../../context/AuthContext';
-import { CInputOutlined } from '../../controls/CInputOutlined/CInputOutlined';
+//#Controls
 import { CInputFilled } from '../../controls/CInputFilled/CInputFilled';
-
-import * as globalColors from '../../styles/colors/customColors'
 import { CText } from '../../controls/CText/CText';
 import { CButton } from '../../controls/CButton/CButton';
 import { CButtonOutlined } from '../../controls/CButtonOutlined/CButtonOutlined';
 
+//#Resources
+import { AuthContext } from '../../context/AuthContext';
+import * as globalColors from '../../styles/colors/customColors'
 import * as routes from "../../navigator/Routes/routes";
+
 
 export const RecoverAccountScreen1 = ({ navigation }: any) => {
 

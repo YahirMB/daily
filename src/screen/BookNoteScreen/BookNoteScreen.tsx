@@ -142,14 +142,12 @@ export const BookNoteScreen = () => {
         <TimeContainer >
 
           <CInputFilled
-            isDisabled={true}
             autoCapitalize='sentences'
             type='text'
             label='Fecha'
             icon='calendar'
           />
           <CInputFilled
-            isDisabled={true}
             autoCapitalize='sentences'
             type='text'
             label='Hora'

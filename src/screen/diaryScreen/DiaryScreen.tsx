@@ -4,7 +4,9 @@ import { CustomCalendar } from '../../components/calendar/CustomCalendar'
 import { CardsList } from '../../components/cardList/CardsList'
 import { AuthContext } from '../../context/AuthContext'
 import { NoteContext } from '../../context/NotesContext'
+import { CMessage } from '../../components/cmessage/CMessage'
 
+import * as globalColors from '../../styles/colors/customColors'
 
 export const DiaryScreen = ({ navigation }: any) => {
 
@@ -62,17 +64,19 @@ export const DiaryScreen = ({ navigation }: any) => {
 
 
 
-
-
-
-
   return (
     <View style={{ flex: 1 }}>
       <CustomCalendar dates={dates} event={(day: any) => onDayPress(day)} getDate={getDate} />
       <View style={{ borderBottomColor: '#D9D9D9', borderBottomWidth: 1, marginTop: 20, marginHorizontal: 20 }}></View>
       <ScrollView>
         {noteDates.length > 0 ?
-          <CardsList naviagtion={navigation} item={''} data={noteDates} type={false} /> : <Text style={{ color: '#32BC82', fontSize: 20, textAlign: 'center', marginTop: 50 }}>No tienes notas agendas en este día</Text>
+          <CardsList naviagtion={navigation} item={''} data={noteDates} type={false} />
+          : <CMessage
+            message='No tienes notas agendadas en este día'
+            color={globalColors.primary}
+            iconName='alert'
+            backgroundColor={globalColors.primary}
+            iconColor={globalColors.white} />
         }
       </ScrollView>
     </View>

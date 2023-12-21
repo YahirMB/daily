@@ -53,8 +53,10 @@ export const CInputFilled = (
                 underlineColor='transparent'
                 right={icon && <TextInput.Icon icon={icon} color={globalColors.primary} onPress={eventIcon} />}
                 onChangeText={text => setText(text)}
+                
                 theme={{
                     colors: {
+                        placeholder :globalColors.primary,
                         onSurfaceVariant: globalColors.primary
                     }
                 }}

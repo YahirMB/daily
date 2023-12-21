@@ -1,9 +1,10 @@
 import React from 'react'
 import { Text, View } from 'react-native'
-import { Button, Card } from 'react-native-paper'
+import { Button, Card, IconButton } from 'react-native-paper'
 
 import * as globalColors from '../../styles/colors/customColors'
 import { CText } from '../../controls/CText/CText';
+import { Contet, Header, IconContainer } from './styles';
 
 interface CustomCardProps {
     title: string;
@@ -17,16 +18,21 @@ export const CCard = ({ title, content }: CustomCardProps) => {
         <Card style={{ borderRadius: 10, height: 'auto', width: 'auto', backgroundColor: globalColors.white }}>
             {/* header */}
 
-            <View style={{ flex: 1, borderTopRightRadius: 10, borderTopLeftRadius: 10, backgroundColor: globalColors.primary, flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 10, paddingVertical: 8 }}>
+            <Header>
                 <CText text=' 5 min antes' color={globalColors.white} fontSize={18} />
-                <View style={{ flexDirection: 'row', gap: 10 }}>
+                <IconContainer>
                     <CText text='12:00hrs' color={globalColors.white} fontSize={18} />
-                </View>
-            </View>
+                    <IconButton
+                        icon="ellipsis-vertical"
+                        iconColor={globalColors.white}
+                        size={20}
+                        onPress={() => console.log('Pressed')}
+                    />
+                </IconContainer>
+            </Header>
 
             {/* conten */}
-            <View style={{ margin: 10, rowGap: 5 }}>
-
+            <Contet>
                 <CText
                     text={title}
                     color={globalColors.primary}
@@ -40,9 +46,7 @@ export const CCard = ({ title, content }: CustomCardProps) => {
                     fontSize={18}
                     numberLine={2}
                 />
-
-
-            </View>
+            </Contet>
         </Card>
     )
 }

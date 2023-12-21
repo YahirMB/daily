@@ -16,6 +16,7 @@ import * as globalColors from '../../styles/colors/customColors'
 export const CInputFilled = (
     { label,
         placeholder = '',
+        isDisabled = false,
         backgroundColor = '',
         keyboardType = 'default',
         icon,
@@ -37,7 +38,7 @@ export const CInputFilled = (
 
 
     return (
-        <View style={{ width: '100%'}}>
+        <View>
 
             <TextInput
                 keyboardType={keyboardType}
@@ -45,6 +46,8 @@ export const CInputFilled = (
                 style={styles.inputWithoutBorder}
                 label={label}
                 value={text}
+                placeholder={placeholder}
+                disabled={isDisabled}
                 activeUnderlineColor={globalColors.primary}
                 secureTextEntry={type == 'password' ? !isVisibleText : false}
                 underlineColor='transparent'

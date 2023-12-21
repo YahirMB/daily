@@ -78,6 +78,7 @@ export interface CButtonOutlinedProps {
 }
 
 export interface CInputProps {
+    isDisabled?:boolean
     label?: string,
     placeholder?: string,
     backgroundColor?: string

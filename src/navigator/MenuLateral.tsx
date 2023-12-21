@@ -7,7 +7,7 @@ import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import { DrawerContentScrollView, createDrawerNavigator } from '@react-navigation/drawer';
 import { HomeScreen } from '../screen/homeScreen/HomeScreen';
 import { LoginScreen } from '../screen/loginScreen/LoginScreen';
-import { BookNoteScreen } from '../screen/BookNoteScreen/BookNoteScreen';
+import { BookNoteScreen } from '../screen/bookNoteScreen/BookNoteScreen';
 import { DiaryScreen } from '../screen/diaryScreen/DiaryScreen';
 import { SettingsScreen } from '../screen/settingsScreen/SettingsScreen';
 import { avatar } from '../resources';

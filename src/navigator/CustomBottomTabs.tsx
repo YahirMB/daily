@@ -9,6 +9,7 @@ import * as globalColors from '../styles/colors/customColors'
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Text, TouchableOpacity, View } from 'react-native';
 import { DiaryScreen } from '../screen/diaryScreen/DiaryScreen';
+import { BookNoteScreen } from '../screen/bookNoteScreen/BookNoteScreen';
 
 
 
@@ -26,7 +27,7 @@ const icons = ['book', 'home', 'calendar']
 function MyTabBar({ state, descriptors, navigation, icons, }: any) {
     return (
         <View style={{ flexDirection: 'row', backgroundColor: globalColors.primary, height: 'auto', alignItems: 'center', justifyContent: 'center' }}>
-            {state.routes.map((route, index) => {
+            {state.routes.map((route:any, index:number) => {
                 const { options } = descriptors[route.key];
                 const label =
                     options.tabBarLabel !== undefined
@@ -87,14 +88,14 @@ export const CustomBottomTabs = () => {
             initialRouteName='inicio'
             sceneContainerStyle={{ backgroundColor: globalColors.white }}
             tabBar={props => <MyTabBar icons={icons} {...props} />}
-            // screenOptions={{
-            //     headerStyle:{backgroundColor:globalColors.primary},
-            //     headerTitleStyle:{color:globalColors.white}}}
+            screenOptions={{
+                headerStyle:{backgroundColor:globalColors.primary},
+                headerTitleStyle:{color:globalColors.white}}}
 
         >
             <Tab.Screen
                 name="agendar"
-                component={EditProfile}
+                component={BookNoteScreen}
                 options={{ title: 'Agendar' }}
             />
             <Tab.Screen

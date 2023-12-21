@@ -6,15 +6,22 @@ import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { useForm } from '../../hooks/useForm';
 import { NoteContext } from '../../context/NotesContext';
 import { AuthContext } from '../../context/AuthContext';
+import { CInputFilled } from '../../controls/CInputFilled/CInputFilled';
+import { CInputOutlined } from '../../controls/CInputOutlined/CInputOutlined';
+import { CButton } from '../../controls/CButton/CButton';
+
+import * as globalColors from '../../styles/colors/customColors'
+import { ScreenContainer, TimeContainer } from './styles';
+import { CText } from '../../controls/CText/CText';
 
 export const BookNoteScreen = () => {
 
-  const {creatNote,codeStatus,removeCodeStatu,typeOperation,removeTypeOperation,loadAllNotes} = useContext(NoteContext)
-  const {user} = useContext(AuthContext)
+  const { creatNote, codeStatus, removeCodeStatu, typeOperation, removeTypeOperation, loadAllNotes } = useContext(NoteContext)
+  const { user } = useContext(AuthContext)
 
   const { onChange, onSenData, form, keys, setFormValue, setKeysValue } = useForm(
-    { Title: '', Description: ''},
-    { Title: false, Description: false,location:false, ExpiriationDate: false, CreationHour: false },
+    { Title: '', Description: '' },
+    { Title: false, Description: false, location: false, ExpiriationDate: false, CreationHour: false },
     creatNote
   );
 
@@ -45,7 +52,7 @@ export const BookNoteScreen = () => {
     const newForm = new Date(date)
 
     //date
-    const month = String(newForm.getMonth() +1).padStart(2, '0');
+    const month = String(newForm.getMonth() + 1).padStart(2, '0');
     const day = String(newForm.getDate()).padStart(2, '0');
     const year = newForm.getFullYear();
 
@@ -63,18 +70,18 @@ export const BookNoteScreen = () => {
   };
 
   const removeStates = () => {
-    loadAllNotes(user?.Id)
+    // loadAllNotes(user?.Id)
     removeTypeOperation()
     removeCodeStatu()
   }
 
   useEffect(() => {
-    if(codeStatus == 200 && typeOperation == 'createNote'){
-      setFormValue( {Title: '', Description: ''})
-      setFormDate({CreationHour:'',ExpiriationDate:''})
+    if (codeStatus == 200 && typeOperation == 'createNote') {
+      setFormValue({ Title: '', Description: '' })
+      setFormDate({ CreationHour: '', ExpiriationDate: '' })
       Alert.alert('Nota creada',
         'La nota se ha creado correctamente',
-        [{ text: 'ok', onPress: removeStates}])
+        [{ text: 'ok', onPress: removeStates }])
     }
   }, [codeStatus])
 
@@ -88,19 +95,19 @@ export const BookNoteScreen = () => {
         [{ text: 'ok', onPress: () => null }])
 
     } else {
-      const reset = { ...form, ...formDate,IdUser:user?.Id }
+      const reset = { ...form, ...formDate, IdUser: user?.Id }
       setFormValue(reset)
       onSenData(reset)
     }
 
   }
 
-  
-  
+
+
 
 
   return (
-    <View style={{ padding: 20 }}>
+    <ScreenContainer>
 
       <DateTimePickerModal
         isVisible={isVisible}
@@ -111,60 +118,55 @@ export const BookNoteScreen = () => {
         positiveButton={{ textColor: '#32BC82' }}
       />
 
-      <Text style={{ fontSize: 20, marginBottom: 15,color:'#32BC82' }}>Listo para agendar una nueva nota</Text>
-
-      <View style={{rowGap:10}}>
-
-        <InputFilled
-          event={(value) => onChange(value, 'Title')}
-          value={form.Title}
-          fieldEmpty={keys.Title}
-          messageError='El titulo es obligatorio'
-          nameLabel='Titulo'
-          colorLabel='#363636'
-          background='#D9D9D9' />
-        <InputFilled
-          event={(value) => onChange(value, 'Description')}
-          value={form.Description}
-          fieldEmpty={keys.Description}
-          messageError='La descripcion debe ser mayor a 10 caracteres'
-          nameLabel='Descripción'
-          colorLabel='#363636'
-          background='#D9D9D9' />
-        {/* <InputFilled
-          icon='location'
-          nameLabel='Ubicación (opcional)'
-          colorLabel='#363636'
-          background='#D9D9D9' /> */}
-      </View>
-      <View style={{ flexDirection: 'row', gap: 20, marginBottom: 50, marginTop: 10 }}>
-        <View style={{ flex: 1 }}>
-          <InputFilled
-            disabled={false}
-            value={formDate.ExpiriationDate}
-            iconEvent={() => onSelectMode('date')}
-            icon='calendar'
-            nameLabel='Fecha'
-            colorLabel='#363636'
-            background='#D9D9D9' />
-        </View>
-        <View style={{ flex: 1 }}>
-
-          <InputFilled
-            disabled={false}
-            value={formDate.CreationHour}
-            iconEvent={() => onSelectMode('time')}
-            icon='time'
-            nameLabel='Hora'
-            colorLabel='#363636'
-            background='#D9D9D9' />
-        </View>
-      </View>
-
-      <ButtonFilled
-        event={onJoinData}
-        title='Agendar nota'
+      <CText
+        text='Listo para agendar una nueva nota'
+        color={globalColors.primary}
+        fontSize={20}
       />
-    </View>
+
+      <View>
+
+        <CInputFilled
+          autoCapitalize='sentences'
+          type='text'
+          label='Titulo'
+          placeholder='Sacar a pasear el perro'
+        />
+        <CInputFilled
+          autoCapitalize='sentences'
+          type='text'
+          label='Descripción'
+          placeholder='Sacar a caito y visitar la nueva área'
+        />
+
+        <TimeContainer >
+
+          <CInputFilled
+            isDisabled={true}
+            autoCapitalize='sentences'
+            type='text'
+            label='Fecha'
+            icon='calendar'
+          />
+          <CInputFilled
+            isDisabled={true}
+            autoCapitalize='sentences'
+            type='text'
+            label='Hora'
+            icon='time'
+          />
+
+        </TimeContainer>
+      </View>
+
+      <CButton
+        text='Agendar nota'
+        backgroundColor={globalColors.primary}
+        event={() => console.log('se dispara algo')}
+      />
+
+    </ScreenContainer>
+
+
   )
 }

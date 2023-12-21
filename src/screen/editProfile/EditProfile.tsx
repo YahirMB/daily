@@ -21,10 +21,7 @@ export const EditProfile = ({ navigation }: any) => {
 
     useEffect(() => {
         navigation.setOptions({
-            headerStyle: {
-                backgroundColor: 'white', // Cambia el color del fondo del encabezado
-
-            },
+           
             headerTitleStyle: {
                 letterSpacing: 1,
                 color: '#32BC82', // Cambia el color del título del encabezado

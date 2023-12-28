@@ -3,6 +3,8 @@ import { Modal, StyleSheet, Text, View, TouchableOpacity, Animated, Easing, Touc
 import Icon from 'react-native-vector-icons/Ionicons';
 import { modalProps } from '../../interfaces/componentInterfaces';
 
+import * as globalColors from "../../styles/colors/customColors";
+
 
 export const CustomModal = ({ visible, closeModal,takeGallery,takePhoto }: modalProps) => {
   const [animation] = useState(new Animated.Value(0));
@@ -61,10 +63,10 @@ export const CustomModal = ({ visible, closeModal,takeGallery,takePhoto }: modal
                 style={{ paddingHorizontal: 20, paddingTop: 15 }}
               >
                 <View style={{ flexDirection: 'row', alignItems: 'center', gap: 15 }}>
-                  <View style={{ backgroundColor: '#32BC82', borderRadius: 100, padding: 8 }}>
+                  <View style={{ backgroundColor: globalColors.green200, borderRadius: 100, padding: 8 }}>
                     <Icon name="camera" size={25} />
                   </View>
-                  <Text style={{ fontSize: 18, color: "#32BC82", fontWeight: "600" }}>Tomar una foto</Text>
+                  <Text style={{ fontSize: 18, color: "white", fontWeight: "600" }}>Tomar una foto</Text>
                 </View>
               </TouchableOpacity>
 
@@ -74,10 +76,10 @@ export const CustomModal = ({ visible, closeModal,takeGallery,takePhoto }: modal
                 onPress={takeGallery}
               >
                 <View style={{ flexDirection: 'row', alignItems: 'center', gap: 15 }}>
-                  <View style={{ backgroundColor: '#32BC82', borderRadius: 100, padding: 8 }}>
+                  <View style={{ backgroundColor: globalColors.green200, borderRadius: 100, padding: 8 }}>
                     <Icon name="images" size={25} />
                   </View>
-                  <Text style={{ fontSize: 18, color: "#32BC82", fontWeight: "600" }}>Elegir desde galería</Text>
+                  <Text style={{ fontSize: 18, color: "white", fontWeight: "600" }}>Elegir desde galería</Text>
                 </View>
               </TouchableOpacity>
             </View>
@@ -95,7 +97,7 @@ const styles = StyleSheet.create({
     marginTop: 22,
   },
   modalView: {
-    backgroundColor: 'white',
+    backgroundColor: '#32BC82',
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     alignItems: 'center',

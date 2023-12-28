@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { requestCameraPermission } from '../helpers/permissions';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import { Alert } from 'react-native';
-import { avatar } from '../resources';
+
 
 
 interface propUseTakePhoto {
@@ -13,20 +13,14 @@ interface propUseTakePhoto {
 
 export const useTakePhoto =({initImg}:propUseTakePhoto) => {
     const [visible, setVisible] = useState(false)
-
     const [selectedImage, setSelectedImage] = useState({ uri: initImg, type: '', fileName: '' });
-
-   
 
     const onOpenModal = () => {
         setVisible(!visible)
     }
-
-
     const onCloseModal = () => {
         setVisible(false)
     }
-
     const onResetPhoto = () => {
         setSelectedImage({ uri: initImg, type: '', fileName: '' })
     }
@@ -35,7 +29,7 @@ export const useTakePhoto =({initImg}:propUseTakePhoto) => {
     const onAlertSavePhoto = (action:any) => {
         Alert.alert(
             'Guardar foto de perfil',
-            '¿Seguro que quieres poder esta foto de perfil?',
+            '¿Seguro que quieres poner esta foto de perfil?',
             [
                 {
                     text: 'Si',

@@ -46,7 +46,7 @@ export interface modalBasicProps {
     children?: any
     onDeleteNote?: () => void
     closeModal: () => void
-    onEditNote: () => void
+    onEditNote?: () => void
 }
 
 

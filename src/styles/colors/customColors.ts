@@ -1,7 +1,7 @@
 export const primary = '#32BC82'
 //green
 export const green100 = "#33BC83"
-export const green200 = "#2BA170"
+export const green200 = "#218F61" 
 export const green300 = "#24845C"
 export const green400 = "#1C6748"
 export const green500 = "#144933"

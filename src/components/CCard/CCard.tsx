@@ -20,7 +20,7 @@ interface CustomCardProps {
 }
 
 
-export const CCard = ({ title, content }: CustomCardProps) => {
+export const CCard = ({ title, content ,event}: CustomCardProps) => {
     return (
         <Card style={{ borderRadius: 10, height: 'auto', width: 'auto', backgroundColor: globalColors.white }}>
             {/* header */}
@@ -33,7 +33,7 @@ export const CCard = ({ title, content }: CustomCardProps) => {
                         icon="ellipsis-vertical"
                         iconColor={globalColors.white}
                         size={20}
-                        onPress={() => console.log('Pressed')}
+                        onPress={event}
                     />
                 </IconContainer>
             </Header>

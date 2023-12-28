@@ -3,12 +3,12 @@ import { useState } from 'react'
 
 export const useModalBasic = () => {
     const [visible, setVisible] = useState(false)
-    const [idCard, setIdCard] = useState<number>()
+    // const [idCard, setIdCard] = useState<number>()
 
 
-    const onOpenModal = (idCard: number) => {
+    const onOpenModal = () => {
         setVisible(!visible)
-        setIdCard(idCard)
+        // setIdCard(idCard)
     }
 
 
@@ -21,6 +21,6 @@ export const useModalBasic = () => {
         visible,
         onCloseModal,
         onOpenModal,
-        idCard
+        // idCard
     }
 }

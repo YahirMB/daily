@@ -18,12 +18,11 @@ export const CAvatar = ({ img, event }: avatarProps) => {
 
     return (
         <AvatarContainer>
-            <Avatar.Image size={150} source={img ? img : { uri: imgDefault }} />
-            <AvatarIcon
-                icon='camera-sharp'
-                size={24}
-                iconColor={globalColors.white}
-                onPress={event} />
+            <Avatar.Text
+                size={150}
+                label="YM"
+                style={{ backgroundColor: globalColors.primary }}
+            />
         </AvatarContainer>
     )
 }

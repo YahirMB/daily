@@ -14,7 +14,7 @@ import * as globalColors from '../../styles/colors/customColors'
 
 //#hooks
 import { useSeePassword } from '../../hooks/useSeePassword';
-import { pathSignUp3 } from '../../navigator/Routes/routes';
+import { pathBottomTabsHome, pathSignUp3 } from '../../navigator/Routes/routes';
 
 
 export const SignUpScreen2 = ({ navigation, route }: any) => {
@@ -50,9 +50,9 @@ export const SignUpScreen2 = ({ navigation, route }: any) => {
                     icon={isVisbleConfirm ? 'eye-off' : 'eye'}
                 />
                 <CButton
-                    event={() => navigation.navigate(pathSignUp3)}
+                    event={() => navigation.navigate(pathBottomTabsHome)}
                     backgroundColor={globalColors.green300}
-                    text='Continuar'
+                    text='Crear cuenta'
                 />
             </FormContainer>
         </ContainerSignUp>

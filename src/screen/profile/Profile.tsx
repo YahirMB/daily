@@ -21,7 +21,7 @@ import { AuthContext } from '../../context/AuthContext'
 import { CButton } from '../../controls/CButton/CButton'
 import { CButtonOutlined } from '../../controls/CButtonOutlined/CButtonOutlined'
 import { pathLogin } from '../../navigator/Routes/routes'
-import { CustomModal } from '../../components/modal/CustomModal'
+import { CustomModal } from '../../components/modalPhoto/CustomModal'
 import { avatar, facebook } from '../../resources'
 
 export const Profile = ({ navigation }: any) => {

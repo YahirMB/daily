@@ -41,16 +41,13 @@ export interface modalProps {
 
 
 export interface modalBasicProps {
-    visible: boolean
+    isVisibleModal: boolean
     event?: () => void
     children?: any
     onDeleteNote?: () => void
     closeModal: () => void
     onEditNote?: () => void
 }
-
-
-
 
 
 export interface inputProps {
@@ -86,7 +83,8 @@ export interface CInputProps {
     icon?: string
     autoCapitalize: letter
     type: typeInput
-    event?:() => void;
+    event?:(text:string) => void;
     eventIcon?: () => void;
     isVisibleText?: boolean;
+    hasBorder?: boolean;
 }

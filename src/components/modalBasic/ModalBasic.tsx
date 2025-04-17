@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { modalBasicProps, modalProps } from '../../interfaces/componentInterfaces';
 
 
-export const ModalBasic = ({ visible, closeModal,onDeleteNote,onEditNote}: modalBasicProps) => {
+export const ModalBasic = ({ isVisibleModal, closeModal,onDeleteNote,onEditNote}: modalBasicProps) => {
   const [animation] = useState(new Animated.Value(0));
 
   const openModal = () => {
@@ -28,12 +28,12 @@ export const ModalBasic = ({ visible, closeModal,onDeleteNote,onEditNote}: modal
   };
 
   useEffect(() => {
-    if (visible) {
+    if (isVisibleModal) {
       openModal();
     } else {
       closeModalAnimation();
     }
-  }, [visible]);
+  }, [isVisibleModal]);
 
   const translateY = animation.interpolate({
     inputRange: [0, 1],
@@ -45,7 +45,7 @@ export const ModalBasic = ({ visible, closeModal,onDeleteNote,onEditNote}: modal
       animationType="none"
       statusBarTranslucent
       transparent
-      visible={visible}
+      visible={isVisibleModal}
       onRequestClose={closeModalAnimation}
     >
       <TouchableWithoutFeedback

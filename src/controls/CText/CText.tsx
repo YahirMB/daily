@@ -2,7 +2,7 @@ import React from 'react'
 import { Text } from 'react-native'
 
 interface CustomTextProps {
-    text: string;
+    text: string | undefined;
     fontSize?: TextZise;
     color?: string;
     fontWeight?: fontWeight;
@@ -13,7 +13,7 @@ interface CustomTextProps {
 
 type TextZise = 16 | 18 | 20 | 22 | 25
 type fontWeight = '100' | '500' | '400' | '600' | '700' | 'bold'
-type alignText = "center" | "justify" | "right" | "left"
+type alignText = "center" | "justify" | "right" | "left" | "auto"
 
 
 

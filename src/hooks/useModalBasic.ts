@@ -2,25 +2,15 @@ import { useState } from 'react'
 
 
 export const useModalBasic = () => {
-    const [visible, setVisible] = useState(false)
-    // const [idCard, setIdCard] = useState<number>()
+    const [isVisible, setIsVisible] = useState(false)
 
-
-    const onOpenModal = () => {
-        setVisible(!visible)
-        // setIdCard(idCard)
-    }
-
-
-    const onCloseModal = () => {
-        setVisible(false)
-    }
-
+    const onOpenModal = () => setIsVisible(!isVisible);
+    const onCloseModal = () => setIsVisible(false);
+    
 
     return {
-        visible,
+        isVisible,
         onCloseModal,
         onOpenModal,
-        // idCard
     }
 }

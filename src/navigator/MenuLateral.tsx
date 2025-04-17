@@ -22,14 +22,14 @@ const Drawer = createDrawerNavigator();
 
 const itemsNavegation = [
   { title: 'Inicio', iconName: 'home', nav: 'Inicio', component: HomeScreen },
-  { title: 'Agendar', iconName: 'calendar-sharp', nav: 'addNote', component: BookNoteScreen },
+  { title: 'Crear nota', iconName: 'calendar-sharp', nav: 'addNote', component: BookNoteScreen },
   { title: 'Recordatorio', iconName: 'book-sharp', nav: 'diary', component: DiaryScreen },
   { title: 'Cerrar sesión', iconName: 'log-out-sharp', nav: 'Login', component: LoginScreen },
 ]
 
 const routeNavegation = [
   { title: 'Inicio', nav: 'Inicio', component: HomeScreen },
-  { title: 'Agendar', nav: 'addNote', component: BookNoteScreen },
+  { title: 'Crear nota', nav: 'addNote', component: BookNoteScreen },
   { title: 'Recordatorio', nav: 'diary', component: DiaryScreen },
   { title: 'Daily plan', nav: 'profile', component: Profile },
   { title: 'Editar perfil', nav: 'editProfile', component: EditProfile },

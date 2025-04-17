@@ -2,7 +2,6 @@ import styled from "styled-components/native";
 import * as globalColors from "../../styles/colors/customColors";
 
 export const Header = styled.View`
-    flex: 1; 
     border-top-right-radius: 10px; 
     border-top-left-radius: 10px; 
     background-color: ${globalColors.primary}; 

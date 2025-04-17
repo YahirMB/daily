@@ -93,25 +93,27 @@ export const CustomBottomTabs = () => {
             initialRouteName='inicio'
             sceneContainerStyle={{ backgroundColor: globalColors.white }}
             tabBar={props => <MyTabBar icons={icons} {...props} />}
+
             screenOptions={{
+                tabBarHideOnKeyboard: true,
                 headerStyle: { backgroundColor: globalColors.primary },
                 headerTitleStyle: { color: globalColors.white }
             }}
-
         >
             <Tab.Screen
                 name="inicio"
                 component={HomeScreen}
-                options={{ title: 'Inicio' }}
+                options={{ title: 'Notas', headerTitle: 'Mis notas' }}
             />
             <Tab.Screen
                 name="agendar"
                 component={BookNoteScreen}
-                options={{ title: 'Agendar' }}
+                options={{ title: 'Crear', headerTitle: 'Crear nota' }}
             />
             <Tab.Screen
                 name="notes"
                 component={DiaryScreen}
+
                 options={{ title: 'Calendario' }}
             />
             <Tab.Screen

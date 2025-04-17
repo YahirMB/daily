@@ -1,12 +1,12 @@
 //#Libraies
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 
 //#Hooks
 import { useForm } from '../../hooks/useForm';
 
 //#Components
 import DateTimePickerModal from "react-native-modal-datetime-picker";
-import { View, Alert } from 'react-native'
+import { View, ScrollView } from 'react-native'
 
 //#Controls
 import { CButton } from '../../controls/CButton/CButton';
@@ -22,155 +22,177 @@ import * as globalColors from '../../styles/colors/customColors'
 //#Api
 import { NoteContext } from '../../context/NotesContext';
 import { AuthContext } from '../../context/AuthContext';
+import { CTextAreaOutline } from '../../controls/CTextAreaOutlined/CTextAreaOutline';
+import { CGroupRadio } from '../../components/CGroupRadio/CGroupRadio';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 export const BookNoteScreen = () => {
+  const [typeNote, setTypeNote] = useState('todo')
+  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+  const [isFullForm, setIsFullForm] = useState(false);
+  const [showNextSection, setShowNextSection] = useState(false);
+  const [modeTime, setModeTime] = useState('')
 
-  const { creatNote, codeStatus, removeCodeStatu, typeOperation, removeTypeOperation, loadAllNotes } = useContext(NoteContext)
-  const { user } = useContext(AuthContext)
-
-  const { onChange, onSenData, form, keys, setFormValue, setKeysValue } = useForm(
-    { Title: '', Description: '' },
-    { Title: false, Description: false, location: false, ExpiriationDate: false, CreationHour: false },
-    creatNote
-  );
-
-  const [isVisible, setIsVisible] = useState(false);
-
-  const [modes, setModes] = useState("date")
-
-  const [formDate, setFormDate] = useState({ ExpiriationDate: '', CreationHour: '' })
+  const [date, setDate] = useState('15/08/2024')
+  const [ahour, setAhour] = useState('05:20')
+  const [valueTitle, setValueTitle] = useState('');
+  const [valueDescription, setValueDescription] = useState('');
 
 
-  const onShowModal = () => {
-    setIsVisible(true);
+  const showDatePicker = (mode:string) => {
+    setModeTime(mode)
+    setDatePickerVisibility(true);
   };
 
-  const onHideModal = () => {
-    setIsVisible(false);
+  const onhideDatePicker = () => {
+    setDatePickerVisibility(false);
+  };
+
+  const onConfirm = (date:Date) => {
+        //date
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        const year = date.getFullYear();
+    
+        //time
+        const hours = String(date.getHours()).padStart(2, '0');
+        const minutes = String(date.getMinutes()).padStart(2, '0');
+    
+        const resetDate = `${year}/${month}/${day}`;
+        const resetTime = `${hours}:${minutes}`;
+
+        setDate(resetDate);
+        setAhour(resetTime);
+    
+
+    onhideDatePicker();
   };
 
 
-  const onSelectMode = (type: string) => {
-    setModes(type)
+  const scrollViewRef = useRef<ScrollView>(null);
 
-    onShowModal()
-  }
-
-  const onConfirm = (date: any, mode: string) => {
-
-    const newForm = new Date(date)
-
-    //date
-    const month = String(newForm.getMonth() + 1).padStart(2, '0');
-    const day = String(newForm.getDate()).padStart(2, '0');
-    const year = newForm.getFullYear();
-
-    //time
-    const hours = String(newForm.getHours()).padStart(2, '0');
-    const minutes = String(newForm.getMinutes()).padStart(2, '0');
-
-    const resetDate = `${year}/${month}/${day}`;
-    const resetTime = `${hours}:${minutes}`;
-
-    (mode === 'time') ? setFormDate({ ...formDate, CreationHour: resetTime }) :
-      setFormDate({ ...formDate, ExpiriationDate: resetDate })
-
-    onHideModal();
-  };
-
-  const removeStates = () => {
-    // loadAllNotes(user?.Id)
-    removeTypeOperation()
-    removeCodeStatu()
-  }
 
   useEffect(() => {
-    if (codeStatus == 200 && typeOperation == 'createNote') {
-      setFormValue({ Title: '', Description: '' })
-      setFormDate({ CreationHour: '', ExpiriationDate: '' })
-      Alert.alert('Nota creada',
-        'La nota se ha creado correctamente',
-        [{ text: 'ok', onPress: removeStates }])
+    if (valueDescription.length == 0 || valueTitle.length == 0) {
+      setIsFullForm(false);
+      scrollToTop();
+      return
     }
-  }, [codeStatus])
+    setIsFullForm(true);
 
 
-  const onJoinData = () => {
+  }, [valueTitle, valueDescription])
 
-    if (formDate.ExpiriationDate == '' || formDate.CreationHour == '') {
 
-      Alert.alert('Error de crear nota',
-        'Es obligatorio elegir una fecha y hora',
-        [{ text: 'ok', onPress: () => null }])
-
-    } else {
-      const reset = { ...form, ...formDate, IdUser: user?.Id }
-      setFormValue(reset)
-      onSenData(reset)
+  const scrollToBottom = () => {
+    setShowNextSection(true);
+    if (scrollViewRef.current) {
+      scrollViewRef.current.scrollToEnd({ animated: true });
     }
+  };
+  const scrollToTop = () => {
+    setShowNextSection(false);
+    if (scrollViewRef.current) {
+      scrollViewRef.current.scrollTo({ y: 0, animated: true });
+    }
+  };
 
+  const getTypeNote = (type: string) => {
+    setTypeNote(type);
   }
 
-
   return (
-    <ScreenContainer>
+    <ScrollView
+      scrollEnabled={showNextSection}
+      ref={scrollViewRef}>
 
-      <DateTimePickerModal
-        isVisible={isVisible}
-        mode={modes === "time" ? "time" : "date"}
-        onConfirm={(date) => onConfirm(date, modes)}
-        onCancel={onHideModal}
-        negativeButton={{ textColor: 'red' }}
-        positiveButton={{ textColor: '#32BC82' }}
-      />
+      <ScreenContainer>
 
-      <CText
-        text='Listo para agendar una nueva nota'
-        color={globalColors.primary}
-        fontSize={20}
-      />
 
-      <View>
-
-        <CInputFilled
-          autoCapitalize='sentences'
-          type='text'
-          label='Titulo'
-          placeholder='Sacar a pasear el perro'
-        />
-        <CInputFilled
-          autoCapitalize='sentences'
-          type='text'
-          label='Descripción'
-          placeholder='Sacar a caito y visitar la nueva área'
+        <DateTimePickerModal
+          isVisible={isDatePickerVisible}
+          mode={modeTime}
+          onConfirm={onConfirm}
+          onCancel={onhideDatePicker}
+          negativeButton={{ textColor: 'red'}}
+          positiveButton={{ textColor: '#32BC82' }}
         />
 
-        <TimeContainer >
+        <CText
+          text='Listo para crear una nueva nota'
+          color={globalColors.primary}
+          fontSize={20}
+        />
 
+        <View style={{ gap: 20 }}>
           <CInputFilled
             autoCapitalize='sentences'
             type='text'
-            label='Fecha'
-            icon='calendar'
+            placeholder='Titulo'
+            event={setValueTitle}
           />
-          <CInputFilled
-            autoCapitalize='sentences'
-            type='text'
-            label='Hora'
-            icon='time'
+          <CTextAreaOutline
+            event={setValueDescription}
+          />
+          <CButton
+            text='Continuar'
+            backgroundColor={globalColors.primary}
+            event={scrollToBottom}
+            isDisabled={!isFullForm}
           />
 
-        </TimeContainer>
-      </View>
+        </View>
 
-      <CButton
-        text='Agendar nota'
-        backgroundColor={globalColors.primary}
-        event={() => console.log('se dispara algo')}
-      />
+        <View style={{ gap: 20, marginTop: 50, height: 550 }}>
+          {
+            showNextSection &&
 
-    </ScreenContainer>
 
+            <View style={{ marginTop: 15, gap: 10 }}>
+              <CText text='Elige un tipo de nota' fontSize={20} color={globalColors.primary} />
+              <CGroupRadio
+                setValue={getTypeNote}
+                value={typeNote}
+              />
+
+              {
+                typeNote==="alarm" &&
+                <View style={{flexDirection:'row',justifyContent:'space-between',marginTop:30,marginBottom:30}}>
+                  <View style={{flexDirection:'row',gap:10,alignItems:'center'}}>
+                    <CText text={date} fontSize={18} color={globalColors.gray500} />
+                    <Icon 
+                      onPress={() => showDatePicker('date')}
+                      name='pencil' 
+                      size={24} 
+                      color={globalColors.primary} />
+                  </View>
+                  <View style={{flexDirection:'row',gap:10,alignItems:'center'}}>
+                    <CText text={ahour} fontSize={18} color={globalColors.gray500} />
+                    <Icon 
+                       onPress={() => showDatePicker('time')}
+                      name='pencil' 
+                      size={24} 
+                      color={globalColors.primary} />
+                  </View>
+                </View>
+              }
+
+
+
+              <CButton
+                text='Crear nota'
+                isDisabled={typeNote === 'alarm'}
+                backgroundColor={globalColors.primary}
+                event={() => console.log('se dispara algo')}
+              />
+            </View>
+
+          }
+        </View>
+
+      </ScreenContainer>
+
+    </ScrollView>
 
   )
 }

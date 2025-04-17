@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 
 //#components
 import { HelperText, TextInput } from 'react-native-paper'
-import { KeyboardTypeOptions, StyleSheet, View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 
 //#styles
 // import { CustomInput } from './styles'
@@ -23,6 +23,8 @@ export const CInputFilled = (
         autoCapitalize = 'sentences',
         type,
         isVisibleText,
+        event,
+        hasBorder = false,
         eventIcon }: CInputProps) => {
 
 
@@ -43,31 +45,32 @@ export const CInputFilled = (
             <TextInput
                 keyboardType={keyboardType}
                 autoCapitalize={autoCapitalize}
-                style={styles.inputWithoutBorder}
+                style={[hasBorder ? styles.inputWithBorder : styles.inputWithoutBorder]}
                 label={label}
-                value={text}
+                // value={text}
                 placeholder={placeholder}
                 disabled={isDisabled}
                 activeUnderlineColor={globalColors.primary}
                 secureTextEntry={type == 'password' ? !isVisibleText : false}
                 underlineColor='transparent'
                 right={icon && <TextInput.Icon icon={icon} color={globalColors.primary} onPress={eventIcon} />}
-                onChangeText={text => setText(text)}
-                
+                onChangeText={event}
+                textColor='black'
                 theme={{
                     colors: {
-                        placeholder :globalColors.primary,
-                        onSurfaceVariant: globalColors.primary
+                        onSurfaceVariant: globalColors.gray300
                     }
                 }}
             />
+            {hasError &&
 
-            <HelperText
-                padding='none'
-                type='error'
-                visible={hasError}>
-                Debe contener un @
-            </HelperText>
+                <HelperText
+                    padding='none'
+                    type='error'
+                    visible={hasError}>
+                    Debe contener un @
+                </HelperText>
+            }
 
         </View>
     )
@@ -75,17 +78,17 @@ export const CInputFilled = (
 
 
 const styles = StyleSheet.create({
-    inputWithBorder :{
-        backgroundColor:globalColors.gray100,
-        borderBottomWidth:2,
-        borderBottomColor:globalColors.primary,
-        borderWidth:1,
-        borderColor:globalColors.primary
+    inputWithBorder: {
+        backgroundColor: globalColors.gray100,
+        borderBottomWidth: 2,
+        borderBottomColor: globalColors.primary,
+        borderWidth: 1,
+        borderColor: globalColors.primary
     },
-    inputWithoutBorder :{
-        backgroundColor:globalColors.gray100,
-        borderBottomColor:globalColors.primary,
-        borderBottomWidth:2,
-        borderColor:globalColors.primary
+    inputWithoutBorder: {
+        backgroundColor: globalColors.gray100,
+        borderBottomColor: globalColors.primary,
+        borderBottomWidth: 2,
+        borderColor: globalColors.primary
     }
 })

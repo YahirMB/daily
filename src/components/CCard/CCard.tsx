@@ -17,18 +17,24 @@ interface CustomCardProps {
     title: string;
     content: string;
     event?: () => void;
+    time?:string;
+    alarmTime?:string;
+    noteId:Number;
+    getNoteId:(noteId:Number) => void;
 }
 
 
-export const CCard = ({ title, content ,event}: CustomCardProps) => {
+export const CCard = ({ title, content ,event,alarmTime,time,getNoteId,noteId=0}: CustomCardProps) => {
     return (
-        <Card style={{ borderRadius: 10, height: 'auto', width: 'auto', backgroundColor: globalColors.white }}>
+        <Card
+            
+            onPress={() => getNoteId(noteId)} 
+            style={{ borderRadius: 10,height:150,marginTop:10,marginBottom:10, backgroundColor: globalColors.white}}>
             {/* header */}
 
             <Header>
-                <CText text=' 5 min antes' color={globalColors.white} fontSize={18} />
+                <CText text='15/02/2024' color={globalColors.white} fontSize={18} />
                 <IconContainer>
-                    <CText text='12:00hrs' color={globalColors.white} fontSize={18} />
                     <IconButton
                         icon="ellipsis-vertical"
                         iconColor={globalColors.white}
@@ -49,7 +55,7 @@ export const CCard = ({ title, content ,event}: CustomCardProps) => {
                 <CText
                     text={content}
                     color={globalColors.gray500}
-                    align='justify'
+                    align='auto'
                     fontSize={18}
                     numberLine={2}
                 />

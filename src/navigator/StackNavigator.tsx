@@ -46,19 +46,19 @@ export const StackNavigator = () => {
       <Stack.Screen
         name="signup"
         component={SignUpScreen1}
-        options={{ headerLeft: () => null, headerTitle: () => <Titles title1='Datos personales' title2='Paso 1' step='3' /> }}
+        options={{ headerLeft: () => null, headerTitle: () => <Titles title1='Datos personales' title2='Paso 1' step='2' /> }}
       />
       <Stack.Screen
         name="signup2"
         component={SignUpScreen2}
-        options={{ headerTitle: () => <Titles title1='Seguridad' title2='Paso 2' step='3' /> }}
+        options={{ headerTitle: () => <Titles title1='Seguridad' title2='Paso 2' step='2' /> }}
       />
-      <Stack.Screen
+      {/* <Stack.Screen
         name="signup3"
         component={SignUpScreen3}
         options={{ headerLeft: () => null, headerTitle: () => <Titles title1='Foto de perfil' title2='Paso 3' step='3' /> }}
 
-      />
+      /> */}
       <Stack.Screen name="navigationHome" component={CustomBottomTabs} options={{ headerShown: false }} />
       <Stack.Screen 
         name="recoverAccount" 

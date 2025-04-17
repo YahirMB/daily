@@ -13,7 +13,7 @@ import { CAvatar } from '../../components/avatar/CAvatar';
 //#Resources
 import * as globalColors from '../../styles/colors/customColors'
 import { pathBottomTabsHome, pathInicio } from '../../navigator/Routes/routes';
-import { CustomModal } from '../../components/modal/CustomModal';
+import { CustomModal } from '../../components/modalPhoto/CustomModal';
 import { useTakePhoto } from '../../hooks/useTakePhoto';
 import { avatar } from '../../resources';
 

@@ -9,7 +9,7 @@ export const green600 = "#0C2D1F"
 
 export const white = "#FFFFFF"
 //gray
-export const gray100 = "#E4E4E4"
+export const gray100 = "#F2F2F2"
 export const gray200 = "#C6C6C6"
 export const gray300 = "#AAAAAA"
 export const gray400 = "#8E8E8E"
